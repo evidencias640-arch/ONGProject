@@ -214,7 +214,7 @@
         
         // ⚠️ PEGA AQUÍ LA URL DE TU APLICACIÓN WEB DE APPS SCRIPT
         // Esta URL DEBE ser la del despliegue FINAL y debe tener doGET configurado.
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxCWMc1ZBqHwbGHMV4K4Re5J0XdgV9b2lXiC-xCz6iZqlgGiMy_61RTiYcfjZbXaWNXA/exec'; 
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwEeROKc3a-yqO8kwju8u-0YZ81nZmyo3BJojjmuKYJfUwAtdc4kZhwl0BCPk2VBQ4BVQ/exec'; 
         
         // --- Credenciales y Data Mock (DEBE SER SEGURO EN PRODUCCIÓN) ---
         const TUTORA_USER = 'Tutora678';
@@ -795,7 +795,7 @@
         $('form-datos-tutora').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            if (!participanteSeleccionado || participanteSeleccionado.estado === 'bloqueado') return;
+            if (!participanteSeleccionado || participanteSeleccionado.estado === 'bloqueado') return; 
             
             $('btn-guardar-tutora').disabled = true;
             mostrarMensaje($('mensaje-guardado-tutora'), 'Guardando información como tutora...', 'confirmacion');
