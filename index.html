@@ -208,21 +208,22 @@
     </footer>
 
     <script>
-        /* ========================================================= */
+/* ========================================================= */
         /* JAVASCRIPT LOGIC (CONEXIÓN Y LÓGICA DE TUTORA)            */
         /* ========================================================= */
         
         // ⚠️ PEGA AQUÍ LA URL DE TU APLICACIÓN WEB DE APPS SCRIPT
+        // Esta URL DEBE ser la del despliegue FINAL y debe tener doGET configurado.
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwIF6dEvcv8huzQLEjGQyghGSyJnnUqdBySZwtHN_7EO9NNtx7-gEqpyC2zjvWE3e3Mrw/exec'; 
         
         // --- Credenciales y Data Mock (DEBE SER SEGURO EN PRODUCCIÓN) ---
         const TUTORA_USER = 'Tutora678';
         const TUTORA_PASS = 'tutora678'; 
-        const TUTORAS_DISPONIBLES = ['Clara López', 'Marta Pineda', 'Laura Gil', 'Otro/Administrador']; // Deberían estar en la Columna D
+        const TUTORAS_DISPONIBLES = ['Clara López', 'Marta Pineda', 'Laura Gil', 'Otro/Administrador']; 
 
         // --- Estado Global ---
         let participanteSeleccionado = null;
-        let modoActual = 'publico'; // 'publico' o 'tutora'
+        let modoActual = 'publico'; 
         let timerBloqueo = null;
         const SELECT_BASE_OP = '<option value="">Seleccione...</option>';
 
@@ -232,14 +233,75 @@
         const $login = $('seccion-login'), $gestionTutora = $('seccion-gestion-tutora'), $formularioTutora = $('seccion-formulario-tutora');
 
         // ----------------------------------------------------
-        // 1. SETUP INICIAL Y TABS
+        // 1. SETUP INICIAL, TABS E INICIALIZACIÓN IFRAME 🔑
         // ----------------------------------------------------
+        
+        // 🔑 Variables para la comunicación Iframe
+        let iframeReady = false;
+        let iframeElement = null;
+        let requestQueue = {};
+        let requestIdCounter = 0;
+        const SCRIPT_ORIGIN = new URL(APPS_SCRIPT_URL).origin;
+
+        /** Inicializa el iframe invisible para evitar el CORS. */
+        function initIframe() {
+            iframeElement = document.createElement('iframe');
+            iframeElement.id = 'appsScriptIframe';
+            iframeElement.src = APPS_SCRIPT_URL; // Carga el Apps Script
+            iframeElement.style.display = 'none'; // Es invisible
+            document.body.appendChild(iframeElement);
+
+            // Escuchamos las respuestas que vienen del Apps Script (el iframe)
+            window.addEventListener('message', handleIframeResponse, false);
+            
+            // Cuando el iframe cargue, estará listo para enviar mensajes
+            iframeElement.onload = () => {
+                iframeReady = true;
+                console.log("Apps Script Iframe cargado y listo para comunicación.");
+                // Despacha cualquier petición en cola si la hay
+                for (let id in requestQueue) {
+                    if (requestQueue[id].sent === false) {
+                        sendPayloadToIframe(requestQueue[id].payload);
+                        requestQueue[id].sent = true;
+                    }
+                }
+            };
+        }
+        
+        /** Función para manejar las respuestas que vienen del iframe (Apps Script). */
+        function handleIframeResponse(event) {
+            // Seguridad: El origen del mensaje DEBE ser el Apps Script
+            if (event.origin !== SCRIPT_ORIGIN) {
+                console.warn("Respuesta ignorada: origen Apps Script desconocido.");
+                return;
+            }
+            
+            const response = event.data;
+            if (response.status === 'response' && requestQueue[response.id]) {
+                // Resuelve la Promesa con los datos recibidos
+                requestQueue[response.id].resolve(response.data);
+                delete requestQueue[response.id];
+            } else if (response.status === 'error' && requestQueue[response.id]) {
+                // Rechaza la Promesa si hay un error
+                requestQueue[response.id].reject(new Error(response.data.error || 'Error desconocido en Apps Script.'));
+                delete requestQueue[response.id];
+            }
+        }
+        
+        /** Función auxiliar para enviar el mensaje al iframe. */
+        function sendPayloadToIframe(payload) {
+             iframeElement.contentWindow.postMessage({
+                 action: 'execute',
+                 payload: payload
+             }, SCRIPT_ORIGIN);
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             initFechaSelects();
             initTutoraSelect();
             initFormularioTemplates();
             initTabs();
+            initIframe(); // 🔑 Inicializar el iframe aquí
             // Aplicar animación
             document.querySelectorAll('.anim-entrada').forEach((el, index) => {
                 el.style.animationDelay = `${index * 0.1}s`;
@@ -260,12 +322,10 @@
                     
                     modoActual = (tabId === 'tab-publico' ? 'publico' : 'tutora');
                     
-                    // Resetear vistas al cambiar de pestaña
                     if (modoActual === 'publico') {
                         $login.style.display = 'block';
                         $gestionTutora.style.display = 'none';
                         $formularioTutora.style.display = 'none';
-                        // Ocultar elementos de la pestaña pública si estaban visibles
                         $resultados.style.display = 'none';
                         $formularioPublico.style.display = 'none';
                     }
@@ -277,7 +337,6 @@
         function initFechaSelects() {
             const diaSelect = $('dia'), mesSelect = $('mes'), anoSelect = $('ano');
 
-            // Llenado de Días, Meses, Años... (mismo código anterior)
             diaSelect.innerHTML = SELECT_BASE_OP;
             for (let i = 1; i <= 31; i++) {
                 const value = i < 10 ? '0' + i : String(i);
@@ -393,7 +452,7 @@
                 </fieldset>
             `;
             $('form-datos-publico').innerHTML = template;
-            $('form-datos-tutora').innerHTML = template; // Reutilizamos la misma estructura
+            $('form-datos-tutora').innerHTML = template; 
         }
         
         /** Función para precargar los datos en el formulario. */
@@ -408,39 +467,45 @@
 
 
         // ----------------------------------------------------
-        // 2. CONEXIÓN Y UTILIDADES GENERALES
+        // 2. CONEXIÓN Y UTILIDADES GENERALES (MÉTODO IFRAME) 🔑
         // ----------------------------------------------------
 
-async function sendToAppsScript(data) {
-                    
-            try {
-                const response = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'cors', // Necesario para la comunicación externa
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
+        /** Envía datos al Apps Script (postMessage method) forzando la comunicación. */
+        async function sendToAppsScript(data) {
+            
+            if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwIF6dEvcv8huzQLEjGQyghGSyJnnUqdBySZwtHN_7EO9NNtx7-gEqpyC2zjvWE3e3Mrw/exec') {
+                 mostrarMensaje($('mensaje-busqueda'), '❌ Error: La URL del Apps Script aún no ha sido reemplazada con su URL FINAL de despliegue.', 'alerta');
+                 return { status: 'error', message: 'URL no configurada correctamente.' };
+            }
+            
+            return new Promise((resolve, reject) => {
+                const id = ++requestIdCounter;
+                const payload = { ...data, id: id };
                 
-                if (!response.ok) {
-                    // Si la respuesta HTTP no es 200 (ej. 405 Method Not Allowed)
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                requestQueue[id] = { resolve, reject, payload, sent: false };
+
+                if (iframeReady) {
+                    sendPayloadToIframe(payload);
+                    requestQueue[id].sent = true;
+                } else {
+                    console.warn("Iframe no listo. Petición en cola.");
                 }
-                
-                // Intenta parsear la respuesta JSON del Apps Script
-                return await response.json();
-                
-            } catch (error) {
-                console.error('Error de conexión o CORS:', error);
-                // Muestra un mensaje de error más claro al usuario
+            }).then(response => {
+                // El error de red/fetch CORS ha sido reemplazado por errores de la Promesa/Apps Script
+                if (response && response.status === 'error') {
+                    throw new Error(response.message || 'Error desconocido del Apps Script.');
+                }
+                return response;
+            }).catch(error => {
+                console.error('Error de comunicación interna (postMessage):', error);
                 return { 
                     status: 'error', 
-                    message: `Error de red/servidor. Por favor, verifica el despliegue de Apps Script: (${error.message})` 
+                    message: `Error de comunicación interna con Apps Script: ${error.message}` 
                 };
-            }
+            });
         }
         
         // El resto de las funciones (mostrarMensaje, iniciarContador, bloquearFormulario) se mantienen igual
-        // pero se ajustan para usar el helper '$' y el mensaje correcto (público o tutora).
         
         function mostrarMensaje(elemento, texto, tipo) {
             elemento.textContent = texto;
@@ -571,14 +636,18 @@ async function sendToAppsScript(data) {
             $('info-participante-seleccionado-publico').textContent = `Participante Seleccionado: ${participante.nombre} (Código: ${participante.codigo})`;
             $formularioPublico.style.display = 'block';
             $('mensaje-guardado-publico').style.display = 'none';
-            $('form-datos-publico').reset(); // Limpiar el formulario
+            $('form-datos-publico').reset(); 
+            
+            // Cargar datos si existen
+            if (participante.estado !== 'nuevo') {
+                cargarDatosEnFormulario(participante, $('form-datos-publico'));
+            }
 
             if (participante.estado === 'bloqueado') {
                 bloquearFormulario(true, 'Su información ya fue enviada y el tiempo de modificación ha expirado. Solo puede visualizarla.');
             } else {
                 bloquearFormulario(false, '');
                 if (participante.estado === 'editable') {
-                    // Si ya guardó antes, el Apps Script devuelve la hora de bloqueo
                     iniciarContador(participante.fechaBloqueo);
                     mostrarMensaje($('mensaje-guardado-publico'), `Ya tiene datos guardados. Puede modificar hasta las ${participante.fechaBloqueo}.`, 'confirmacion');
                 } else {
@@ -589,7 +658,6 @@ async function sendToAppsScript(data) {
         
         $('form-datos-publico').addEventListener('submit', async (e) => {
             e.preventDefault();
-            // Lógica de guardado (reutiliza el código anterior)
             
             if (!participanteSeleccionado || participanteSeleccionado.estado === 'bloqueado') return;
             
@@ -617,6 +685,9 @@ async function sendToAppsScript(data) {
             
             if (result.status === 'guardado') {
                 mostrarMensaje($('mensaje-guardado-publico'), `✅ ${result.message}`, 'confirmacion');
+                
+                // NOTA: El Apps Script ahora devuelve el nuevo estado de bloqueo si aplica.
+                // Aquí solo se simula para la interfaz si no devuelve la hora de bloqueo.
                 const horaBloqueo = new Date(new Date().getTime() + 30 * 60000);
                 const horaBloqueoStr = horaBloqueo.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
                 iniciarContador(horaBloqueoStr);
@@ -716,12 +787,9 @@ async function sendToAppsScript(data) {
              $formularioTutora.style.display = 'block';
              $('mensaje-guardado-tutora').style.display = 'none';
              
-             // Cargar los datos del participante en el formulario de la tutora
              cargarDatosEnFormulario(participante, $('form-datos-tutora'));
              
-             // En el modo tutora, no hay restricción de tiempo, solo el estado de bloqueo permanente
              if (participante.estado === 'bloqueado') {
-                 // Bloquear la edición si el formulario fue completado y bloqueado por el acudiente
                  $('btn-guardar-tutora').disabled = true;
                  mostrarMensaje($('mensaje-guardado-tutora'), '🔒 El acudiente ya completó el formulario, y su tiempo de edición ha expirado. El formulario es de SOLO LECTURA para prevenir cambios accidentales.', 'alerta');
              } else {
@@ -742,7 +810,6 @@ async function sendToAppsScript(data) {
             const datos = {
                 action: 'guardar',
                 fila: participanteSeleccionado.fila,
-                // Mismos campos que el formulario público
                 tipoDocParticipante: form.tipoDocParticipante.value || '',
                 numDocParticipante: form.numDocParticipante.value || '',
                 tipoDocMama: form.tipoDocMama.value || '',
@@ -760,7 +827,6 @@ async function sendToAppsScript(data) {
             
             if (result.status === 'guardado') {
                 mostrarMensaje($('mensaje-guardado-tutora'), `✅ ${result.message} Los datos han sido actualizados.`, 'confirmacion');
-                // Recargar la lista para actualizar el color del elemento
                 $('btn-cargar-participantes').click(); 
             } else {
                 mostrarMensaje($('mensaje-guardado-tutora'), `❌ Error al guardar: ${result.message}`, 'alerta');
