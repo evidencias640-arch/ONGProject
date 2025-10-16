@@ -269,58 +269,63 @@
         
         /** Usa el caché local para buscar o filtrar, y hace POST para guardar. */
         async function sendToAppsScript(data) {
-            // Asegura que los datos estén cargados antes de cualquier acción.
-            if (!dataLoaded) {
-                const initResult = await loadAllSheetData();
-                if (initResult.status !== 'exito') return initResult;
-            }
+    // Asegura que los datos estén cargados antes de cualquier acción.
+    if (!dataLoaded) {
+        const initResult = await loadAllSheetData();
+        if (initResult.status !== 'exito') return initResult;
+    }
 
-            if (data.action === 'buscar') {
-                // LÓGICA DE BÚSQUEDA LOCAL (INSTANTÁNEA)
-                const fechaBusqueda = data.fecha;
-                const ahora = new Date().getTime();
-                
-                const resultados = sheetData
-                    .filter(p => p.fechaNacimiento === fechaBusqueda)
-                    .map(p => {
-                        let estado = 'nuevo';
-                        let fechaBloqueo = null;
+    if (data.action === 'buscar') {
+        // LÓGICA DE BÚSQUEDA LOCAL (INSTANTÁNEA)
+        const fechaBusqueda = data.fecha;
+        const ahora = new Date().getTime();
+
+        const resultados = sheetData
+            .filter(p => p.fechaNacimiento === fechaBusqueda) // <--- CRÍTICO: El filtro solo busca el string EXACTO (DD/MM/YYYY)
+            .map(p => {
+                let estado = 'nuevo';
+                let fechaBloqueo = null;
                         
-                        if (p.fechaGuardado) {
-                            const limiteMs = p.fechaGuardado + 30 * 60 * 1000;
-                            if (ahora > limiteMs) {
-                                estado = 'bloqueado';
-                            } else {
-                                estado = 'editable';
-                                fechaBloqueo = new Date(limiteMs).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                            }
-                        }
-                        return { ...p, estado: estado, fechaBloqueo: fechaBloqueo };
-                    });
-                    
-                return { status: 'exito', resultados: resultados };
-                
-            } else if (data.action === 'listarPorTutora') {
-                // LÓGICA DE FILTRADO LOCAL (INSTANTÁNEA)
-                const tutoraNombre = data.tutora;
-                const ahora = new Date().getTime();
+                if (p.fechaGuardado) {
+                    const limiteMs = p.fechaGuardado + 30 * 60 * 1000;
+                    if (ahora > limiteMs) {
+                        estado = 'bloqueado';
+                    } else {
+                        estado = 'editable';
+                        fechaBloqueo = new Date(limiteMs).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    }
+                }
+                return { ...p, estado: estado, fechaBloqueo: fechaBloqueo };
+            });
+        
+        // Si no encuentra nada, devuelve el error:
+        if (resultados.length === 0) {
+             return { status: 'error', message: '❌ No se encontraron participantes con esa fecha de nacimiento.' };
+        }
+        
+        return { status: 'exito', resultados: resultados };
+        
+    } else if (data.action === 'listarPorTutora') {
+        // LÓGICA DE FILTRADO LOCAL (INSTANTÁNEA)
+        const tutoraNombre = data.tutora;
+        const ahora = new Date().getTime();
 
-                const participantes = sheetData
-                    .filter(p => p.tutora === tutoraNombre)
-                    .map(p => {
-                        let estado = 'incompleto'; 
-                        if (p.fechaGuardado) {
-                           const limiteMs = p.fechaGuardado + 30 * 60 * 1000;
-                           if (ahora > limiteMs) {
-                               estado = 'bloqueado';
-                           } else {
-                               estado = 'completo';
-                           }
-                        }
-                        return { ...p, estado: estado };
-                    });
-                    
-                return { status: 'exito', participantes: participantes };
+        const participantes = sheetData
+            .filter(p => p.tutora === tutoraNombre)
+            .map(p => {
+                let estado = 'incompleto';
+                if (p.fechaGuardado) {
+                    const limiteMs = p.fechaGuardado + 30 * 60 * 1000;
+                    if (ahora > limiteMs) {
+                        estado = 'bloqueado';
+                    } else {
+                        estado = 'completo';
+                    }
+                }
+                return { ...p, estado: estado };
+            });
+
+        return { status: 'exito', participantes: participantes };
                 
             } else if (data.action === 'guardar') {
                 // LÓGICA DE GUARDADO (POST directo al Apps Script)
