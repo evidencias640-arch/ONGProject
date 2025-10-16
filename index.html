@@ -1,400 +1,1649 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Datos | ONG Colaboración</title>
+    <title>Gestión de Datos | CO0678</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+
+    <!-- Enlace al archivo CSS externo -->
     <style>
         /* ========================================================= */
-        /* CSS STYLES (PROFESIONAL Y RESPONSIVE)                     */
+        /* CSS STYLES - DISEÑO PROFESIONAL MEJORADO                 */
         /* ========================================================= */
 
-        /* Variables de Color (Incluyendo estados de tutora) */
+        /* Variables de Color Mejoradas */
         :root {
-            --color-primario: #0e7490; /* Azul Cian Profundo */
-            --color-secundario: #4ade80; /* Verde Lima Brillante */
-            --color-fondo: #f8fafc; /* Fondo muy claro */
-            --color-card: #ffffff; /* Blanco para tarjetas */
-            --color-texto: #1f2937; /* Gris oscuro */
-            --color-alerta: #ef4444; /* Rojo para errores */
-            --color-exito: #16a34a; /* Verde oscuro para éxito */
-            --color-completo: #dcfce7; /* Verde Claro para Tutora (Éxito) */
-            --color-incompleto: #fee2e2; /* Rojo Claro para Tutora (Alerta) */
-            --sombra-card: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            --color-primario: #0891b2;
+            --color-primario-dark: #0e7490;
+            --color-secundario: #10b981;
+            --color-secundario-light: #34d399;
+            --color-fondo: #f0f9ff;
+            --color-card: #ffffff;
+            --color-texto: #0f172a;
+            --color-texto-light: #475569;
+            --color-alerta: #ef4444;
+            --color-exito: #10b981;
+            --color-warning: #f59e0b;
+            --color-completo: #d1fae5;
+            --color-incompleto: #fee2e2;
+            --sombra-card: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --sombra-hover: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --gradient-primary: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
+            --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            --gradient-bg: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--color-fondo);
+            background: var(--gradient-bg);
             color: var(--color-texto);
             line-height: 1.6;
             padding: 20px;
+            min-height: 100vh;
+            position: relative;
         }
 
-        /* -------------------- LAYOUT Y UI -------------------- */
-        .contenedor { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
-        header { text-align: center; padding: 30px 0; }
-        .logo-container { font-size: 2.5rem; font-weight: 700; color: var(--color-primario); margin-bottom: 10px; }
-        .resaltado { color: var(--color-secundario); }
-        h1 { font-weight: 700; color: var(--color-texto); margin-top: 5px; font-size: 2rem; }
+        /* Patrón de fondo decorativo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(8, 145, 178, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
 
+        .contenedor {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ==================== HEADER MEJORADO ==================== */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--color-card);
+            border-radius: 20px;
+            box-shadow: var(--sombra-card);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .logo-container {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .resaltado {
+            background: var(--gradient-success);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 {
+            font-weight: 600;
+            color: var(--color-texto);
+            margin-top: 5px;
+            font-size: 1.5rem;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        /* ==================== LOADER INICIAL ==================== */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #10b981 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+            color: white;
+        }
+
+        .loader-spinner {
+            width: 80px;
+            height: 80px;
+            border: 6px solid rgba(255, 255, 255, 0.2);
+            border-top: 6px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px;
+        }
+
+        .loader-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .loader-subtext {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        /* ==================== MODAL TÉRMINOS Y CONDICIONES ==================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--color-primario);
+        }
+
+        .modal-icon {
+            font-size: 2.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-primario);
+        }
+
+        .modal-body {
+            color: var(--color-texto-light);
+            line-height: 1.8;
+        }
+
+        .modal-body h3 {
+            color: var(--color-primario);
+            margin: 20px 0 10px;
+            font-size: 1.1rem;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+        }
+
+        .modal-body ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .modal-body li {
+            margin-bottom: 8px;
+        }
+
+        .modal-footer {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-modal {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-accept {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-accept:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(8, 145, 178, 0.3);
+        }
+
+        .btn-decline {
+            background: #e5e7eb;
+            color: var(--color-texto);
+        }
+
+        .btn-decline:hover {
+            background: #d1d5db;
+        }
+
+        /* ==================== CONSENTIMIENTO BOX ==================== */
         .consentimiento-box {
-            background-color: #e0f2f7; color: #0e7490; padding: 20px; border-radius: 8px;
-            border-left: 5px solid var(--color-primario); font-size: 0.95rem; font-weight: 500;
+            background: linear-gradient(135deg, #cffafe 0%, #e0f2fe 100%);
+            color: var(--color-primario-dark);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid var(--color-primario);
+            font-size: 0.95rem;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: start;
+            gap: 15px;
+            animation: fadeInLeft 0.6s ease-out;
         }
 
+        .consentimiento-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        /* ==================== CARDS MEJORADAS ==================== */
         .card {
-            background-color: var(--color-card); padding: 30px; border-radius: 12px;
-            box-shadow: var(--sombra-card); transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, opacity 0.5s ease;
+            background: var(--color-card);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: var(--sombra-card);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(8, 145, 178, 0.1);
+            position: relative;
+            overflow: hidden;
         }
-        
-        /* Animación de entrada suave */
-        .anim-entrada { opacity: 0; transform: translateY(20px); animation: fadeInSlide 0.5s ease-out forwards; }
-        @keyframes fadeInSlide { to { opacity: 1; transform: translateY(0); } }
-        
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-hover);
+        }
+
+        .anim-entrada {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInSlide 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeInSlide {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         .paso-titulo {
-            color: var(--color-primario); font-size: 1.6rem; margin-bottom: 20px; font-weight: 700;
-            border-bottom: 3px solid var(--color-secundario); padding-bottom: 5px;
+            color: var(--color-primario);
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--color-secundario);
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        /* -------------------- NAVEGACIÓN DE PESTAÑAS -------------------- */
-        .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .paso-numero {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* ==================== TABS MEJORADOS ==================== */
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: var(--color-card);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
         .tab-btn {
-            padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; cursor: pointer;
-            background-color: #e5e7eb; font-weight: 600; color: #4b5563; transition: background-color 0.3s, color 0.3s;
-        }
-        .tab-btn.active {
-            background-color: var(--color-primario); color: white; border-color: var(--color-primario);
-        }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
-        /* -------------------- FORMULARIO BASE -------------------- */
-        .input-grupo { margin-bottom: 15px; display: flex; flex-direction: column; }
-        label { font-weight: 600; margin-bottom: 5px; color: var(--color-texto); }
-        input:not([type="checkbox"]), select {
-            padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            background: #f1f5f9;
+            font-weight: 600;
+            color: var(--color-texto-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.95rem;
         }
 
-        .grid-fecha { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        
-        /* -------------------- SECCIÓN TUTORA (NUEVA) -------------------- */
-        .select-tutora-box { padding: 20px; border: 1px dashed #ccc; border-radius: 8px; margin-bottom: 20px;}
-        .tutora-participante-list { display: grid; gap: 15px; }
+        .tab-btn:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--color-primario);
+            box-shadow: 0 4px 15px rgba(8, 145, 178, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* ==================== FORMULARIOS MEJORADOS ==================== */
+        .input-grupo {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--color-texto);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        input:not([type="checkbox"]),
+        select {
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input:not([type="checkbox"]):focus,
+        select:focus {
+            outline: none;
+            border-color: var(--color-primario);
+            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.1);
+            transform: translateY(-1px);
+        }
+
+        input:not([type="checkbox"]):hover,
+        select:hover {
+            border-color: var(--color-primario);
+        }
+
+        fieldset {
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            background: #f8fafc;
+            transition: all 0.3s ease;
+        }
+
+        fieldset:hover {
+            border-color: var(--color-primario);
+            background: white;
+        }
+
+        legend {
+            font-weight: 700;
+            color: var(--color-primario);
+            padding: 0 15px;
+            font-size: 1.1rem;
+        }
+
+        .grid-fecha {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* ==================== BOTONES MEJORADOS ==================== */
+        .btn-primario,
+        .btn-secundario,
+        .btn-resultado {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 10px;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primario {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(8, 145, 178, 0.3);
+        }
+
+        .btn-primario:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(8, 145, 178, 0.4);
+        }
+
+        .btn-primario:active:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        .btn-secundario {
+            background: var(--gradient-success);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secundario:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-primario:disabled,
+        .btn-secundario:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Efecto de onda al hacer click */
+        .btn-primario::after,
+        .btn-secundario::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primario:active::after,
+        .btn-secundario:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* ==================== BOTONES DE RESULTADO ==================== */
+        .btn-resultado {
+            background: white;
+            border: 2px solid #e2e8f0;
+            color: var(--color-texto);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-resultado:hover {
+            border-color: var(--color-primario);
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(8, 145, 178, 0.15);
+        }
+
+        .btn-resultado.seleccionado {
+            border-color: var(--color-primario);
+            background: linear-gradient(135deg, #ecfeff 0%, #f0f9ff 100%);
+            box-shadow: 0 4px 20px rgba(8, 145, 178, 0.2);
+        }
+
+        .estado-tag {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .estado-nuevo {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #1e40af;
+        }
+
+        .estado-editable {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+        }
+
+        .estado-bloqueado {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+        }
+
+        /* ==================== SECCIÓN TUTORA ==================== */
+        .select-tutora-box {
+            padding: 25px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            transition: all 0.3s ease;
+        }
+
+        .select-tutora-box:hover {
+            border-color: var(--color-primario);
+            background: white;
+        }
+
+        .tutora-participante-list {
+            display: grid;
+            gap: 15px;
+        }
 
         .participante-item {
-            padding: 15px; border-radius: 8px; font-weight: 600; cursor: pointer;
-            display: flex; justify-content: space-between; align-items: center; transition: background-color 0.3s;
+            padding: 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
         }
-        
-        .participante-item.completo { background-color: var(--color-completo); color: var(--color-exito); border: 1px solid var(--color-exito); }
-        .participante-item.incompleto { background-color: var(--color-incompleto); color: var(--color-alerta); border: 1px solid var(--color-alerta); }
-        .participante-item:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
-        .participante-item.selected { border: 3px solid var(--color-primario); transform: scale(1.02); }
 
-        .tag-estado { font-size: 0.8rem; padding: 4px 8px; border-radius: 4px; font-weight: 700; }
-        .tag-completo { background-color: var(--color-exito); color: white; }
-        .tag-incompleto { background-color: var(--color-alerta); color: white; }
-        .tag-bloqueado { background-color: #6b7280; color: white; }
-        
-        /* Estilo para el formulario de la Tutora */
-        #form-datos-tutora .subtitulo-familiar { background-color: #f0f9ff; padding: 10px; border-radius: 5px; }
-        #form-datos-tutora .input-grupo input, #form-datos-tutora .input-grupo select { border: 1px solid var(--color-primario); }
-        
-        /* -------------------- RESPONSIVIDAD -------------------- */
+        .participante-item.completo {
+            background: var(--color-completo);
+            color: var(--color-exito);
+            border-color: var(--color-exito);
+        }
+
+        .participante-item.incompleto {
+            background: var(--color-incompleto);
+            color: var(--color-alerta);
+            border-color: var(--color-alerta);
+        }
+
+        .participante-item:hover {
+            transform: translateX(8px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .participante-item.selected {
+            border-width: 3px;
+            border-color: var(--color-primario);
+            transform: translateX(8px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(8, 145, 178, 0.25);
+        }
+
+        .tag-estado {
+            font-size: 0.8rem;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-completo {
+            background: var(--gradient-success);
+            color: white;
+        }
+
+        .tag-incompleto {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .tag-bloqueado {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            color: white;
+        }
+
+        /* ==================== MENSAJES ==================== */
+        .mensaje-alerta,
+        .mensaje-confirmacion,
+        .mensaje-tiempo-restante {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideInRight 0.4s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .mensaje-alerta {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+            border-left: 5px solid #ef4444;
+        }
+
+        .mensaje-confirmacion {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+            border-left: 5px solid #10b981;
+        }
+
+        .mensaje-tiempo-restante {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            border-left: 5px solid #f59e0b;
+        }
+
+        .participante-info-resaltada {
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+            padding: 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            color: var(--color-primario);
+            margin-bottom: 25px;
+            border-left: 5px solid var(--color-primario);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ==================== LISTA DE RESULTADOS ==================== */
+        .lista-participantes {
+            display: grid;
+            gap: 15px;
+        }
+
+        /* ==================== SUBTITULO FAMILIAR ==================== */
+        .subtitulo-familiar {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 700;
+            color: var(--color-primario);
+            margin: 20px 0 15px;
+            border-left: 4px solid var(--color-primario);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ==================== LOADING SPINNER INLINE ==================== */
+        .spinner-inline {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        /* ==================== ANIMACIÓN DE GUARDADO ==================== */
+        .save-animation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            z-index: 9998;
+            display: none;
+            text-align: center;
+        }
+
+        .save-animation.show {
+            display: block;
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .save-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .save-icon.saving {
+            animation: rotate 1s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .save-icon.success {
+            animation: checkmark 0.5s ease-out;
+        }
+
+        @keyframes checkmark {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .save-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-texto);
+        }
+
+        .save-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(3px);
+            z-index: 9997;
+            display: none;
+        }
+
+        .save-overlay.show {
+            display: block;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            border-top: 2px solid #e2e8f0;
+            color: var(--color-texto-light);
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+        }
+
+        /* ==================== ICONO DE TÉRMINOS ==================== */
+        .terms-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gradient-primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(8, 145, 178, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .terms-link:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 6px 30px rgba(8, 145, 178, 0.6);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
         @media (max-width: 768px) {
-            .grid-2col, .grid-fecha { grid-template-columns: 1fr; }
-            .tabs { flex-direction: column; }
-            .tab-btn { width: 100%; }
+
+            .grid-2col,
+            .grid-fecha {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+            }
+
+            .logo-container {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .modal-content {
+                padding: 25px;
+                max-width: 90%;
+            }
+
+            .modal-title {
+                font-size: 1.4rem;
+            }
+
+            .btn-primario,
+            .btn-secundario {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+            }
+
+            .terms-link {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .paso-titulo {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .participante-info-resaltada {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .contenedor {
+                gap: 20px;
+            }
+
+            header {
+                padding: 25px 15px;
+            }
+
+            .paso-titulo {
+                font-size: 1.3rem;
+            }
+
+            .consentimiento-box {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .consentimiento-icon {
+                font-size: 2rem;
+            }
+
+            .save-animation {
+                padding: 30px;
+                width: 90%;
+                max-width: 300px;
+            }
+        }
+
+        /* ==================== ESTILOS ADICIONALES ==================== */
+        .btn-primario,
+        .btn-secundario {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primario::before,
+        .btn-secundario::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primario:active:not(:disabled)::before,
+        .btn-secundario:active:not(:disabled)::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        /* Animación para inputs al hacer focus */
+        input:not([type="checkbox"]):focus,
+        select:focus {
+            animation: inputFocus 0.3s ease-out;
+        }
+
+        @keyframes inputFocus {
+            0% {
+                transform: scale(0.98);
+            }
+
+            50% {
+                transform: scale(1.01);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Scroll suave para toda la página */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Mejora visual para select cuando está deshabilitado */
+        input:disabled,
+        select:disabled {
+            background: #f1f5f9;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* Estilo para cuando se carga la lista de participantes */
+        .lista-participantes:empty::after,
+        .tutora-participante-list:empty::after {
+            content: 'Cargando participantes...';
+            display: block;
+            text-align: center;
+            padding: 40px;
+            color: var(--color-texto-light);
+            font-style: italic;
         }
     </style>
 </head>
+
 <body>
+    <!-- Loader Inicial -->
+    <div class="loader-overlay" id="loader-overlay">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-text" id="loader-text">Cargando y Validando Datos...</div>
+            <div class="loader-subtext">Por favor espere un momento</div>
+        </div>
+    </div>
+
+    <!-- Modal de Términos y Condiciones -->
+    <div class="modal-overlay" id="modal-terms">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">📋</div>
+                <h2 class="modal-title">Términos y Condiciones de Uso</h2>
+            </div>
+            <div class="modal-body">
+                <h3>🔒 Confidencialidad y Protección de Datos</h3>
+                <p>Este sistema es de <strong>uso exclusivo</strong> para el personal autorizado del proyecto de la
+                    Guerreros C.A.P.I. Toda la información recopilada es tratada con estricta confidencialidad.</p>
+
+                <h3>✅ Consentimiento Informado</h3>
+                <p>Al utilizar esta plataforma, usted reconoce y acepta que:</p>
+                <ul>
+                    <li>Los datos proporcionados serán utilizados únicamente para fines del proyecto social.</li>
+                    <li>La información personal está protegida conforme a las leyes de protección de datos vigentes.
+                    </li>
+                    <li>Solo personal autorizado tendrá acceso a esta información.</li>
+                    <li>Los datos no serán compartidos con terceros sin consentimiento previo.</li>
+                </ul>
+
+                <h3>👥 Responsabilidades del Usuario</h3>
+                <p>Como usuario de esta plataforma, usted se compromete a:</p>
+                <ul>
+                    <li>Proporcionar información veraz y actualizada.</li>
+                    <li>Mantener la confidencialidad de sus credenciales de acceso.</li>
+                    <li>Utilizar el sistema únicamente para los fines establecidos.</li>
+                    <li>Notificar cualquier irregularidad o acceso no autorizado.</li>
+                </ul>
+
+                <h3>⏱️ Política de Edición</h3>
+                <p>Los padres/acudientes disponen de <strong>30 minutos</strong> desde el primer guardado para realizar
+                    modificaciones. Transcurrido este tiempo, solo las tutoras autorizadas podrán editar la información.
+                </p>
+
+                <h3>📞 Contacto y Soporte</h3>
+                <p>Para cualquier duda o inconveniente, por favor contacte al equipo administrativo del proyecto.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-accept" id="btn-accept-terms">Acepto los Términos</button>
+                <button class="btn-modal btn-decline" id="btn-decline-terms">No Acepto</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay y animación de guardado -->
+    <div class="save-overlay" id="save-overlay"></div>
+    <div class="save-animation" id="save-animation">
+        <div class="save-icon" id="save-icon">💾</div>
+        <div class="save-text" id="save-text">Guardando información...</div>
+    </div>
+
+    <!-- Botón flotante para ver términos -->
+    <div class="terms-link" id="terms-link" title="Ver Términos y Condiciones">📋</div>
+
     <header>
         <div class="logo-container">
-            ONG <span class="resaltado">Project</span>
+            ParentAccess <span class="resaltado">678</span>
         </div>
         <h1>Portal de Gestión de Datos</h1>
     </header>
 
     <main class="contenedor">
         <div class="tabs">
-            <button class="tab-btn active" data-tab="tab-publico">👪 Acceso Público (Fecha)</button>
-            <button class="tab-btn" data-tab="tab-tutora">👩‍🏫 Acceso Tutora</button>
+            <button class="tab-btn active" data-tab="tab-publico">
+                <span>👪</span>
+                <span>Acceso Público (Fecha)</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-tutora">
+                <span>👩‍🏫</span>
+                <span>Acceso Tutora</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-admin" style="display:none;" id="tab-btn-admin">
+                <span>👑</span>
+                <span>Dashboard Admin</span>
+            </button>
         </div>
 
         <div id="tab-publico" class="tab-content active">
             <div class="consentimiento-box">
-                🤝 **Instrucciones para Padres/Acudientes:** Ingrese la fecha de nacimiento de su hijo(a) para confirmar identidad y actualizar sus datos de contacto.
+                <div class="consentimiento-icon">🤝</div>
+                <div>
+                    <strong>Instrucciones para Padres/Acudientes:</strong> Ingrese la fecha de nacimiento de su hijo(a)
+                    para confirmar identidad y actualizar sus datos de contacto.
+                </div>
             </div>
-            
+            <br>
             <section id="seccion-busqueda" class="card anim-entrada">
-                <h2 class="paso-titulo">1. Búsqueda por Fecha de Nacimiento</h2>
+                <h2 class="paso-titulo">
+                    <span class="paso-numero">1</span>
+                    <span>Búsqueda por Fecha de Nacimiento</span>
+                </h2>
                 <form id="form-busqueda" class="form-busqueda">
                     <div class="grid-fecha">
-                        <div class="input-grupo"><label for="dia">Día</label><select id="dia" required></select></div>
-                        <div class="input-grupo"><label for="mes">Mes</label><select id="mes" required></select></div>
-                        <div class="input-grupo"><label for="ano">Año</label><select id="ano" required></select></div>
+                        <div class="input-grupo">
+                            <label for="dia">📅 Día</label>
+                            <select id="dia" required></select>
+                        </div>
+                        <div class="input-grupo">
+                            <label for="mes">📅 Mes</label>
+                            <select id="mes" required></select>
+                        </div>
+                        <div class="input-grupo">
+                            <label for="ano">📅 Año</label>
+                            <select id="ano" required></select>
+                        </div>
                     </div>
-                    <button type="submit" id="btn-buscar" class="btn-primario">🔍 Buscar Participante</button>
+                    <button type="submit" id="btn-buscar" class="btn-primario">
+                        <span>🔍</span>
+                        <span>Buscar Participante</span>
+                    </button>
                     <div id="mensaje-busqueda" class="mensaje-alerta" style="display:none;"></div>
                 </form>
             </section>
 
             <section id="seccion-resultados" class="card anim-entrada" style="display: none;">
-                <h2 class="paso-titulo">2. Seleccione y Complete (Acudiente)</h2>
+                <h2 class="paso-titulo">
+                    <span class="paso-numero">2</span>
+                    <span>Seleccione y Complete (Acudiente)</span>
+                </h2>
                 <div id="lista-resultados" class="lista-participantes"></div>
             </section>
+
             <section id="seccion-formulario-publico" class="card anim-entrada" style="display: none;">
                 <p id="info-participante-seleccionado-publico" class="participante-info-resaltada"></p>
                 <div id="mensaje-guardado-publico" class="mensaje-confirmacion" style="display:none;"></div>
                 <div id="mensaje-tiempo-restante" class="mensaje-tiempo-restante" style="display:none;"></div>
-                <form id="form-datos-publico">
-                    </form>
-                <button type="submit" form="form-datos-publico" id="btn-guardar-publico" class="btn-secundario">💾 Guardar Información</button>
+                <form id="form-datos-publico"></form>
+                <button type="submit" form="form-datos-publico" id="btn-guardar-publico" class="btn-secundario">
+                    <span>💾</span>
+                    <span>Guardar Información</span>
+                </button>
             </section>
         </div>
 
         <div id="tab-tutora" class="tab-content">
             <section id="seccion-login" class="card anim-entrada">
-                <h2 class="paso-titulo">1. Acceso de Tutora</h2>
+                <h2 class="paso-titulo">
+                    <span class="paso-numero">1</span>
+                    <span>Acceso de Tutora</span>
+                </h2>
                 <form id="form-login">
-                    <div class="input-grupo"><label for="login-user">Usuario</label><input type="text" id="login-user" required></div>
-                    <div class="input-grupo"><label for="login-pass">Contraseña</label><input type="password" id="login-pass" required></div>
-                    <button type="submit" class="btn-primario">🔓 Ingresar</button>
+                    <div class="input-grupo">
+                        <label for="login-user">👤 Usuario</label>
+                        <input type="text" id="login-user" required placeholder="Ingrese su usuario">
+                    </div>
+                    <div class="input-grupo">
+                        <label for="login-pass">🔑 Contraseña</label>
+                        <input type="password" id="login-pass" required placeholder="Ingrese su contraseña">
+                    </div>
+                    <button type="submit" class="btn-primario">
+                        <span>🔓</span>
+                        <span>Ingresar</span>
+                    </button>
                     <div id="mensaje-login" class="mensaje-alerta" style="display:none;"></div>
                 </form>
             </section>
 
             <section id="seccion-gestion-tutora" class="card anim-entrada" style="display: none;">
-                <h2 class="paso-titulo" id="titulo-gestion-tutora">2. Gestión de Participantes (Tutora)</h2>
-                
+                <h2 class="paso-titulo" id="titulo-gestion-tutora">
+                    <span class="paso-numero">2</span>
+                    <span>Gestión de Participantes (Tutora)</span>
+                </h2>
+
                 <div class="select-tutora-box">
                     <div class="input-grupo">
-                        <label for="select-tutora">Seleccione su Nombre</label>
+                        <label for="select-tutora">👩‍🏫 Seleccione su Nombre</label>
                         <select id="select-tutora" required></select>
                     </div>
-                    <button id="btn-cargar-participantes" class="btn-primario">📊 Cargar Lista</button>
+                    <button id="btn-cargar-participantes" class="btn-primario">
+                        <span>📊</span>
+                        <span>Cargar Lista</span>
+                    </button>
                 </div>
-                
-                <h3 style="margin-top:30px; border-bottom:1px solid #eee; padding-bottom:10px;">Listado de Casos:</h3>
-                <div id="lista-participantes-tutora" class="tutora-participante-list">
+
+                <div id="tutora-stats-box" style="margin-bottom: 25px; display: none;">
+                    <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-secundario);">
+                        <span>📈</span>
+                        <span>Resumen de Gestión</span>
+                    </h3>
+                    <div class="grid-2col">
+                        <div class="input-grupo">
+                            <label>✅ Completados / Total</label>
+                            <input type="text" id="stats-tutora-ratio" readonly value="0/0">
+                        </div>
+                        <div class="input-grupo">
+                            <label>🎯 Porcentaje de Avance</label>
+                            <input type="text" id="stats-tutora-porcentaje" readonly value="0%">
+                        </div>
                     </div>
+                </div>
+
+                <h3
+                    style="margin-top:30px; border-bottom:2px solid #e2e8f0; padding-bottom:15px; color: var(--color-primario); font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                    <span>📋</span>
+                    <span>Listado de Casos:</span>
+                </h3>
+                <div id="lista-participantes-tutora" class="tutora-participante-list"></div>
             </section>
 
             <section id="seccion-formulario-tutora" class="card anim-entrada" style="display: none;">
-                <h2 class="paso-titulo">3. Edición de Datos (Tutora)</h2>
+                <h2 class="paso-titulo">
+                    <span class="paso-numero">3</span>
+                    <span>Edición de Datos (Tutora)</span>
+                </h2>
                 <p id="info-participante-seleccionado-tutora" class="participante-info-resaltada"></p>
-                
+
                 <div id="mensaje-guardado-tutora" class="mensaje-confirmacion" style="display:none;"></div>
-                <form id="form-datos-tutora">
-                    </form>
-                <button type="submit" form="form-datos-tutora" id="btn-guardar-tutora" class="btn-secundario">💾 Guardar Información por Tutora</button>
+                <form id="form-datos-tutora"></form>
+                <button type="submit" form="form-datos-tutora" id="btn-guardar-tutora" class="btn-secundario">
+                    <span>💾</span>
+                    <span>Guardar Información por Tutora</span>
+                </button>
+            </section>
+        </div>
+
+        <div id="tab-admin" class="tab-content">
+            <section id="seccion-dashboard-admin" class="card anim-entrada">
+                <h2 class="paso-titulo">
+                    <span class="paso-numero">1</span>
+                    <span>Dashboard de Administrador</span>
+                </h2>
+
+                <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-secundario);">
+                    <span>🌎</span>
+                    <span>Estadísticas Globales del Proyecto</span>
+                </h3>
+                <div class="grid-2col" style="margin-bottom: 30px;">
+                    <div class="input-grupo">
+                        <label>👥 Total Participantes</label>
+                        <input type="text" id="stats-total-general" readonly value="0">
+                    </div>
+                    <div class="input-grupo">
+                        <label>✅ Participantes Completados</label>
+                        <input type="text" id="stats-completados-general" readonly value="0">
+                    </div>
+                    <div class="input-grupo">
+                        <label>❌ Participantes Faltantes</label>
+                        <input type="text" id="stats-faltantes-general" readonly value="0">
+                    </div>
+                    <div class="input-grupo">
+                        <label>🎯 Porcentaje de Avance</label>
+                        <input type="text" id="stats-porcentaje-general" readonly value="0%">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px; height: 180px;">
+                    <canvas id="completionChart"></canvas>
+                </div>
+
+                <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-primario);">
+                    <span>📊</span>
+                    <span>Avance por Tutora (Desglose)</span>
+                </h3>
+                <div id="admin-tutora-breakdown" class="lista-participantes" style="margin-bottom: 30px;">
+                </div>
+
+                <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-secundario);">
+                    <span>🔎</span>
+                    <span>Filtro de Participantes (Lista Inferior)</span>
+                </h3>
+
+                <div class="grid-2col" style="margin-bottom: 30px;">
+                    <div class="input-grupo">
+                        <label for="admin-select-tutora">👩‍🏫 Filtrar por Tutora</label>
+                        <select id="admin-select-tutora" required></select>
+                    </div>
+                    <div class="input-grupo">
+                        <label for="admin-select-estado">✅ Filtrar por Estado</label>
+                        <select id="admin-select-estado" required>
+                            <option value="todos">Todos</option>
+                            <option value="completo">Completo</option>
+                            <option value="incompleto">Incompleto</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid-2col" style="margin-bottom: 30px;">
+                    <div class="input-grupo">
+                        <label>📊 Total de Participantes Filtrados</label>
+                        <input type="text" id="stats-total-participantes" readonly value="0">
+                    </div>
+                    <div class="input-grupo">
+                        <label>✅ % Completado Filtrado</label>
+                        <input type="text" id="stats-porcentaje-completo" readonly value="0%">
+                    </div>
+                </div>
+
+                <h3
+                    style="margin-top:30px; border-bottom:2px solid #e2e8f0; padding-bottom:15px; color: var(--color-primario); font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                    <span>📋</span>
+                    <span>Listado de Participantes (Admin):</span>
+                </h3>
+
+                <div id="lista-participantes-admin" class="lista-participantes">
+                </div>
             </section>
         </div>
 
     </main>
 
     <footer class="footer">
-        <p style="text-align:center; font-size:0.85rem; color:#6b7280; margin-top:30px;">
-            &copy; 2024 ONG Project. Desarrollado con ❤️.
-        </p>
+        <p>&copy; 2025 ParentAccess. Desarrollado con ❤️ para el bienestar social.</p>
+        <p style="margin-top: 10px; font-size: 0.85rem;">Todos los derechos reservados. Uso exclusivo del proyecto.</p>
     </footer>
-
     <script>
-/* ========================================================= */ 
-        /* JAVASCRIPT LOGIC (CACHE LOCAL Y ACCESO DIRECTO)           */
         /* ========================================================= */
-        
-        // ⚠️ YA CON TU URL PEGADA. ¡NO NECESITAS CAMBIAR ESTA LÍNEA!
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx4Iv227I2p3hfZlSQe9MkiwNzJ0YjTq8GoJ_BFGBrHoy8UENZXE2DLEImpBH3GBBw-nA/exec';  
-        
-        // --- Credenciales y Data ---
-        const TUTORA_USER = 'Tutora678';
-        const TUTORA_PASS = 'tutora678'; 
-        const TUTORAS_DISPONIBLES = ['Diana Carolina Ureña Mendoza', 'Yrany Lisbeth Martinez Sanchez',, 'Juliana Villamizar Ortiz','Helen Abelyn Sanchez Herrera', 'Otro/Administrador']; 
+        /* JAVASCRIPT LOGIC - CÓDIGO COMPLETO Y SIN ERRORES DE REFERENCIA */
+        /* ========================================================= */
 
-        // --- Estado Global y Caché ---
+        // ⚠️ DEBE VERIFICAR QUE ESTA URL SEA LA CORRECTA DE SU DEPLIEGUE
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx4Iv227I2p3hfZlSQe9MkiwNzJ0YjTq8GoJ_BFGBrHoy8UENZXE2DLEImpBH3GBBw-nA/exec';
+
+        // --- Credenciales y Data --
+        const TUTORA_USER = 'Tutora678';
+        const TUTORA_PASS = 'tutora678';
+        const ADMIN_USER = 'Admin678';
+        const ADMIN_PASS = 'admin678';
+
+        // ⭐️ LISTA ESTATICA DE TUTORAS (Fuente única de verdad para nombres y IDs)
+        const TUTORAS_DISPONIBLES = ['Diana Carolina Ureña Mendoza', 'Yrany Lisbeth Martinez Sanchez', 'Juliana Villamizar Ortiz', 'Helen Abelyn Sanchez Herrera', 'Otro/Administrador'];
+
+        // --- Estado Global y Caché --
         let participanteSeleccionado = null;
-        let modoActual = 'publico'; 
+        let modoActual = 'publico';
         let timerBloqueo = null;
         const SELECT_BASE_OP = '<option value="">Seleccione...</option>';
-        
-        let sheetData = []; // CACHÉ: Almacena TODOS los datos de Sheets
+
+        let participantesCache = [];
+        let tutorasCache = [];       // Contendrá IDs limpios y nombres completos.
+        let sessionCache = { user: null };
         let dataLoaded = false;
-        
+        let completionChartInstance = null;
+        // Verifica si Chart.js se cargó (necesario para las gráficas de Admin)
+        let isChartJsLoaded = typeof Chart !== 'undefined';
+
         // --- DOM Elements ---
-        const $ = id => document.getElementById(id); 
+        const $ = id => document.getElementById(id);
         const $busqueda = $('seccion-busqueda'), $resultados = $('seccion-resultados'), $formularioPublico = $('seccion-formulario-publico');
         const $login = $('seccion-login'), $gestionTutora = $('seccion-gestion-tutora'), $formularioTutora = $('seccion-formulario-tutora');
 
-        // ----------------------------------------------------
-        // 1. CONEXIÓN Y UTILIDADES GENERALES (MÉTODO GET Y POST) 🔑
-        // ----------------------------------------------------
 
-        /** Carga todos los datos de la hoja (GET) al inicio para usar el caché local. */
-        async function loadAllSheetData() {
-            mostrarMensaje($('mensaje-busqueda'), 'Inicializando sistema (cargando datos)...', 'confirmacion');
-            try {
-                // ❌ SE HA ELIMINADO EL CHEQUEO DE VALIDACIÓN DE URL ❌
-                
-                const response = await fetch(APPS_SCRIPT_URL, { method: 'GET' });
-                
-                if (!response.ok) {
-                    throw new Error(`Error HTTP: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.status === 'exito') {
-                    sheetData = result.data;
-                    dataLoaded = true;
-                    mostrarMensaje($('mensaje-busqueda'), 'Sistema listo. Ingrese la fecha o inicie sesión.', 'confirmacion');
-                    return { status: 'exito' };
-                } else {
-                    throw new Error(result.message || 'Error al cargar los datos iniciales.');
-                }
-            } catch (error) {
-                console.error('Error al cargar datos iniciales:', error);
-                mostrarMensaje($('mensaje-busqueda'), `❌ Error crítico al inicializar (GET): ${error.message}. Verifique el Apps Script y que el ID sea correcto.`, 'alerta');
-                return { status: 'error', message: error.message };
+        // ==================== FUNCIONES AUXILIARES ====================
+
+        /** Convierte el nombre de una tutora en un ID simple y único. */
+        const nameToId = (name) => {
+            return name.toLowerCase().replace(/[^a-z0-9]/g, '');
+        };
+
+        /** Inicializa el caché de tutoras a partir de la lista estática. */
+        function initializeTutorasCache() {
+            // 1. Generar Tutora IDs a partir de la lista estática
+            let generatedTutoras = TUTORAS_DISPONIBLES
+                .filter(name => name !== 'Otro/Administrador')
+                .map(name => ({
+                    id: nameToId(name),
+                    nombre: name,
+                    role: 'tutora'
+                }));
+
+            // 2. Agregar la entrada del administrador
+            generatedTutoras.push({ id: ADMIN_USER, nombre: 'Admin General', role: 'admin' });
+
+            tutorasCache = generatedTutoras;
+        }
+
+        // ==================== LOADER Y ANIMACIONES ====================
+
+        function showLoader(text = 'Cargando y Validando Datos...') {
+            const loader = $('loader-overlay');
+            const loaderText = $('loader-text');
+            if (loader) loader.classList.remove('hidden');
+            if (loaderText) loaderText.textContent = text;
+        }
+
+        function hideLoader() {
+            const loader = $('loader-overlay');
+            const loaderText = $('loader-text');
+            if (loaderText) loaderText.textContent = '✅ Datos Cargados y Validados Correctamente';
+
+            setTimeout(() => {
+                if (loader) loader.classList.add('hidden');
+            }, 1000);
+        }
+
+        function showSaveAnimation(isSaving = true) {
+            const overlay = $('save-overlay');
+            const animation = $('save-animation');
+            const icon = $('save-icon');
+            const text = $('save-text');
+
+            if (overlay) overlay.classList.add('show');
+            if (animation) animation.classList.add('show');
+
+            if (isSaving) {
+                if (icon) { icon.textContent = '💾'; icon.className = 'save-icon saving'; }
+                if (text) text.textContent = 'Guardando información...';
             }
         }
-        
-        /** Usa el caché local para buscar o filtrar, y hace POST para guardar. */
-        async function sendToAppsScript(data) {
-    // Asegura que los datos estén cargados antes de cualquier acción.
-    if (!dataLoaded) {
-        const initResult = await loadAllSheetData();
-        if (initResult.status !== 'exito') return initResult;
-    }
 
-    if (data.action === 'buscar') {
-        // LÓGICA DE BÚSQUEDA LOCAL (INSTANTÁNEA)
-        const fechaBusqueda = data.fecha;
-        const ahora = new Date().getTime();
+        function showSaveSuccess() {
+            const icon = $('save-icon');
+            const text = $('save-text');
 
-        const resultados = sheetData
-            .filter(p => p.fechaNacimiento === fechaBusqueda) // <--- CRÍTICO: El filtro solo busca el string EXACTO (DD/MM/YYYY)
-            .map(p => {
-                let estado = 'nuevo';
-                let fechaBloqueo = null;
-                        
-                if (p.fechaGuardado) {
-                    const limiteMs = p.fechaGuardado + 30 * 60 * 1000;
-                    if (ahora > limiteMs) {
-                        estado = 'bloqueado';
-                    } else {
-                        estado = 'editable';
-                        fechaBloqueo = new Date(limiteMs).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                    }
-                }
-                return { ...p, estado: estado, fechaBloqueo: fechaBloqueo };
-            });
-        
-        // Si no encuentra nada, devuelve el error:
-        if (resultados.length === 0) {
-             return { status: 'error', message: '❌ No se encontraron participantes con esa fecha de nacimiento.' };
-        }
-        
-        return { status: 'exito', resultados: resultados };
-        
-    } else if (data.action === 'listarPorTutora') {
-        // LÓGICA DE FILTRADO LOCAL (INSTANTÁNEA)
-        const tutoraNombre = data.tutora;
-        const ahora = new Date().getTime();
+            if (icon) { icon.textContent = '✅'; icon.className = 'save-icon success'; }
+            if (text) text.textContent = '¡Guardado Exitoso!';
 
-        const participantes = sheetData
-            .filter(p => p.tutora === tutoraNombre)
-            .map(p => {
-                let estado = 'incompleto';
-                if (p.fechaGuardado) {
-                    const limiteMs = p.fechaGuardado + 30 * 60 * 1000;
-                    if (ahora > limiteMs) {
-                        estado = 'bloqueado';
-                    } else {
-                        estado = 'completo';
-                    }
-                }
-                return { ...p, estado: estado };
-            });
-
-        return { status: 'exito', participantes: participantes };
-                
-            } else if (data.action === 'guardar') {
-                // LÓGICA DE GUARDADO (POST directo al Apps Script)
-                const response = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: { 'Content-Type': 'text/plain' }, // CRÍTICO: Usar text/plain para Apps Script
-                    body: JSON.stringify(data)
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`Error HTTP! status: ${response.status}`);
-                }
-                const result = await response.json();
-
-                if (result.status === 'guardado') {
-                    // Actualizar el caché local después del guardado exitoso
-                    const filaIndex = sheetData.findIndex(p => p.fila === data.fila);
-                    if (filaIndex !== -1) {
-                         // Actualizar datos y tiempo de guardado en el caché local
-                         sheetData[filaIndex].fechaGuardado = result.fechaGuardado; 
-                         sheetData[filaIndex].tipoDocParticipante = data.tipoDocParticipante;
-                         sheetData[filaIndex].numDocParticipante = data.numDocParticipante;
-                         sheetData[filaIndex].tipoDocMama = data.tipoDocMama;
-                         sheetData[filaIndex].numDocMama = data.numDocMama;
-                         sheetData[filaIndex].tipoDocPapa = data.tipoDocPapa;
-                         sheetData[filaIndex].numDocPapa = data.numDocPapa;
-                         sheetData[filaIndex].parentescoOtro = data.parentescoOtro;
-                         sheetData[filaIndex].tipoDocOtro = data.tipoDocOtro;
-                         sheetData[filaIndex].numDocOtro = data.numDocOtro;
-                    }
-                }
-                return result;
-            }
-            
-            return { status: 'error', message: 'Acción no válida.' };
+            setTimeout(() => {
+                hideSaveAnimation();
+            }, 2000);
         }
 
-        // --- Resto de funciones auxiliares ---
+        function showSaveError(message) {
+            const icon = $('save-icon');
+            const text = $('save-text');
+
+            if (icon) { icon.textContent = '❌'; icon.className = 'save-icon'; }
+            if (text) text.textContent = message || 'Error al guardar';
+
+            setTimeout(() => {
+                hideSaveAnimation();
+            }, 2500);
+        }
+
+        function hideSaveAnimation() {
+            const overlay = $('save-overlay');
+            const animation = $('save-animation');
+
+            if (overlay) overlay.classList.remove('show');
+            if (animation) animation.classList.remove('show');
+        }
 
         function mostrarMensaje(elemento, texto, tipo) {
+            if (!elemento) return;
             elemento.textContent = texto;
             elemento.style.display = 'block';
             elemento.className = '';
-            
+
+            let icono = '';
             if (tipo === 'alerta') {
                 elemento.classList.add('mensaje-alerta');
+                icono = '⚠️ ';
             } else if (tipo === 'confirmacion') {
                 elemento.classList.add('mensaje-confirmacion');
+                icono = '✅ ';
             } else if (tipo === 'tiempo') {
                 elemento.classList.add('mensaje-tiempo-restante');
+                icono = '⏳ ';
             }
+
+            elemento.textContent = icono + texto;
         }
-        
+
         /** Inicia el contador de 30 minutos (solo para acceso público). */
         function iniciarContador(horaBloqueoStr) {
             if (timerBloqueo) clearInterval(timerBloqueo);
 
             const partes = horaBloqueoStr.split(':');
             let horaBloqueo = new Date();
-            
+
             horaBloqueo.setHours(Number(partes[0]));
             horaBloqueo.setMinutes(Number(partes[1]));
-            horaBloqueo.setSeconds(Number(partes[2] || 0)); 
+            horaBloqueo.setSeconds(Number(partes[2] || 0));
             horaBloqueo.setMilliseconds(0);
 
-            // Ajuste para el día siguiente si ya pasó la hora
-            if (horaBloqueo.getTime() < new Date().getTime() - (5 * 60 * 1000)) { // 5 minutos de buffer
-                horaBloqueo = new Date(horaBloqueo.getTime() + 24 * 60 * 60 * 1000); 
+            // Ajuste para cambios de día
+            if (horaBloqueo.getTime() < new Date().getTime() - (5 * 60 * 1000)) {
+                horaBloqueo = new Date(horaBloqueo.getTime() + 24 * 60 * 60 * 1000);
             }
 
             const actualizarContador = () => {
@@ -404,15 +1653,18 @@
                 if (diferenciaMs <= 0) {
                     clearInterval(timerBloqueo);
                     bloquearFormulario(true, 'El tiempo de 30 minutos ha expirado. El formulario está bloqueado.');
-                    // Forzar actualización del listado de resultados (para que el botón diga BLOQUEADO)
-                    $('btn-buscar').click(); 
                     return;
                 }
 
                 const minutos = Math.floor(diferenciaMs / (1000 * 60));
                 const segundos = Math.floor((diferenciaMs % (1000 * 60)) / 1000);
 
-                mostrarMensaje($('mensaje-tiempo-restante'), `⏳ Tiempo restante para modificar: ${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`, 'tiempo');
+                const mensajeRestante = $('mensaje-tiempo-restante');
+                if (mensajeRestante) {
+                    mensajeRestante.innerHTML = `⏳ Tiempo restante para modificar: <strong>${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}</strong>`;
+                    mensajeRestante.style.display = 'block';
+                    mensajeRestante.className = 'mensaje-tiempo-restante';
+                }
             };
 
             actualizarContador();
@@ -423,65 +1675,80 @@
         function bloquearFormulario(bloquear, mensaje) {
             const formElement = $('form-datos-publico');
             const btnGuardar = $('btn-guardar-publico');
+            if (!formElement || !btnGuardar) return;
+
             const inputs = formElement.querySelectorAll('input, select');
-            
+            const mensajeRestante = $('mensaje-tiempo-restante');
+
             inputs.forEach(input => { input.disabled = bloquear; });
             btnGuardar.disabled = bloquear;
 
-            if (bloquear) {
-                $('mensaje-tiempo-restante').textContent = `🔒 ${mensaje}`;
-                $('mensaje-tiempo-restante').style.display = 'block';
-                $('mensaje-tiempo-restante').classList.add('estado-bloqueado');
-                clearInterval(timerBloqueo);
-            } else {
-                $('mensaje-tiempo-restante').style.display = 'none';
-                $('mensaje-tiempo-restante').classList.remove('estado-bloqueado');
+            if (mensajeRestante) {
+                if (bloquear) {
+                    mensajeRestante.innerHTML = `🔒 ${mensaje}`;
+                    mensajeRestante.style.display = 'block';
+                    mensajeRestante.classList.add('mensaje-alerta');
+                    mensajeRestante.classList.remove('mensaje-tiempo-restante');
+                    clearInterval(timerBloqueo);
+                } else {
+                    mensajeRestante.style.display = 'none';
+                    mensajeRestante.classList.remove('mensaje-alerta');
+                    mensajeRestante.classList.add('mensaje-tiempo-restante');
+                }
             }
         }
-        
-        // --- Lógica de Inicialización ---
-        document.addEventListener('DOMContentLoaded', async () => {
-            initFechaSelects();
-            initTutoraSelect();
-            initFormularioTemplates();
-            initTabs();
-            
-            // 🔑 Carga inicial de datos al inicio (GET)
-            await loadAllSheetData(); 
-            
-            document.querySelectorAll('.anim-entrada').forEach((el, index) => {
-                el.style.animationDelay = `${index * 0.1}s`;
-            });
-        });
 
-        // --- Lógica de Tabs, Selects, FormTemplates (Se mantiene) ---
+
+        // ==================== TÉRMINOS Y CONDICIONES ====================
+
+        function showTermsModal() {
+            const modal = $('modal-terms');
+            if (modal) modal.classList.add('show');
+        }
+
+        function hideTermsModal() {
+            const modal = $('modal-terms');
+            if (modal) modal.classList.remove('show');
+        }
+
+
+        // ==================== TABS, SELECTS, FORM TEMPLATES ====================
+
+        function cambiarTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            const button = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+            if (button) button.classList.add('active');
+            const content = $(tabId);
+            if (content) content.classList.add('active');
+
+            modoActual = (tabId === 'tab-publico' ? 'publico' : (tabId === 'tab-tutora' ? 'tutora' : 'admin'));
+        }
 
         function initTabs() {
             document.querySelectorAll('.tab-btn').forEach(button => {
                 button.addEventListener('click', () => {
                     const tabId = button.getAttribute('data-tab');
-                    
-                    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    cambiarTab(tabId);
 
-                    button.classList.add('active');
-                    $(tabId).classList.add('active');
-                    
-                    modoActual = (tabId === 'tab-publico' ? 'publico' : 'tutora');
-                    
-                    if (modoActual === 'publico') {
+                    if (tabId === 'tab-publico') {
                         $login.style.display = 'block';
                         $gestionTutora.style.display = 'none';
                         $formularioTutora.style.display = 'none';
                         $resultados.style.display = 'none';
                         $formularioPublico.style.display = 'none';
                     }
+                    if (tabId === 'tab-admin') {
+                        if (dataLoaded) filtrarParticipantesAdmin();
+                    }
                 });
             });
         }
-        
+
         function initFechaSelects() {
             const diaSelect = $('dia'), mesSelect = $('mes'), anoSelect = $('ano');
+            if (!diaSelect || !mesSelect || !anoSelect) return;
 
             diaSelect.innerHTML = SELECT_BASE_OP;
             for (let i = 1; i <= 31; i++) {
@@ -497,108 +1764,124 @@
             }
 
             const currentYear = new Date().getFullYear();
-            const minYear = currentYear - 20; 
+            const minYear = currentYear - 20;
             anoSelect.innerHTML = SELECT_BASE_OP;
             for (let i = currentYear; i >= minYear; i--) {
                 anoSelect.innerHTML += `<option value="${i}">${i}</option>`;
             }
         }
-        
-        function initTutoraSelect() {
-            const selectTutora = $('select-tutora');
-            selectTutora.innerHTML = SELECT_BASE_OP;
-            TUTORAS_DISPONIBLES.forEach(tutora => {
-                selectTutora.innerHTML += `<option value="${tutora}">${tutora}</option>`;
-            });
+
+        function llenarSelectTutoras(selectElement, includeAll = false) {
+            if (!selectElement) return;
+
+            selectElement.innerHTML = SELECT_BASE_OP;
+            if (includeAll) {
+                selectElement.innerHTML = '<option value="todos">Todos los Participantes</option>';
+            }
+
+            // Usamos la caché de tutoras generada con IDs
+            tutorasCache
+                .filter(t => t.role === 'tutora' || (includeAll && t.role === 'admin'))
+                .forEach(tutora => {
+                    selectElement.innerHTML += `<option value="${tutora.id}">${tutora.nombre}</option>`;
+                });
         }
-        
+
         function initFormularioTemplates() {
             const template = `
-                <fieldset>
-                    <legend>Identificación del Participante</legend>
-                    <div class="grid-2col">
-                        <div class="input-grupo">
-                            <label for="tipoDocParticipante">Tipo de Documento</label>
-                            <select id="tipoDocParticipante" name="tipoDocParticipante" required>
-                                <option value="">Seleccione</option>
-                                <option value="RC">Registro Civil (RC)</option>
-                                <option value="TI">Tarjeta de Identidad (TI)</option>
-                                <option value="CC">Cédula de Ciudadanía (CC)</option>
-                            </select>
-                        </div>
-                        <div class="input-grupo">
-                            <label for="numDocParticipante">Número de Documento</label>
-                            <input type="text" id="numDocParticipante" name="numDocParticipante" pattern="\\d+" title="Solo números" required>
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Datos de Contacto del Acudiente Principal</legend>
-                    <h3 class="subtitulo-familiar">Información de la Madre</h3>
-                    <div class="grid-2col">
-                        <div class="input-grupo">
-                            <label for="tipoDocMama">Tipo Doc. Madre</label>
-                            <select id="tipoDocMama" name="tipoDocMama">
-                                <option value="">Seleccione o Dejar Vacío</option>
-                                <option value="CC">Cédula de Ciudadanía (CC)</option>
-                                <option value="CE">Cédula de Extranjería (CE)</option>
-                            </select>
-                        </div>
-                        <div class="input-grupo">
-                            <label for="numDocMama">Número Doc. Madre</label>
-                            <input type="text" id="numDocMama" name="numDocMama" pattern="\\d+" title="Solo números">
-                        </div>
-                    </div>
-                    <h3 class="subtitulo-familiar">Información del Padre</h3>
-                    <div class="grid-2col">
-                        <div class="input-grupo">
-                            <label for="tipoDocPapa">Tipo Doc. Padre</label>
-                            <select id="tipoDocPapa" name="tipoDocPapa">
-                                <option value="">Seleccione o Dejar Vacío</option>
-                                <option value="CC">Cédula de Ciudadanía (CC)</option>
-                                <option value="CE">Cédula de Extranjería (CE)</option>
-                            </select>
-                        </div>
-                        <div class="input-grupo">
-                            <label for="numDocPapa">Número Doc. Padre</label>
-                            <input type="text" id="numDocPapa" name="numDocPapa" pattern="\\d+" title="Solo números">
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset id="fieldset-otro-familiar">
-                    <legend>Otro Familiar/Acudiente (Si no es Mamá o Papá)</legend>
-                    <div class="input-grupo">
-                        <label for="parentescoOtro">Parentesco</label>
-                        <select id="parentescoOtro" name="parentescoOtro">
-                            <option value="">Seleccione el Parentesco</option>
-                            <option value="Abuelo">Abuelo</option>
-                            <option value="Abuela">Abuela</option>
-                            <option value="Tio">Tío</option>
-                            <option value="Tia">Tía</option>
-                            <option value="Primo">Primo/Prima</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                    </div>
-                    <div class="grid-2col">
-                        <div class="input-grupo">
-                            <label for="tipoDocOtro">Tipo Doc. Otro</label>
-                            <select id="tipoDocOtro" name="tipoDocOtro">
-                                <option value="">Seleccione</option>
-                                <option value="CC">Cédula de Ciudadanía (CC)</option>
-                                <option value="CE">Cédula de Extranjería (CE)</option>
-                            </select>
-                        </div>
-                        <div class="input-grupo">
-                            <label for="numDocOtro">Número Doc. Otro</label>
-                            <input type="text" id="numDocOtro" name="numDocOtro" pattern="\\d+" title="Solo números">
-                        </div>
-                    </div>
-                </fieldset>
-            `;
-            $('form-datos-publico').innerHTML = template;
-            $('form-datos-tutora').innerHTML = template; 
+        <fieldset>
+            <legend>🆔 Identificación del Participante</legend>
+            <div class="grid-2col">
+                <div class="input-grupo">
+                    <label for="tipoDocParticipante">📄 Tipo de Documento</label>
+                    <select id="tipoDocParticipante" name="tipoDocParticipante" required>
+                        <option value="">Seleccione</option>
+                        <option value="RC">Registro Civil (RC)</option>
+                        <option value="TI">Tarjeta de Identidad (TI)</option>
+                        <option value="CC">Cédula de Ciudadanía (CC)</option>
+                    </select>
+                </div>
+                <div class="input-grupo">
+                    <label for="numDocParticipante">🔢 Número de Documento</label>
+                    <input type="text" id="numDocParticipante" name="numDocParticipante" pattern="\\d+" title="Solo números" required placeholder="Ingrese el número">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>👨‍👩‍👧 Datos de Contacto del Acudiente Principal</legend>
+            <h3 class="subtitulo-familiar">
+                <span>👩</span>
+                <span>Información de la Madre</span>
+            </h3>
+            <div class="grid-2col">
+                <div class="input-grupo">
+                    <label for="tipoDocMama">📄 Tipo Doc. Madre</label>
+                    <select id="tipoDocMama" name="tipoDocMama">
+                        <option value="">Seleccione o Dejar Vacío</option>
+                        <option value="CC">Cédula de Ciudadanía (CC)</option>
+                        <option value="CE">Cédula de Extranjería (CE)</option>
+                    </select>
+                </div>
+                <div class="input-grupo">
+                    <label for="numDocMama">🔢 Número Doc. Madre</label>
+                    <input type="text" id="numDocMama" name="numDocMama" pattern="\\d+" title="Solo números" placeholder="Opcional">
+                </div>
+            </div>
+            <h3 class="subtitulo-familiar">
+                <span>👨</span>
+                <span>Información del Padre</span>
+            </h3>
+            <div class="grid-2col">
+                <div class="input-grupo">
+                    <label for="tipoDocPapa">📄 Tipo Doc. Padre</label>
+                    <select id="tipoDocPapa" name="tipoDocPapa">
+                        <option value="">Seleccione o Dejar Vacío</option>
+                        <option value="CC">Cédula de Ciudadanía (CC)</option>
+                        <option value="CE">Cédula de Extranjería (CE)</option>
+                    </select>
+                </div>
+                <div class="input-grupo">
+                    <label for="numDocPapa">🔢 Número Doc. Padre</label>
+                    <input type="text" id="numDocPapa" name="numDocPapa" pattern="\\d+" title="Solo números" placeholder="Opcional">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset id="fieldset-otro-familiar">
+            <legend>👤 Otro Familiar/Acudiente (Si no es Mamá o Papá)</legend>
+            <div class="input-grupo">
+                <label for="parentescoOtro">👥 Parentesco</label>
+                <select id="parentescoOtro" name="parentescoOtro">
+                    <option value="">Seleccione el Parentesco</option>
+                    <option value="Abuelo">Abuelo</option>
+                    <option value="Abuela">Abuela</option>
+                    <option value="Tio">Tío</option>
+                    <option value="Tia">Tía</option>
+                    <option value="Primo">Primo/Prima</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+            <div class="grid-2col">
+                <div class="input-grupo">
+                    <label for="tipoDocOtro">📄 Tipo Doc. Otro</label>
+                    <select id="tipoDocOtro" name="tipoDocOtro">
+                        <option value="">Seleccione</option>
+                        <option value="CC">Cédula de Ciudadanía (CC)</option>
+                        <option value="CE">Cédula de Extranjería (CE)</option>
+                    </select>
+                </div>
+                <div class="input-grupo">
+                    <label for="numDocOtro">🔢 Número Doc. Otro</label>
+                    <input type="text" id="numDocOtro" name="numDocOtro" pattern="\\d+" title="Solo números" placeholder="Opcional">
+                </div>
+            </div>
+        </fieldset>
+    `;
+            const formPublico = $('form-datos-publico');
+            if (formPublico) formPublico.innerHTML = template;
+            const formTutora = $('form-datos-tutora');
+            if (formTutora) formTutora.innerHTML = template;
         }
-        
+
         function cargarDatosEnFormulario(participante, formElement) {
             formElement.querySelectorAll('input, select').forEach(field => {
                 const key = field.name;
@@ -607,257 +1890,289 @@
                 }
             });
         }
-        
-// ----------------------------------------------------
-// 3. LÓGICA DE ACCESO PÚBLICO (BUSQUEDA Y GUARDADO)
-// ----------------------------------------------------
- 
-$('form-busqueda').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    if (!dataLoaded) {
-        mostrarMensaje($('mensaje-busqueda'), 'El sistema aún está cargando los datos iniciales. Por favor, espere un momento.', 'alerta');
-        return;
-    }
-    
-    $resultados.style.display = 'none';
-    $formularioPublico.style.display = 'none';
-    mostrarMensaje($('mensaje-busqueda'), 'Buscando participantes (localmente)...', 'confirmacion');
 
-    const dia = $('dia').value, mes = $('mes').value, ano = $('ano').value;
-    if (!dia || !mes || !ano) {
-        mostrarMensaje($('mensaje-busqueda'), 'Por favor, complete todos los campos de fecha.', 'alerta');
-        return;
-    }
 
-    // 🔑 CLAVE DE LA CORRECCIÓN: Rellenar el día y el mes con cero si es necesario (DD/MM/YYYY)
-    const diaFormateado = String(dia).padStart(2, '0');
-    const mesFormateado = String(mes).padStart(2, '0');
+        // ==================== CONEXIÓN Y CACHÉ ====================
 
-    // Construcción del formato que DEBE COINCIDIR con el Apps Script: DD/MM/YYYY
-    const fechaBusqueda = `${diaFormateado}/${mesFormateado}/${ano}`; 
-    
-    const data = { action: 'buscar', fecha: fechaBusqueda };
-    const result = await sendToAppsScript(data); // ¡Filtro local!
+        /** Carga todos los datos de la hoja (GET) al inicio. */
+        async function loadAllSheetData() {
+            showLoader('Cargando y Validando Datos...');
 
-    if (result.status === 'exito') {
-        renderResultadosPublicos(result.resultados);
-    } else {
-        mostrarMensaje($('mensaje-busqueda'), result.message || 'Ocurrió un error desconocido.', 'alerta');
-    }
-});
+            // PASO 1: Inicializar la caché de tutoras antes de cargar los participantes
+            initializeTutorasCache();
 
-function renderResultadosPublicos(resultados) {
-    $('lista-resultados').innerHTML = '';
-    $('mensaje-busqueda').style.display = 'none';
-    
-    if (resultados.length === 0) {
-        mostrarMensaje($('mensaje-busqueda'), '❌ No se encontraron participantes con esa fecha de nacimiento.', 'alerta');
-        return;
-    }
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, { method: 'GET' });
 
-    $resultados.style.display = 'block';
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
 
-    resultados.forEach(p => {
-        const button = document.createElement('button');
-        button.className = 'btn-resultado';
-        const estadoTexto = p.estado === 'bloqueado' ? 'BLOQUEADO' : (p.estado === 'editable' ? `MODIFICAR (Hasta ${p.fechaBloqueo})` : 'SELECCIONAR');
-        const estadoClass = p.estado === 'bloqueado' ? 'estado-bloqueado' : (p.estado === 'editable' ? 'estado-editable' : 'estado-nuevo');
+                const result = await response.json();
 
-        button.innerHTML = `
-            <span>${p.nombre} (${p.codigo}) | Tutora: ${p.tutora}</span>
-            <span class="estado-tag ${estadoClass}">${estadoTexto}</span>
-        `;
-        button.onclick = () => seleccionarParticipantePublico(p, button);
-        $('lista-resultados').appendChild(button);
-    });
-}
+                // CORRECCIÓN CLAVE: El Apps Script devuelve 'data', no 'participantes'
+                if (result.status === 'exito' && result.data) {
 
-function seleccionarParticipantePublico(participante, btn) {
-    document.querySelectorAll('#lista-resultados .btn-resultado').forEach(b => b.classList.remove('seleccionado'));
-    btn.classList.add('seleccionado');
+                    // PASO 2: Mapear los datos de participantes para añadir el 'tutora_id'
+                    participantesCache = result.data.map(p => {
+                        // Buscamos el ID en nuestra caché interna de tutoras
+                        const tutoraEntry = tutorasCache.find(t => t.nombre === p.tutora);
 
-    participanteSeleccionado = participante;
-    
-    $('info-participante-seleccionado-publico').textContent = `Participante Seleccionado: ${participante.nombre} (Código: ${participante.codigo})`;
-    $formularioPublico.style.display = 'block';
-    $('mensaje-guardado-publico').style.display = 'none';
-    $('form-datos-publico').reset(); 
-    
-    // Cargar datos del caché
-    if (participante.estado !== 'nuevo') {
-        cargarDatosEnFormulario(participante, $('form-datos-publico'));
-    }
+                        return {
+                            ...p,
+                            // Asignamos el ID de la tutora. Si no se encuentra, usamos un ID genérico
+                            tutora_id: tutoraEntry ? tutoraEntry.id : nameToId(p.tutora || 'Sin Asignar'),
+                            // El estado depende de si llenó un campo de identificación
+                            participante_estado: p.tipoDocParticipante ? 'Completo' : 'Incompleto'
+                        };
+                    });
 
-    if (participante.estado === 'bloqueado') {
-        bloquearFormulario(true, 'Su información ya fue enviada y el tiempo de modificación ha expirado. Solo puede visualizarla.');
-    } else {
-        bloquearFormulario(false, '');
-        if (participante.estado === 'editable') {
-            iniciarContador(participante.fechaBloqueo);
-            mostrarMensaje($('mensaje-guardado-publico'), `Ya tiene datos guardados. Puede modificar hasta las ${participante.fechaBloqueo}.`, 'confirmacion');
-        } else {
-            $('mensaje-tiempo-restante').style.display = 'none';
-        }
-    }
-}
+                    dataLoaded = true;
+                    hideLoader();
 
-$('form-datos-publico').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    if (!participanteSeleccionado || participanteSeleccionado.estado === 'bloqueado') return;
-    
-    $('btn-guardar-publico').disabled = true;
-    mostrarMensaje($('mensaje-guardado-publico'), 'Guardando información...', 'confirmacion');
+                    // Llenar selects de tutoras ahora que la caché está poblada
+                    llenarSelectTutoras($('select-tutora'), false);
+                    llenarSelectTutoras($('admin-select-tutora'), true);
 
-    const form = e.target;
-    const datos = {
-        action: 'guardar',
-        mode: 'publico', // Añadir modo para mensajes
-        fila: participanteSeleccionado.fila,
-        tipoDocParticipante: form.tipoDocParticipante.value || '',
-        numDocParticipante: form.numDocParticipante.value || '',
-        tipoDocMama: form.tipoDocMama.value || '',
-        numDocMama: form.numDocMama.value || '',
-        tipoDocPapa: form.tipoDocPapa.value || '',
-        numDocPapa: form.numDocPapa.value || '',
-        parentescoOtro: form.parentescoOtro.value || '',
-        tipoDocOtro: form.tipoDocOtro.value || '',
-        numDocOtro: form.numDocOtro.value || ''
-    };
-    
-    try {
-        const result = await sendToAppsScript(datos); // POST al servidor
+                    if (isChartJsLoaded) {
+                        updateGlobalStats();
+                    } else {
+                        console.warn("Chart.js no está cargado. El dashboard de admin no mostrará la gráfica.");
+                    }
 
-        $('btn-guardar-publico').disabled = false;
-        
-        if (result.status === 'guardado') {
-            mostrarMensaje($('mensaje-guardado-publico'), `✅ ${result.message}`, 'confirmacion');
-            
-            // Calcular nueva hora de bloqueo basada en el timestamp devuelto
-            const limiteMs = result.fechaGuardado + 30 * 60 * 1000;
-            const horaBloqueoStr = new Date(limiteMs).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            iniciarContador(horaBloqueoStr);
-            
-        } else if (result.status === 'bloqueado') {
-            bloquearFormulario(true, result.message);
-            mostrarMensaje($('mensaje-guardado-publico'), `🔒 ${result.message}`, 'alerta');
-            
-        } else {
-            mostrarMensaje($('mensaje-guardado-publico'), `❌ Error al guardar: ${result.message}`, 'alerta');
-        }
-    } catch (error) {
-         $('btn-guardar-publico').disabled = false;
-         mostrarMensaje($('mensaje-guardado-publico'), `❌ Error de red o servidor: ${error.message}`, 'alerta');
-    }
-});
-        // ----------------------------------------------------
-        // 4. LÓGICA DE ACCESO TUTORA (LOGIN Y FILTRO)
-        // ----------------------------------------------------
-
-        $('form-login').addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const user = $('login-user').value;
-            const pass = $('login-pass').value;
-
-            if (user === TUTORA_USER && pass === TUTORA_PASS) {
-                mostrarMensaje($('mensaje-login'), '✅ Acceso concedido.', 'confirmacion');
-                $login.style.display = 'none';
-                $gestionTutora.style.display = 'block';
-                $('mensaje-login').style.display = 'none';
-
-            } else {
-                mostrarMensaje($('mensaje-login'), '❌ Usuario o contraseña incorrectos.', 'alerta');
+                    mostrarMensaje($('mensaje-busqueda'), 'Sistema listo. Ingrese la fecha o inicie sesión.', 'confirmacion');
+                    return { status: 'exito' };
+                } else {
+                    throw new Error(result.message || 'Error al cargar los datos iniciales o formato de respuesta incorrecto.');
+                }
+            } catch (error) {
+                console.error('Error al cargar datos iniciales:', error);
+                hideLoader();
+                mostrarMensaje($('mensaje-busqueda'), `Error crítico al inicializar (GET): ${error.message}. Verifique el Apps Script.`, 'alerta');
+                return { status: 'error', message: error.message };
             }
-        });
-        
-        $('btn-cargar-participantes').addEventListener('click', async () => {
-            const tutoraSeleccionada = $('select-tutora').value;
-            if (!tutoraSeleccionada) {
-                mostrarMensaje($('mensaje-login'), '❌ Por favor, seleccione su nombre.', 'alerta');
+        }
+
+        /** Usa el caché local para buscar o filtrar, y hace POST para guardar. */
+        async function sendToAppsScript(data) {
+            if (!dataLoaded && data.action !== 'guardar') {
+                return { status: 'error', message: 'Datos no cargados. Por favor, acepte los términos y espere a que el sistema esté listo.' };
+            }
+
+            if (data.action === 'buscar') {
+                const fechaBusqueda = data.fecha;
+                const ahora = new Date().getTime();
+
+                const resultados = participantesCache
+                    .filter(p => p.fechaNacimiento === fechaBusqueda)
+                    .map(p => {
+                        let estado = 'nuevo';
+                        let fechaBloqueo = null;
+
+                        if (p.participante_estado === 'Completo' && p.fechaGuardado) {
+                            const limiteMs = p.fechaGuardado + 30 * 60 * 1000;
+                            if (ahora > limiteMs) {
+                                estado = 'bloqueado';
+                            } else {
+                                estado = 'editable';
+                                // Usamos el epoch time de fechaGuardado y le sumamos 30min para mostrar el límite
+                                const limiteDate = new Date(p.fechaGuardado + 30 * 60 * 1000);
+                                fechaBloqueo = limiteDate.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                            }
+                        }
+                        if (p.participante_estado === 'Completo' && !p.fechaGuardado) {
+                            estado = 'editable';
+                        }
+                        return { ...p, estado: estado, fechaBloqueo: fechaBloqueo };
+                    });
+
+                if (resultados.length === 0) {
+                    return { status: 'error', message: 'No se encontraron participantes con esa fecha de nacimiento.' };
+                }
+
+                return { status: 'exito', resultados: resultados };
+
+            } else if (data.action === 'listarPorTutora') {
+                // CORRECCIÓN CLAVE: El filtro usa el 'tutora_id' generado en el mapeo.
+                const tutoraId = data.tutoraId;
+                const ahora = new Date().getTime();
+
+                const participantes = participantesCache
+                    .filter(p => p.tutora_id === tutoraId)
+                    .map(p => {
+                        let estadoTutora = 'incompleto';
+                        if (p.participante_estado === 'Completo') {
+                            if (!p.fechaGuardado) {
+                                estadoTutora = 'completo';
+                            } else {
+                                const limiteMs = p.fechaGuardado + 30 * 60 * 1000;
+                                if (ahora > limiteMs) {
+                                    estadoTutora = 'bloqueado';
+                                } else {
+                                    estadoTutora = 'completo';
+                                }
+                            }
+                        }
+                        return { ...p, estado: estadoTutora };
+                    });
+
+                return { status: 'exito', participantes: participantes };
+
+            } else if (data.action === 'guardar') {
+                showSaveAnimation(true);
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error HTTP! status: ${response.status}`);
+                }
+                const result = await response.json();
+
+                if (result.status === 'guardado') {
+                    const participanteIndex = participantesCache.findIndex(p => p.fila === data.fila);
+                    if (participanteIndex !== -1) {
+                        // Actualizar el caché local con los nuevos datos
+                        participantesCache[participanteIndex].fechaGuardado = result.fechaGuardado;
+                        if (data.mode === 'publico') {
+                            participantesCache[participanteIndex].participante_estado = 'Completo';
+                        }
+                        Object.keys(data).forEach(key => {
+                            if (key !== 'action' && key !== 'mode' && key !== 'fila') {
+                                participantesCache[participanteIndex][key] = data[key];
+                            }
+                        });
+                        if (isChartJsLoaded) updateGlobalStats();
+                    }
+                }
+                return result;
+            }
+
+            return { status: 'error', message: 'Acción no válida.' };
+        }
+
+
+        // ==================== LÓGICA DE ACCESO PÚBLICO ====================
+
+        $('form-busqueda').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!dataLoaded) {
+                mostrarMensaje($('mensaje-busqueda'), 'El sistema aún está cargando. Por favor, espere o acepte los términos.', 'alerta');
                 return;
             }
-            
-            $('titulo-gestion-tutora').textContent = `2. Gestión de Participantes de ${tutoraSeleccionada}`;
-            $('lista-participantes-tutora').innerHTML = '<p style="text-align:center;">Cargando lista (localmente)...</p>';
-            $formularioTutora.style.display = 'none';
-            $('mensaje-guardado-tutora').style.display = 'none';
-            
-            const data = { action: 'listarPorTutora', tutora: tutoraSeleccionada };
-            const result = await sendToAppsScript(data); // ¡Filtro local!
+
+            $resultados.style.display = 'none';
+            $formularioPublico.style.display = 'none';
+            mostrarMensaje($('mensaje-busqueda'), 'Buscando participantes...', 'confirmacion');
+
+            const dia = $('dia').value, mes = $('mes').value, ano = $('ano').value;
+            if (!dia || !mes || !ano) {
+                mostrarMensaje($('mensaje-busqueda'), 'Por favor, complete todos los campos de fecha.', 'alerta');
+                return;
+            }
+
+            const diaFormateado = String(dia).padStart(2, '0');
+            const mesFormateado = String(mes).padStart(2, '0');
+            // CORRECCIÓN: El Apps Script usa DD/MM/YYYY, por eso debe ser 'dd/MM/yyyy'
+            const fechaBusqueda = `${diaFormateado}/${mesFormateado}/${ano}`;
+
+            const data = { action: 'buscar', fecha: fechaBusqueda };
+            const result = await sendToAppsScript(data);
 
             if (result.status === 'exito') {
-                renderListaTutora(result.participantes);
+                renderResultadosPublicos(result.resultados);
             } else {
-                $('lista-participantes-tutora').innerHTML = `<p class="mensaje-alerta">${result.message}</p>`;
+                mostrarMensaje($('mensaje-busqueda'), result.message || 'Ocurrió un error desconocido.', 'alerta');
             }
         });
 
-        function renderListaTutora(participantes) {
-            const lista = $('lista-participantes-tutora');
-            lista.innerHTML = '';
+        function renderResultadosPublicos(resultados) {
+            const listaResultados = $('lista-resultados');
+            if (!listaResultados) return;
+            listaResultados.innerHTML = '';
+            $('mensaje-busqueda').style.display = 'none';
 
-            participantes.sort((a, b) => {
-                if (a.estado === 'incompleto' && b.estado !== 'incompleto') return -1;
-                if (a.estado !== 'incompleto' && b.estado === 'incompleto') return 1;
-                return a.nombre.localeCompare(b.nombre);
-            });
-
-            if (participantes.length === 0) {
-                 lista.innerHTML = '<p style="text-align:center; color:#4b5563;">No hay participantes asignados a esta tutora.</p>';
-                 return;
+            if (resultados.length === 0) {
+                mostrarMensaje($('mensaje-busqueda'), 'No se encontraron participantes con esa fecha de nacimiento.', 'alerta');
+                return;
             }
 
-            participantes.forEach(p => {
-                const item = document.createElement('div');
-                const estadoClass = p.estado === 'completo' ? 'completo' : (p.estado === 'bloqueado' ? 'bloqueado' : 'incompleto');
-                const tagClass = p.estado === 'completo' ? 'tag-completo' : (p.estado === 'bloqueado' ? 'tag-bloqueado' : 'tag-incompleto');
-                const estadoTexto = p.estado === 'completo' ? 'COMPLETO' : (p.estado === 'bloqueado' ? 'BLOQUEADO' : 'INCOMPLETO');
-                
-                item.className = `participante-item ${estadoClass}`;
-                item.innerHTML = `
-                    <span>${p.nombre} (${p.codigo})</span>
-                    <span class="tag-estado ${tagClass}">${estadoTexto}</span>
-                `;
-                item.onclick = () => seleccionarParticipanteTutora(p, item);
-                lista.appendChild(item);
+            $resultados.style.display = 'block';
+
+            resultados.forEach(p => {
+                const button = document.createElement('button');
+                button.className = 'btn-resultado';
+                const estadoTexto = p.estado === 'bloqueado' ? 'BLOQUEADO' : (p.estado === 'editable' ? (p.participante_estado === 'Completo' ? `MODIFICAR (Hasta ${p.fechaBloqueo || 'Ahora'})` : 'PENDIENTE') : 'SELECCIONAR');
+                const estadoClass = p.estado === 'bloqueado' ? 'estado-bloqueado' : (p.participante_estado === 'Completo' ? 'estado-editable' : 'estado-nuevo');
+
+                // Busca el nombre de la tutora en la caché (p.tutora ya viene con el nombre)
+                const nombreTutora = p.tutora || 'Sin asignar';
+
+                button.innerHTML = `
+            <span>${p.nombre} (${p.codigo}) | Tutora: ${nombreTutora}</span>
+            <span class="estado-tag ${estadoClass}">${estadoTexto}</span>
+        `;
+                button.onclick = () => seleccionarParticipantePublico(p, button);
+                listaResultados.appendChild(button);
             });
         }
-        
-        function seleccionarParticipanteTutora(participante, item) {
-             document.querySelectorAll('#lista-participantes-tutora .participante-item').forEach(i => i.classList.remove('selected'));
-             item.classList.add('selected');
 
-             participanteSeleccionado = participante;
-             
-             $('info-participante-seleccionado-tutora').textContent = `Editando: ${participante.nombre} (Código: ${participante.codigo})`;
-             $formularioTutora.style.display = 'block';
-             $('mensaje-guardado-tutora').style.display = 'none';
-             
-             cargarDatosEnFormulario(participante, $('form-datos-tutora'));
-             
-             if (participante.estado === 'bloqueado') {
-                 $('btn-guardar-tutora').disabled = true;
-                 mostrarMensaje($('mensaje-guardado-tutora'), '🔒 El acudiente ya completó el formulario y expiró el tiempo de edición. Solo puede visualizar.', 'alerta');
-             } else {
-                 $('btn-guardar-tutora').disabled = false;
-                 $('mensaje-guardado-tutora').style.display = 'none';
-             }
+        function seleccionarParticipantePublico(participante, btn) {
+            document.querySelectorAll('#lista-resultados .btn-resultado').forEach(b => b.classList.remove('seleccionado'));
+            btn.classList.add('seleccionado');
+
+            participanteSeleccionado = participante;
+
+            const infoParticipante = $('info-participante-seleccionado-publico');
+            if (infoParticipante) {
+                infoParticipante.innerHTML = `
+            <span>👤</span>
+            <span>Participante Seleccionado: <strong>${participante.nombre}</strong> (Código: ${participante.codigo})</span>
+        `;
+            }
+
+            $formularioPublico.style.display = 'block';
+            $('mensaje-guardado-publico').style.display = 'none';
+            $('form-datos-publico').reset();
+
+            if (participante.participante_estado === 'Completo') {
+                cargarDatosEnFormulario(participante, $('form-datos-publico'));
+            }
+
+            if (participante.estado === 'bloqueado') {
+                bloquearFormulario(true, 'Su información ya fue enviada y el tiempo de modificación ha expirado. Solo puede visualizarla.');
+            } else {
+                bloquearFormulario(false, '');
+                if (participante.estado === 'editable' && participante.fechaBloqueo) {
+                    iniciarContador(participante.fechaBloqueo);
+                    mostrarMensaje($('mensaje-guardado-publico'), `Ya tiene datos guardados. Puede modificar hasta las ${participante.fechaBloqueo}.`, 'confirmacion');
+                } else {
+                    const mensajeRestante = $('mensaje-tiempo-restante');
+                    if (mensajeRestante) mensajeRestante.style.display = 'none';
+                }
+            }
+
+            $formularioPublico.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-        
-        $('form-datos-tutora').addEventListener('submit', async (e) => {
+
+        $('form-datos-publico').addEventListener('submit', async (e) => {
             e.preventDefault();
 
             if (!participanteSeleccionado || participanteSeleccionado.estado === 'bloqueado') return;
-            
-            $('btn-guardar-tutora').disabled = true;
-            mostrarMensaje($('mensaje-guardado-tutora'), 'Guardando información como tutora...', 'confirmacion');
+
+            const btnGuardar = $('btn-guardar-publico');
+            if (btnGuardar) btnGuardar.disabled = true;
+
+            showSaveAnimation(true);
 
             const form = e.target;
             const datos = {
                 action: 'guardar',
-                mode: 'tutora', 
+                mode: 'publico',
                 fila: participanteSeleccionado.fila,
                 tipoDocParticipante: form.tipoDocParticipante.value || '',
                 numDocParticipante: form.numDocParticipante.value || '',
@@ -869,25 +2184,471 @@ $('form-datos-publico').addEventListener('submit', async (e) => {
                 tipoDocOtro: form.tipoDocOtro.value || '',
                 numDocOtro: form.numDocOtro.value || ''
             };
-            
+
             try {
-                const result = await sendToAppsScript(datos); // POST al servidor
-                
-                $('btn-guardar-tutora').disabled = false;
-                
+                const result = await sendToAppsScript(datos);
+
+                if (btnGuardar) btnGuardar.disabled = false;
+
                 if (result.status === 'guardado') {
-                    mostrarMensaje($('mensaje-guardado-tutora'), `✅ ${result.message} Los datos han sido actualizados.`, 'confirmacion');
-                    
-                    // Forzamos la recarga de la lista (que usa el caché recién actualizado)
-                    $('btn-cargar-participantes').click(); 
+                    showSaveSuccess();
+                    mostrarMensaje($('mensaje-guardado-publico'), result.message, 'confirmacion');
+
+                    const limiteMs = result.fechaGuardado + 30 * 60 * 1000;
+                    const horaBloqueoStr = new Date(limiteMs).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    iniciarContador(horaBloqueoStr);
+
+                } else if (result.status === 'bloqueado') {
+                    showSaveError('Tiempo Expirado');
+                    bloquearFormulario(true, result.message);
+                    mostrarMensaje($('mensaje-guardado-publico'), result.message, 'alerta');
+
                 } else {
-                    mostrarMensaje($('mensaje-guardado-tutora'), `❌ Error al guardar: ${result.message}`, 'alerta');
+                    showSaveError('Error al Guardar');
+                    mostrarMensaje($('mensaje-guardado-publico'), `Error al guardar: ${result.message}`, 'alerta');
                 }
             } catch (error) {
-                $('btn-guardar-tutora').disabled = false;
-                mostrarMensaje($('mensaje-guardado-tutora'), `❌ Error de red o servidor: ${error.message}`, 'alerta');
+                if (btnGuardar) btnGuardar.disabled = false;
+                showSaveError('Error de Conexión');
+                mostrarMensaje($('mensaje-guardado-publico'), `Error de red o servidor: ${error.message}`, 'alerta');
             }
+        });
+
+
+        // ==================== LÓGICA DE ACCESO TUTORA / ADMIN ====================
+
+        $('form-login').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const user = $('login-user').value.toLowerCase();
+            const pass = $('login-pass').value;
+
+            let role = null;
+            let userId = null;
+            let userName = null;
+
+            if (user === TUTORA_USER && pass === TUTORA_PASS) {
+                role = 'tutora';
+
+                // CORRECCIÓN: Usamos la primera tutora real de nuestra caché
+                const tutora = tutorasCache.find(t => t.role === 'tutora');
+                if (tutora) {
+                    userId = tutora.id;
+                    userName = tutora.nombre;
+                } else {
+                    mostrarMensaje($('mensaje-login'), 'Acceso denegado: No se encontraron tutoras registradas en el sistema.', 'alerta');
+                    return;
+                }
+
+            } else if (user === ADMIN_USER && pass === ADMIN_PASS) {
+                role = 'admin';
+                userId = ADMIN_USER;
+                userName = 'Admin General';
+            }
+
+            if (role) {
+                sessionCache.user = { role: role, id: userId, nombre: userName };
+                mostrarMensaje($('mensaje-login'), `Acceso concedido como ${userName}.`, 'confirmacion');
+                $('mensaje-login').style.display = 'block';
+                $login.style.display = 'none';
+
+                const tabBtnAdmin = $('tab-btn-admin');
+                if (tabBtnAdmin) tabBtnAdmin.style.display = 'none';
+                $gestionTutora.style.display = 'none';
+
+                if (role === 'admin') {
+                    if (tabBtnAdmin) tabBtnAdmin.style.display = 'block';
+                    cambiarTab('tab-admin');
+                    if (dataLoaded) filtrarParticipantesAdmin();
+                } else if (role === 'tutora') {
+                    $gestionTutora.style.display = 'block';
+                    cambiarTab('tab-tutora');
+                    $('titulo-gestion-tutora').innerHTML = `<span class="paso-numero">2</span> <span>Gestión de Participantes (${userName})</span>`;
+                    $('select-tutora').value = userId;
+                }
+
+            } else {
+                mostrarMensaje($('mensaje-login'), 'Usuario o contraseña incorrectos.', 'alerta');
+            }
+        });
+
+        $('btn-cargar-participantes').addEventListener('click', async () => {
+            const tutoraId = $('select-tutora').value;
+            const tutoraNombre = tutorasCache.find(t => t.id === tutoraId)?.nombre || 'Su Tutora';
+
+            if (!tutoraId) {
+                mostrarMensaje($('mensaje-login'), 'Por favor, seleccione su nombre.', 'alerta');
+                return;
+            }
+
+            $('titulo-gestion-tutora').innerHTML = `
+        <span class="paso-numero">2</span>
+        <span>Gestión de Participantes de ${tutoraNombre}</span>
+    `;
+            const listaParticipantesTutora = $('lista-participantes-tutora');
+            if (listaParticipantesTutora) {
+                listaParticipantesTutora.innerHTML = '<p style="text-align:center; padding: 40px; color: var(--color-texto-light);"><span class="spinner-inline" style="width: 20px; height: 20px; border-width: 3px; border-color: var(--color-primario); border-top-color: transparent;"></span> Cargando lista...</p>';
+            }
+
+            $formularioTutora.style.display = 'none';
+            $('mensaje-guardado-tutora').style.display = 'none';
+
+            const tutoraStatsBox = $('tutora-stats-box');
+            if (tutoraStatsBox) tutoraStatsBox.style.display = 'none';
+
+            // CORRECCIÓN CLAVE: El filtro usa el 'tutora_id'
+            const data = { action: 'listarPorTutora', tutoraId: tutoraId };
+            const result = await sendToAppsScript(data);
+
+            if (result.status === 'exito') {
+                renderListaTutora(result.participantes);
+            } else {
+                if (listaParticipantesTutora) {
+                    listaParticipantesTutora.innerHTML = `<p class="mensaje-alerta" style="text-align: center;">${result.message}</p>`;
+                }
+            }
+        });
+
+        function renderListaTutora(participantes) {
+            const lista = $('lista-participantes-tutora');
+            if (!lista) return;
+
+            lista.innerHTML = '';
+
+            const total = participantes.length;
+            const completos = participantes.filter(p => p.estado === 'completo' || p.estado === 'bloqueado').length;
+            const porcentaje = total > 0 ? ((completos / total) * 100).toFixed(1) : 0;
+
+            const tutoraStatsBox = $('tutora-stats-box');
+            if (tutoraStatsBox) tutoraStatsBox.style.display = 'block';
+            const statsTutoraRatio = $('stats-tutora-ratio');
+            if (statsTutoraRatio) statsTutoraRatio.value = `${completos}/${total}`;
+            const statsTutoraPorcentaje = $('stats-tutora-porcentaje');
+            if (statsTutoraPorcentaje) statsTutoraPorcentaje.value = `${porcentaje}%`;
+
+
+            participantes.sort((a, b) => {
+                if (a.estado === 'incompleto' && b.estado !== 'incompleto') return -1;
+                if (a.estado !== 'incompleto' && b.estado === 'incompleto') return 1;
+                return a.nombre.localeCompare(b.nombre);
+            });
+
+            if (participantes.length === 0) {
+                lista.innerHTML = '<p style="text-align:center; color:#4b5563;">No hay participantes asignados a esta tutora.</p>';
+                return;
+            }
+
+            participantes.forEach(p => {
+                const item = document.createElement('div');
+                const estadoClass = p.estado === 'completo' ? 'completo' : (p.estado === 'bloqueado' ? 'bloqueado' : 'incompleto');
+                const tagClass = p.estado === 'completo' ? 'tag-completo' : (p.estado === 'bloqueado' ? 'tag-bloqueado' : 'tag-incompleto');
+                const estadoTexto = p.estado === 'completo' ? 'COMPLETO' : (p.estado === 'bloqueado' ? 'BLOQUEADO' : 'INCOMPLETO');
+
+                item.className = `participante-item ${estadoClass}`;
+                item.innerHTML = `
+            <span>${p.nombre} (${p.codigo})</span>
+            <span class="tag-estado ${tagClass}">${estadoTexto}</span>
+        `;
+                item.onclick = () => seleccionarParticipanteTutora(p, item);
+                lista.appendChild(item);
+            });
+        }
+
+        function seleccionarParticipanteTutora(participante, item) {
+            document.querySelectorAll('#lista-participantes-tutora .participante-item').forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+
+            participanteSeleccionado = participante;
+
+            const infoParticipante = $('info-participante-seleccionado-tutora');
+            if (infoParticipante) {
+                infoParticipante.innerHTML = `
+            <span>✏️</span>
+            <span>Editando: <strong>${participante.nombre}</strong> (Código: ${participante.codigo})</span>
+        `;
+            }
+
+            $formularioTutora.style.display = 'block';
+            $('mensaje-guardado-tutora').style.display = 'none';
+
+            cargarDatosEnFormulario(participante, $('form-datos-tutora'));
+
+            const btnGuardar = $('btn-guardar-tutora');
+            if (btnGuardar) btnGuardar.disabled = participante.estado === 'bloqueado';
+
+            if (participante.estado === 'bloqueado') {
+                mostrarMensaje($('mensaje-guardado-tutora'), 'El acudiente ya completó el formulario y expiró el tiempo de edición. Solo puede visualizar.', 'alerta');
+            } else {
+                $('mensaje-guardado-tutora').style.display = 'none';
+            }
+
+            $formularioTutora.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        $('form-datos-tutora').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!participanteSeleccionado || participanteSeleccionado.estado === 'bloqueado') return;
+
+            const btnGuardar = $('btn-guardar-tutora');
+            if (btnGuardar) btnGuardar.disabled = true;
+
+            showSaveAnimation(true);
+
+            const form = e.target;
+            const datos = {
+                action: 'guardar',
+                mode: 'tutora',
+                fila: participanteSeleccionado.fila,
+                tipoDocParticipante: form.tipoDocParticipante.value || '',
+                numDocParticipante: form.numDocParticipante.value || '',
+                tipoDocMama: form.tipoDocMama.value || '',
+                numDocMama: form.numDocMama.value || '',
+                tipoDocPapa: form.tipoDocPapa.value || '',
+                numDocPapa: form.numDocPapa.value || '',
+                parentescoOtro: form.parentescoOtro.value || '',
+                tipoDocOtro: form.tipoDocOtro.value || '',
+                numDocOtro: form.numDocOtro.value || ''
+            };
+
+            try {
+                const result = await sendToAppsScript(datos);
+
+                if (btnGuardar) btnGuardar.disabled = false;
+
+                if (result.status === 'guardado') {
+                    showSaveSuccess();
+                    mostrarMensaje($('mensaje-guardado-tutora'), `${result.message} Los datos han sido actualizados.`, 'confirmacion');
+
+                    setTimeout(() => {
+                        const btnCargar = $('btn-cargar-participantes');
+                        if (btnCargar) btnCargar.click(); // Recargar lista para actualizar estado
+                    }, 1500);
+                } else {
+                    showSaveError('Error al Guardar');
+                    mostrarMensaje($('mensaje-guardado-tutora'), `Error al guardar: ${result.message}`, 'alerta');
+                }
+            } catch (error) {
+                if (btnGuardar) btnGuardar.disabled = false;
+                showSaveError('Error de Conexión');
+                mostrarMensaje($('mensaje-guardado-tutora'), `Error de red o servidor: ${error.message}`, 'alerta');
+            }
+        });
+
+
+        // ==================== DASHBOARD ADMINISTRADOR ====================
+
+        function renderCompletionChart(completos, faltantes) {
+            if (!isChartJsLoaded) return;
+
+            const canvas = $('completionChart');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+
+            if (completionChartInstance) {
+                completionChartInstance.destroy();
+            }
+
+            completionChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['✅ Completados', '❌ Faltantes'],
+                    datasets: [{
+                        data: [completos, faltantes],
+                        backgroundColor: [
+                            'rgba(16, 185, 129, 0.8)',
+                            'rgba(239, 68, 68, 0.8)'
+                        ],
+                        hoverOffset: 8,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: { boxWidth: 15, padding: 15 }
+                        },
+                        title: { display: false }
+                    }
+                }
+            });
+        }
+
+        function renderTutoraBreakdown(participantes) {
+            const breakdownContainer = $('admin-tutora-breakdown');
+            if (!breakdownContainer) return;
+
+            breakdownContainer.innerHTML = '';
+
+            const statsByTutora = participantes.reduce((acc, p) => {
+                // Usa el tutora_id (limpio) para agrupar, pero el nombre original para mostrar
+                const tutoraId = p.tutora_id || 'ID_SIN_ASIGNAR';
+                const name = p.tutora || `ID: ${p.tutora_id} (No Asignada)`;
+
+                if (!acc[name]) {
+                    acc[name] = { total: 0, completos: 0 };
+                }
+                acc[name].total++;
+
+                if (p.participante_estado === 'Completo') {
+                    acc[name].completos++;
+                }
+                return acc;
+            }, {});
+
+            const sortedTutoras = Object.keys(statsByTutora).sort();
+
+            sortedTutoras.forEach(name => {
+                const stats = statsByTutora[name];
+                const item = document.createElement('div');
+
+                const ratioText = `${stats.completos}/${stats.total}`;
+                const ratioPercent = stats.total > 0 ? ((stats.completos / stats.total) * 100).toFixed(0) : 0;
+
+                item.className = 'btn-resultado';
+                item.style.backgroundColor = 'var(--color-fondo)';
+                item.style.border = '2px solid var(--color-secundario-light)';
+
+                const isComplete = stats.completos === stats.total;
+
+                item.innerHTML = `
+            <div>
+                <strong style="color: var(--color-primario);">${name}</strong>
+            </div>
+            <div style="font-weight: 700; font-size: 1.2rem; color: ${isComplete ? 'var(--color-exito)' : 'var(--color-warning)'}">
+                ${ratioText} 
+                <span style="font-size: 0.9rem; font-weight: 500; color: var(--color-texto-light);">(${ratioPercent}%)</span>
+            </div>
+        `;
+                breakdownContainer.appendChild(item);
+            });
+        }
+
+        function updateGlobalStats() {
+            if (!dataLoaded) return;
+
+            const total = participantesCache.length;
+            const completos = participantesCache.filter(p => p.participante_estado === 'Completo').length;
+            const faltantes = total - completos;
+            const porcentaje = total > 0 ? ((completos / total) * 100).toFixed(1) : 0;
+
+            const statsTotalGeneral = $('stats-total-general');
+            if (statsTotalGeneral) statsTotalGeneral.value = total;
+            const statsCompletadosGeneral = $('stats-completados-general');
+            if (statsCompletadosGeneral) statsCompletadosGeneral.value = completos;
+            const statsFaltantesGeneral = $('stats-faltantes-general');
+            if (statsFaltantesGeneral) statsFaltantesGeneral.value = faltantes;
+            const statsPorcentajeGeneral = $('stats-porcentaje-general');
+            if (statsPorcentajeGeneral) statsPorcentajeGeneral.value = `${porcentaje}%`;
+
+            if (isChartJsLoaded) renderCompletionChart(completos, faltantes);
+
+            renderTutoraBreakdown(participantesCache);
+        }
+
+        function filtrarParticipantesAdmin() {
+            const tutoraFiltro = $('admin-select-tutora').value; // Es un ID limpio (tutora_id)
+            const estadoFiltro = $('admin-select-estado').value;
+            const listaAdmin = $('lista-participantes-admin');
+            if (!listaAdmin) return;
+
+            listaAdmin.innerHTML = '';
+
+            let participantesFiltrados = participantesCache;
+
+            if (tutoraFiltro && tutoraFiltro !== 'todos') {
+                // CORRECCIÓN CLAVE: El filtro usa el 'tutora_id'
+                participantesFiltrados = participantesFiltrados.filter(p => p.tutora_id === tutoraFiltro);
+            }
+
+            if (estadoFiltro && estadoFiltro !== 'todos') {
+                participantesFiltrados = participantesFiltrados.filter(p => p.participante_estado.toLowerCase() === estadoFiltro);
+            }
+
+            if (participantesFiltrados.length === 0) {
+                listaAdmin.innerHTML = '<p style="text-align:center; padding: 40px; color: var(--color-texto-light);">No hay participantes que coincidan con los filtros.</p>';
+            } else {
+                participantesFiltrados.forEach(p => {
+                    const btn = document.createElement('button');
+                    const estado = p.participante_estado;
+                    const estadoClass = estado === 'Completo' ? 'completo' : 'incompleto';
+                    const tagClass = estado === 'Completo' ? 'tag-completo' : 'tag-incompleto';
+
+                    btn.className = `btn-resultado ${estadoClass}`;
+                    btn.type = 'button';
+
+                    const nombreTutora = p.tutora || 'Sin asignar';
+
+                    btn.innerHTML = `
+                <div>
+                    <strong style="font-size: 1.1rem; color: var(--color-texto);">${p.nombre}</strong>
+                    <p style="font-size: 0.9rem; color: var(--color-texto-light); margin-top: 5px;">
+                        <span style="font-weight: 700;">Tutora:</span> ${nombreTutora} | 
+                        <span style="font-weight: 700;">ID:</span> ${p.participante_id}
+                    </p>
+                </div>
+                <div class="tag-estado ${tagClass}">${estado.toUpperCase()}</div>
+            `;
+
+                    listaAdmin.appendChild(btn);
+                });
+            }
+
+            const totalFiltrado = participantesFiltrados.length;
+            const completosFiltrados = participantesFiltrados.filter(p => p.participante_estado === 'Completo').length;
+            const porcentajeFiltrado = totalFiltrado > 0 ? ((completosFiltrados / totalFiltrado) * 100).toFixed(1) : 0;
+
+            const statsTotalParticipantes = $('stats-total-participantes');
+            if (statsTotalParticipantes) statsTotalParticipantes.value = totalFiltrado;
+            const statsPorcentajeCompleto = $('stats-porcentaje-completo');
+            if (statsPorcentajeCompleto) statsPorcentajeCompleto.value = `${porcentajeFiltrado}%`;
+        }
+
+        // ==================== INICIALIZACIÓN DE EVENTOS ====================
+
+        function initTermsButton() {
+            const termsLink = $('terms-link');
+            if (termsLink) termsLink.addEventListener('click', () => { showTermsModal(); });
+
+            const btnAccept = $('btn-accept-terms');
+            if (btnAccept) btnAccept.addEventListener('click', async () => {
+                hideTermsModal();
+                await loadAllSheetData();
+            });
+
+            const btnDecline = $('btn-decline-terms');
+            if (btnDecline) btnDecline.addEventListener('click', () => {
+                alert('Debe aceptar los términos y condiciones para utilizar el sistema.');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // ⚠️ Re-verificar si Chart.js se cargó, para el dashboard
+            isChartJsLoaded = typeof Chart !== 'undefined';
+
+            showTermsModal();
+
+            // Llamadas a funciones auxiliares
+            initFechaSelects();
+            initFormularioTemplates();
+            initTabs();
+            initTermsButton();
+
+            document.querySelectorAll('.anim-entrada').forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+            });
+
+            // Eventos de filtros del Administrador
+            const adminSelectTutora = $('admin-select-tutora');
+            if (adminSelectTutora) adminSelectTutora.addEventListener('change', filtrarParticipantesAdmin);
+            const adminSelectEstado = $('admin-select-estado');
+            if (adminSelectEstado) adminSelectEstado.addEventListener('change', filtrarParticipantesAdmin);
         });
     </script>
 </body>
+
 </html>
