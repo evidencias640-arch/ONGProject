@@ -209,106 +209,248 @@
 
     <script>
 /* ========================================================= */
-        /* JAVASCRIPT LOGIC (CONEXIÓN Y LÓGICA DE TUTORA)            */
+        /* JAVASCRIPT LOGIC (CACHE LOCAL Y ACCESO DIRECTO)           */
         /* ========================================================= */
         
-        // ⚠️ PEGA AQUÍ LA URL DE TU APLICACIÓN WEB DE APPS SCRIPT
-        // Esta URL DEBE ser la del despliegue FINAL y debe tener doGET configurado.
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwEeROKc3a-yqO8kwju8u-0YZ81nZmyo3BJojjmuKYJfUwAtdc4kZhwl0BCPk2VBQ4BVQ/exec'; 
+        // ⚠️ YA CON TU URL PEGADA. ¡NO NECESITAS CAMBIAR ESTA LÍNEA!
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwonxJFcBXA896eyTkVE50iemCZRJzjvKpZN-PcXOA_ktgam5isOz9tOE9ZvAKsxY13jw/exec';  
         
-        // --- Credenciales y Data Mock (DEBE SER SEGURO EN PRODUCCIÓN) ---
+        // --- Credenciales y Data ---
         const TUTORA_USER = 'Tutora678';
         const TUTORA_PASS = 'tutora678'; 
         const TUTORAS_DISPONIBLES = ['Clara López', 'Marta Pineda', 'Laura Gil', 'Otro/Administrador']; 
 
-        // --- Estado Global ---
+        // --- Estado Global y Caché ---
         let participanteSeleccionado = null;
         let modoActual = 'publico'; 
         let timerBloqueo = null;
         const SELECT_BASE_OP = '<option value="">Seleccione...</option>';
-
+        
+        let sheetData = []; // CACHÉ: Almacena TODOS los datos de Sheets
+        let dataLoaded = false;
+        
         // --- DOM Elements ---
-        const $ = id => document.getElementById(id); // Helper simple
+        const $ = id => document.getElementById(id); 
         const $busqueda = $('seccion-busqueda'), $resultados = $('seccion-resultados'), $formularioPublico = $('seccion-formulario-publico');
         const $login = $('seccion-login'), $gestionTutora = $('seccion-gestion-tutora'), $formularioTutora = $('seccion-formulario-tutora');
 
         // ----------------------------------------------------
-        // 1. SETUP INICIAL, TABS E INICIALIZACIÓN IFRAME 🔑
+        // 1. CONEXIÓN Y UTILIDADES GENERALES (MÉTODO GET Y POST) 🔑
         // ----------------------------------------------------
+
+        /** Carga todos los datos de la hoja (GET) al inicio para usar el caché local. */
+        async function loadAllSheetData() {
+            mostrarMensaje($('mensaje-busqueda'), 'Inicializando sistema (cargando datos)...', 'confirmacion');
+            try {
+                // ❌ SE HA ELIMINADO EL CHEQUEO DE VALIDACIÓN DE URL ❌
+                
+                const response = await fetch(APPS_SCRIPT_URL, { method: 'GET' });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.status === 'exito') {
+                    sheetData = result.data;
+                    dataLoaded = true;
+                    mostrarMensaje($('mensaje-busqueda'), 'Sistema listo. Ingrese la fecha o inicie sesión.', 'confirmacion');
+                    return { status: 'exito' };
+                } else {
+                    throw new Error(result.message || 'Error al cargar los datos iniciales.');
+                }
+            } catch (error) {
+                console.error('Error al cargar datos iniciales:', error);
+                mostrarMensaje($('mensaje-busqueda'), `❌ Error crítico al inicializar (GET): ${error.message}. Verifique el Apps Script y que el ID sea correcto.`, 'alerta');
+                return { status: 'error', message: error.message };
+            }
+        }
         
-        // 🔑 Variables para la comunicación Iframe
-        let iframeReady = false;
-        let iframeElement = null;
-        let requestQueue = {};
-        let requestIdCounter = 0;
-        const SCRIPT_ORIGIN = new URL(APPS_SCRIPT_URL).origin;
+        /** Usa el caché local para buscar o filtrar, y hace POST para guardar. */
+        async function sendToAppsScript(data) {
+            // Asegura que los datos estén cargados antes de cualquier acción.
+            if (!dataLoaded) {
+                const initResult = await loadAllSheetData();
+                if (initResult.status !== 'exito') return initResult;
+            }
 
-        /** Inicializa el iframe invisible para evitar el CORS. */
-        function initIframe() {
-            iframeElement = document.createElement('iframe');
-            iframeElement.id = 'appsScriptIframe';
-            iframeElement.src = APPS_SCRIPT_URL; // Carga el Apps Script
-            iframeElement.style.display = 'none'; // Es invisible
-            document.body.appendChild(iframeElement);
+            if (data.action === 'buscar') {
+                // LÓGICA DE BÚSQUEDA LOCAL (INSTANTÁNEA)
+                const fechaBusqueda = data.fecha;
+                const ahora = new Date().getTime();
+                
+                const resultados = sheetData
+                    .filter(p => p.fechaNacimiento === fechaBusqueda)
+                    .map(p => {
+                        let estado = 'nuevo';
+                        let fechaBloqueo = null;
+                        
+                        if (p.fechaGuardado) {
+                            const limiteMs = p.fechaGuardado + 30 * 60 * 1000;
+                            if (ahora > limiteMs) {
+                                estado = 'bloqueado';
+                            } else {
+                                estado = 'editable';
+                                fechaBloqueo = new Date(limiteMs).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                            }
+                        }
+                        return { ...p, estado: estado, fechaBloqueo: fechaBloqueo };
+                    });
+                    
+                return { status: 'exito', resultados: resultados };
+                
+            } else if (data.action === 'listarPorTutora') {
+                // LÓGICA DE FILTRADO LOCAL (INSTANTÁNEA)
+                const tutoraNombre = data.tutora;
+                const ahora = new Date().getTime();
 
-            // Escuchamos las respuestas que vienen del Apps Script (el iframe)
-            window.addEventListener('message', handleIframeResponse, false);
-            
-            // Cuando el iframe cargue, estará listo para enviar mensajes
-            iframeElement.onload = () => {
-                iframeReady = true;
-                console.log("Apps Script Iframe cargado y listo para comunicación.");
-                // Despacha cualquier petición en cola si la hay
-                for (let id in requestQueue) {
-                    if (requestQueue[id].sent === false) {
-                        sendPayloadToIframe(requestQueue[id].payload);
-                        requestQueue[id].sent = true;
+                const participantes = sheetData
+                    .filter(p => p.tutora === tutoraNombre)
+                    .map(p => {
+                        let estado = 'incompleto'; 
+                        if (p.fechaGuardado) {
+                           const limiteMs = p.fechaGuardado + 30 * 60 * 1000;
+                           if (ahora > limiteMs) {
+                               estado = 'bloqueado';
+                           } else {
+                               estado = 'completo';
+                           }
+                        }
+                        return { ...p, estado: estado };
+                    });
+                    
+                return { status: 'exito', participantes: participantes };
+                
+            } else if (data.action === 'guardar') {
+                // LÓGICA DE GUARDADO (POST directo al Apps Script)
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: { 'Content-Type': 'text/plain' }, // CRÍTICO: Usar text/plain para Apps Script
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP! status: ${response.status}`);
+                }
+                const result = await response.json();
+
+                if (result.status === 'guardado') {
+                    // Actualizar el caché local después del guardado exitoso
+                    const filaIndex = sheetData.findIndex(p => p.fila === data.fila);
+                    if (filaIndex !== -1) {
+                         // Actualizar datos y tiempo de guardado en el caché local
+                         sheetData[filaIndex].fechaGuardado = result.fechaGuardado; 
+                         sheetData[filaIndex].tipoDocParticipante = data.tipoDocParticipante;
+                         sheetData[filaIndex].numDocParticipante = data.numDocParticipante;
+                         sheetData[filaIndex].tipoDocMama = data.tipoDocMama;
+                         sheetData[filaIndex].numDocMama = data.numDocMama;
+                         sheetData[filaIndex].tipoDocPapa = data.tipoDocPapa;
+                         sheetData[filaIndex].numDocPapa = data.numDocPapa;
+                         sheetData[filaIndex].parentescoOtro = data.parentescoOtro;
+                         sheetData[filaIndex].tipoDocOtro = data.tipoDocOtro;
+                         sheetData[filaIndex].numDocOtro = data.numDocOtro;
                     }
                 }
-            };
-        }
-        
-        /** Función para manejar las respuestas que vienen del iframe (Apps Script). */
-        function handleIframeResponse(event) {
-            // Seguridad: El origen del mensaje DEBE ser el Apps Script
-            if (event.origin !== SCRIPT_ORIGIN) {
-                console.warn("Respuesta ignorada: origen Apps Script desconocido.");
-                return;
+                return result;
             }
             
-            const response = event.data;
-            if (response.status === 'response' && requestQueue[response.id]) {
-                // Resuelve la Promesa con los datos recibidos
-                requestQueue[response.id].resolve(response.data);
-                delete requestQueue[response.id];
-            } else if (response.status === 'error' && requestQueue[response.id]) {
-                // Rechaza la Promesa si hay un error
-                requestQueue[response.id].reject(new Error(response.data.error || 'Error desconocido en Apps Script.'));
-                delete requestQueue[response.id];
+            return { status: 'error', message: 'Acción no válida.' };
+        }
+
+        // --- Resto de funciones auxiliares ---
+
+        function mostrarMensaje(elemento, texto, tipo) {
+            elemento.textContent = texto;
+            elemento.style.display = 'block';
+            elemento.className = '';
+            
+            if (tipo === 'alerta') {
+                elemento.classList.add('mensaje-alerta');
+            } else if (tipo === 'confirmacion') {
+                elemento.classList.add('mensaje-confirmacion');
+            } else if (tipo === 'tiempo') {
+                elemento.classList.add('mensaje-tiempo-restante');
             }
         }
         
-        /** Función auxiliar para enviar el mensaje al iframe. */
-        function sendPayloadToIframe(payload) {
-             iframeElement.contentWindow.postMessage({
-                 action: 'execute',
-                 payload: payload
-             }, SCRIPT_ORIGIN);
+        /** Inicia el contador de 30 minutos (solo para acceso público). */
+        function iniciarContador(horaBloqueoStr) {
+            if (timerBloqueo) clearInterval(timerBloqueo);
+
+            const partes = horaBloqueoStr.split(':');
+            let horaBloqueo = new Date();
+            
+            horaBloqueo.setHours(Number(partes[0]));
+            horaBloqueo.setMinutes(Number(partes[1]));
+            horaBloqueo.setSeconds(Number(partes[2] || 0)); 
+            horaBloqueo.setMilliseconds(0);
+
+            // Ajuste para el día siguiente si ya pasó la hora
+            if (horaBloqueo.getTime() < new Date().getTime() - (5 * 60 * 1000)) { // 5 minutos de buffer
+                horaBloqueo = new Date(horaBloqueo.getTime() + 24 * 60 * 60 * 1000); 
+            }
+
+            const actualizarContador = () => {
+                const ahora = new Date();
+                let diferenciaMs = horaBloqueo.getTime() - ahora.getTime();
+
+                if (diferenciaMs <= 0) {
+                    clearInterval(timerBloqueo);
+                    bloquearFormulario(true, 'El tiempo de 30 minutos ha expirado. El formulario está bloqueado.');
+                    // Forzar actualización del listado de resultados (para que el botón diga BLOQUEADO)
+                    $('btn-buscar').click(); 
+                    return;
+                }
+
+                const minutos = Math.floor(diferenciaMs / (1000 * 60));
+                const segundos = Math.floor((diferenciaMs % (1000 * 60)) / 1000);
+
+                mostrarMensaje($('mensaje-tiempo-restante'), `⏳ Tiempo restante para modificar: ${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`, 'tiempo');
+            };
+
+            actualizarContador();
+            timerBloqueo = setInterval(actualizarContador, 1000);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        /** Bloquea o desbloquea todos los campos del formulario público. */
+        function bloquearFormulario(bloquear, mensaje) {
+            const formElement = $('form-datos-publico');
+            const btnGuardar = $('btn-guardar-publico');
+            const inputs = formElement.querySelectorAll('input, select');
+            
+            inputs.forEach(input => { input.disabled = bloquear; });
+            btnGuardar.disabled = bloquear;
+
+            if (bloquear) {
+                $('mensaje-tiempo-restante').textContent = `🔒 ${mensaje}`;
+                $('mensaje-tiempo-restante').style.display = 'block';
+                $('mensaje-tiempo-restante').classList.add('estado-bloqueado');
+                clearInterval(timerBloqueo);
+            } else {
+                $('mensaje-tiempo-restante').style.display = 'none';
+                $('mensaje-tiempo-restante').classList.remove('estado-bloqueado');
+            }
+        }
+        
+        // --- Lógica de Inicialización ---
+        document.addEventListener('DOMContentLoaded', async () => {
             initFechaSelects();
             initTutoraSelect();
             initFormularioTemplates();
             initTabs();
-            initIframe(); // 🔑 Inicializar el iframe aquí
-            // Aplicar animación
+            
+            // 🔑 Carga inicial de datos al inicio (GET)
+            await loadAllSheetData(); 
+            
             document.querySelectorAll('.anim-entrada').forEach((el, index) => {
                 el.style.animationDelay = `${index * 0.1}s`;
             });
         });
-        
-        /** Controla el cambio de pestañas. */
+
+        // --- Lógica de Tabs, Selects, FormTemplates (Se mantiene) ---
+
         function initTabs() {
             document.querySelectorAll('.tab-btn').forEach(button => {
                 button.addEventListener('click', () => {
@@ -333,7 +475,6 @@
             });
         }
         
-        /** Inicializa los selects de Día, Mes, Año y Tutora. */
         function initFechaSelects() {
             const diaSelect = $('dia'), mesSelect = $('mes'), anoSelect = $('ano');
 
@@ -358,7 +499,6 @@
             }
         }
         
-        /** Inicializa el select de Tutora. */
         function initTutoraSelect() {
             const selectTutora = $('select-tutora');
             selectTutora.innerHTML = SELECT_BASE_OP;
@@ -367,7 +507,6 @@
             });
         }
         
-        /** Crea la estructura de campos del formulario (para reutilización). */
         function initFormularioTemplates() {
             const template = `
                 <fieldset>
@@ -455,7 +594,6 @@
             $('form-datos-tutora').innerHTML = template; 
         }
         
-        /** Función para precargar los datos en el formulario. */
         function cargarDatosEnFormulario(participante, formElement) {
             formElement.querySelectorAll('input, select').forEach(field => {
                 const key = field.name;
@@ -464,109 +602,7 @@
                 }
             });
         }
-
-
-        // ----------------------------------------------------
-        // 2. CONEXIÓN Y UTILIDADES GENERALES (MÉTODO IFRAME) 🔑
-        // ----------------------------------------------------
-
-        /** Envía datos al Apps Script (postMessage method) forzando la comunicación. */
-        async function sendToAppsScript(data) {  
-            return new Promise((resolve, reject) => {
-                const id = ++requestIdCounter;
-                const payload = { ...data, id: id };
-                
-                requestQueue[id] = { resolve, reject, payload, sent: false };
-
-                if (iframeReady) {
-                    sendPayloadToIframe(payload);
-                    requestQueue[id].sent = true;
-                } else {
-                    console.warn("Iframe no listo. Petición en cola.");
-                }
-            }).then(response => {
-                // El error de red/fetch CORS ha sido reemplazado por errores de la Promesa/Apps Script
-                if (response && response.status === 'error') {
-                    throw new Error(response.message || 'Error desconocido del Apps Script.');
-                }
-                return response;
-            }).catch(error => {
-                console.error('Error de comunicación interna (postMessage):', error);
-                return { 
-                    status: 'error', 
-                    message: `Error de comunicación interna con Apps Script: ${error.message}` 
-                };
-            });
-        }
         
-        // El resto de las funciones (mostrarMensaje, iniciarContador, bloquearFormulario) se mantienen igual
-        
-        function mostrarMensaje(elemento, texto, tipo) {
-            elemento.textContent = texto;
-            elemento.style.display = 'block';
-            elemento.className = '';
-            
-            if (tipo === 'alerta') {
-                elemento.classList.add('mensaje-alerta');
-            } else if (tipo === 'confirmacion') {
-                elemento.classList.add('mensaje-confirmacion');
-            } else if (tipo === 'tiempo') {
-                elemento.classList.add('mensaje-tiempo-restante');
-            }
-        }
-        
-        /** Inicia el contador de 30 minutos (solo para acceso público). */
-        function iniciarContador(horaBloqueoStr) {
-            if (timerBloqueo) clearInterval(timerBloqueo);
-
-            const partes = horaBloqueoStr.split(':');
-            let horaBloqueo = new Date();
-            
-            horaBloqueo.setHours(Number(partes[0]));
-            horaBloqueo.setMinutes(Number(partes[1]));
-            horaBloqueo.setSeconds(Number(partes[2] || 0)); 
-            horaBloqueo.setMilliseconds(0);
-
-            const actualizarContador = () => {
-                const ahora = new Date();
-                let diferenciaMs = horaBloqueo.getTime() - ahora.getTime();
-
-                if (diferenciaMs <= 0) {
-                    clearInterval(timerBloqueo);
-                    bloquearFormulario(true, 'El tiempo de 30 minutos ha expirado. El formulario está bloqueado.');
-                    return;
-                }
-
-                const minutos = Math.floor(diferenciaMs / (1000 * 60));
-                const segundos = Math.floor((diferenciaMs % (1000 * 60)) / 1000);
-
-                mostrarMensaje($('mensaje-tiempo-restante'), `⏳ Tiempo restante para modificar: ${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`, 'tiempo');
-            };
-
-            actualizarContador();
-            timerBloqueo = setInterval(actualizarContador, 1000);
-        }
-
-        /** Bloquea o desbloquea todos los campos del formulario público. */
-        function bloquearFormulario(bloquear, mensaje) {
-            const formElement = $('form-datos-publico');
-            const btnGuardar = $('btn-guardar-publico');
-            const inputs = formElement.querySelectorAll('input, select');
-            
-            inputs.forEach(input => { input.disabled = bloquear; });
-            btnGuardar.disabled = bloquear;
-
-            if (bloquear) {
-                $('mensaje-tiempo-restante').textContent = `🔒 ${mensaje}`;
-                $('mensaje-tiempo-restante').style.display = 'block';
-                $('mensaje-tiempo-restante').classList.add('estado-bloqueado');
-                clearInterval(timerBloqueo);
-            } else {
-                $('mensaje-tiempo-restante').style.display = 'none';
-                $('mensaje-tiempo-restante').classList.remove('estado-bloqueado');
-            }
-        }
-
         // ----------------------------------------------------
         // 3. LÓGICA DE ACCESO PÚBLICO (BUSQUEDA Y GUARDADO)
         // ----------------------------------------------------
@@ -574,9 +610,14 @@
         $('form-busqueda').addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            if (!dataLoaded) {
+                mostrarMensaje($('mensaje-busqueda'), 'El sistema aún está cargando los datos iniciales. Por favor, espere un momento.', 'alerta');
+                return;
+            }
+            
             $resultados.style.display = 'none';
             $formularioPublico.style.display = 'none';
-            mostrarMensaje($('mensaje-busqueda'), 'Buscando participantes...', 'confirmacion');
+            mostrarMensaje($('mensaje-busqueda'), 'Buscando participantes (localmente)...', 'confirmacion');
 
             const dia = $('dia').value, mes = $('mes').value, ano = $('ano').value;
             if (!dia || !mes || !ano) {
@@ -586,7 +627,7 @@
 
             const fechaBusqueda = `${dia}/${mes}/${ano}`;
             const data = { action: 'buscar', fecha: fechaBusqueda };
-            const result = await sendToAppsScript(data);
+            const result = await sendToAppsScript(data); // ¡Filtro local!
 
             if (result.status === 'exito') {
                 renderResultadosPublicos(result.resultados);
@@ -632,7 +673,7 @@
             $('mensaje-guardado-publico').style.display = 'none';
             $('form-datos-publico').reset(); 
             
-            // Cargar datos si existen
+            // Cargar datos del caché
             if (participante.estado !== 'nuevo') {
                 cargarDatosEnFormulario(participante, $('form-datos-publico'));
             }
@@ -661,6 +702,7 @@
             const form = e.target;
             const datos = {
                 action: 'guardar',
+                mode: 'publico', 
                 fila: participanteSeleccionado.fila,
                 tipoDocParticipante: form.tipoDocParticipante.value || '',
                 numDocParticipante: form.numDocParticipante.value || '',
@@ -673,25 +715,29 @@
                 numDocOtro: form.numDocOtro.value || ''
             };
             
-            const result = await sendToAppsScript(datos);
-            
-            $('btn-guardar-publico').disabled = false;
-            
-            if (result.status === 'guardado') {
-                mostrarMensaje($('mensaje-guardado-publico'), `✅ ${result.message}`, 'confirmacion');
+            try {
+                const result = await sendToAppsScript(datos); // POST al servidor
+
+                $('btn-guardar-publico').disabled = false;
                 
-                // NOTA: El Apps Script ahora devuelve el nuevo estado de bloqueo si aplica.
-                // Aquí solo se simula para la interfaz si no devuelve la hora de bloqueo.
-                const horaBloqueo = new Date(new Date().getTime() + 30 * 60000);
-                const horaBloqueoStr = horaBloqueo.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                iniciarContador(horaBloqueoStr);
-                
-            } else if (result.status === 'bloqueado') {
-                bloquearFormulario(true, result.message);
-                mostrarMensaje($('mensaje-guardado-publico'), `🔒 ${result.message}`, 'alerta');
-                
-            } else {
-                mostrarMensaje($('mensaje-guardado-publico'), `❌ Error al guardar: ${result.message}`, 'alerta');
+                if (result.status === 'guardado') {
+                    mostrarMensaje($('mensaje-guardado-publico'), `✅ ${result.message}`, 'confirmacion');
+                    
+                    // Calcular nueva hora de bloqueo basada en el timestamp devuelto
+                    const limiteMs = result.fechaGuardado + 30 * 60 * 1000;
+                    const horaBloqueoStr = new Date(limiteMs).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    iniciarContador(horaBloqueoStr);
+                    
+                } else if (result.status === 'bloqueado') {
+                    bloquearFormulario(true, result.message);
+                    mostrarMensaje($('mensaje-guardado-publico'), `🔒 ${result.message}`, 'alerta');
+                    
+                } else {
+                    mostrarMensaje($('mensaje-guardado-publico'), `❌ Error al guardar: ${result.message}`, 'alerta');
+                }
+            } catch (error) {
+                 $('btn-guardar-publico').disabled = false;
+                 mostrarMensaje($('mensaje-guardado-publico'), `❌ Error de red o servidor: ${error.message}`, 'alerta');
             }
         });
 
@@ -725,12 +771,12 @@
             }
             
             $('titulo-gestion-tutora').textContent = `2. Gestión de Participantes de ${tutoraSeleccionada}`;
-            $('lista-participantes-tutora').innerHTML = '<p style="text-align:center;">Cargando lista...</p>';
+            $('lista-participantes-tutora').innerHTML = '<p style="text-align:center;">Cargando lista (localmente)...</p>';
             $formularioTutora.style.display = 'none';
             $('mensaje-guardado-tutora').style.display = 'none';
             
             const data = { action: 'listarPorTutora', tutora: tutoraSeleccionada };
-            const result = await sendToAppsScript(data);
+            const result = await sendToAppsScript(data); // ¡Filtro local!
 
             if (result.status === 'exito') {
                 renderListaTutora(result.participantes);
@@ -744,7 +790,6 @@
             lista.innerHTML = '';
 
             participantes.sort((a, b) => {
-                // Ordenar: Incompletos primero, luego por nombre
                 if (a.estado === 'incompleto' && b.estado !== 'incompleto') return -1;
                 if (a.estado !== 'incompleto' && b.estado === 'incompleto') return 1;
                 return a.nombre.localeCompare(b.nombre);
@@ -785,7 +830,7 @@
              
              if (participante.estado === 'bloqueado') {
                  $('btn-guardar-tutora').disabled = true;
-                 mostrarMensaje($('mensaje-guardado-tutora'), '🔒 El acudiente ya completó el formulario, y su tiempo de edición ha expirado. El formulario es de SOLO LECTURA para prevenir cambios accidentales.', 'alerta');
+                 mostrarMensaje($('mensaje-guardado-tutora'), '🔒 El acudiente ya completó el formulario y expiró el tiempo de edición. Solo puede visualizar.', 'alerta');
              } else {
                  $('btn-guardar-tutora').disabled = false;
                  $('mensaje-guardado-tutora').style.display = 'none';
@@ -795,7 +840,7 @@
         $('form-datos-tutora').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            if (!participanteSeleccionado || participanteSeleccionado.estado === 'bloqueado') return; 
+            if (!participanteSeleccionado || participanteSeleccionado.estado === 'bloqueado') return;
             
             $('btn-guardar-tutora').disabled = true;
             mostrarMensaje($('mensaje-guardado-tutora'), 'Guardando información como tutora...', 'confirmacion');
@@ -803,6 +848,7 @@
             const form = e.target;
             const datos = {
                 action: 'guardar',
+                mode: 'tutora', 
                 fila: participanteSeleccionado.fila,
                 tipoDocParticipante: form.tipoDocParticipante.value || '',
                 numDocParticipante: form.numDocParticipante.value || '',
@@ -815,15 +861,22 @@
                 numDocOtro: form.numDocOtro.value || ''
             };
             
-            const result = await sendToAppsScript(datos);
-            
-            $('btn-guardar-tutora').disabled = false;
-            
-            if (result.status === 'guardado') {
-                mostrarMensaje($('mensaje-guardado-tutora'), `✅ ${result.message} Los datos han sido actualizados.`, 'confirmacion');
-                $('btn-cargar-participantes').click(); 
-            } else {
-                mostrarMensaje($('mensaje-guardado-tutora'), `❌ Error al guardar: ${result.message}`, 'alerta');
+            try {
+                const result = await sendToAppsScript(datos); // POST al servidor
+                
+                $('btn-guardar-tutora').disabled = false;
+                
+                if (result.status === 'guardado') {
+                    mostrarMensaje($('mensaje-guardado-tutora'), `✅ ${result.message} Los datos han sido actualizados.`, 'confirmacion');
+                    
+                    // Forzamos la recarga de la lista (que usa el caché recién actualizado)
+                    $('btn-cargar-participantes').click(); 
+                } else {
+                    mostrarMensaje($('mensaje-guardado-tutora'), `❌ Error al guardar: ${result.message}`, 'alerta');
+                }
+            } catch (error) {
+                $('btn-guardar-tutora').disabled = false;
+                mostrarMensaje($('mensaje-guardado-tutora'), `❌ Error de red o servidor: ${error.message}`, 'alerta');
             }
         });
     </script>
