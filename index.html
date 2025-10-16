@@ -603,145 +603,149 @@
             });
         }
         
-        // ----------------------------------------------------
-        // 3. LÓGICA DE ACCESO PÚBLICO (BUSQUEDA Y GUARDADO)
-        // ----------------------------------------------------
-        
-        $('form-busqueda').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            if (!dataLoaded) {
-                mostrarMensaje($('mensaje-busqueda'), 'El sistema aún está cargando los datos iniciales. Por favor, espere un momento.', 'alerta');
-                return;
-            }
-            
-            $resultados.style.display = 'none';
-            $formularioPublico.style.display = 'none';
-            mostrarMensaje($('mensaje-busqueda'), 'Buscando participantes (localmente)...', 'confirmacion');
+// ----------------------------------------------------
+// 3. LÓGICA DE ACCESO PÚBLICO (BUSQUEDA Y GUARDADO)
+// ----------------------------------------------------
+ 
+$('form-busqueda').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    if (!dataLoaded) {
+        mostrarMensaje($('mensaje-busqueda'), 'El sistema aún está cargando los datos iniciales. Por favor, espere un momento.', 'alerta');
+        return;
+    }
+    
+    $resultados.style.display = 'none';
+    $formularioPublico.style.display = 'none';
+    mostrarMensaje($('mensaje-busqueda'), 'Buscando participantes (localmente)...', 'confirmacion');
 
-            const dia = $('dia').value, mes = $('mes').value, ano = $('ano').value;
-            if (!dia || !mes || !ano) {
-                mostrarMensaje($('mensaje-busqueda'), 'Por favor, complete todos los campos de fecha.', 'alerta');
-                return;
-            }
+    const dia = $('dia').value, mes = $('mes').value, ano = $('ano').value;
+    if (!dia || !mes || !ano) {
+        mostrarMensaje($('mensaje-busqueda'), 'Por favor, complete todos los campos de fecha.', 'alerta');
+        return;
+    }
 
-            const fechaBusqueda = `${dia}/${mes}/${ano}`;
-            const data = { action: 'buscar', fecha: fechaBusqueda };
-            const result = await sendToAppsScript(data); // ¡Filtro local!
+    // 🔑 CLAVE DE LA CORRECCIÓN: Rellenar el día y el mes con cero si es necesario (DD/MM/YYYY)
+    const diaFormateado = String(dia).padStart(2, '0');
+    const mesFormateado = String(mes).padStart(2, '0');
 
-            if (result.status === 'exito') {
-                renderResultadosPublicos(result.resultados);
-            } else {
-                mostrarMensaje($('mensaje-busqueda'), result.message || 'Ocurrió un error desconocido.', 'alerta');
-            }
-        });
+    // Construcción del formato que DEBE COINCIDIR con el Apps Script: DD/MM/YYYY
+    const fechaBusqueda = `${diaFormateado}/${mesFormateado}/${ano}`; 
+    
+    const data = { action: 'buscar', fecha: fechaBusqueda };
+    const result = await sendToAppsScript(data); // ¡Filtro local!
 
-        function renderResultadosPublicos(resultados) {
-            $('lista-resultados').innerHTML = '';
-            $('mensaje-busqueda').style.display = 'none';
-            
-            if (resultados.length === 0) {
-                mostrarMensaje($('mensaje-busqueda'), '❌ No se encontraron participantes con esa fecha de nacimiento.', 'alerta');
-                return;
-            }
+    if (result.status === 'exito') {
+        renderResultadosPublicos(result.resultados);
+    } else {
+        mostrarMensaje($('mensaje-busqueda'), result.message || 'Ocurrió un error desconocido.', 'alerta');
+    }
+});
 
-            $resultados.style.display = 'block';
+function renderResultadosPublicos(resultados) {
+    $('lista-resultados').innerHTML = '';
+    $('mensaje-busqueda').style.display = 'none';
+    
+    if (resultados.length === 0) {
+        mostrarMensaje($('mensaje-busqueda'), '❌ No se encontraron participantes con esa fecha de nacimiento.', 'alerta');
+        return;
+    }
 
-            resultados.forEach(p => {
-                const button = document.createElement('button');
-                button.className = 'btn-resultado';
-                const estadoTexto = p.estado === 'bloqueado' ? 'BLOQUEADO' : (p.estado === 'editable' ? `MODIFICAR (Hasta ${p.fechaBloqueo})` : 'SELECCIONAR');
-                const estadoClass = p.estado === 'bloqueado' ? 'estado-bloqueado' : (p.estado === 'editable' ? 'estado-editable' : 'estado-nuevo');
+    $resultados.style.display = 'block';
 
-                button.innerHTML = `
-                    <span>${p.nombre} (${p.codigo}) | Tutora: ${p.tutora}</span>
-                    <span class="estado-tag ${estadoClass}">${estadoTexto}</span>
-                `;
-                button.onclick = () => seleccionarParticipantePublico(p, button);
-                $('lista-resultados').appendChild(button);
-            });
+    resultados.forEach(p => {
+        const button = document.createElement('button');
+        button.className = 'btn-resultado';
+        const estadoTexto = p.estado === 'bloqueado' ? 'BLOQUEADO' : (p.estado === 'editable' ? `MODIFICAR (Hasta ${p.fechaBloqueo})` : 'SELECCIONAR');
+        const estadoClass = p.estado === 'bloqueado' ? 'estado-bloqueado' : (p.estado === 'editable' ? 'estado-editable' : 'estado-nuevo');
+
+        button.innerHTML = `
+            <span>${p.nombre} (${p.codigo}) | Tutora: ${p.tutora}</span>
+            <span class="estado-tag ${estadoClass}">${estadoTexto}</span>
+        `;
+        button.onclick = () => seleccionarParticipantePublico(p, button);
+        $('lista-resultados').appendChild(button);
+    });
+}
+
+function seleccionarParticipantePublico(participante, btn) {
+    document.querySelectorAll('#lista-resultados .btn-resultado').forEach(b => b.classList.remove('seleccionado'));
+    btn.classList.add('seleccionado');
+
+    participanteSeleccionado = participante;
+    
+    $('info-participante-seleccionado-publico').textContent = `Participante Seleccionado: ${participante.nombre} (Código: ${participante.codigo})`;
+    $formularioPublico.style.display = 'block';
+    $('mensaje-guardado-publico').style.display = 'none';
+    $('form-datos-publico').reset(); 
+    
+    // Cargar datos del caché
+    if (participante.estado !== 'nuevo') {
+        cargarDatosEnFormulario(participante, $('form-datos-publico'));
+    }
+
+    if (participante.estado === 'bloqueado') {
+        bloquearFormulario(true, 'Su información ya fue enviada y el tiempo de modificación ha expirado. Solo puede visualizarla.');
+    } else {
+        bloquearFormulario(false, '');
+        if (participante.estado === 'editable') {
+            iniciarContador(participante.fechaBloqueo);
+            mostrarMensaje($('mensaje-guardado-publico'), `Ya tiene datos guardados. Puede modificar hasta las ${participante.fechaBloqueo}.`, 'confirmacion');
+        } else {
+            $('mensaje-tiempo-restante').style.display = 'none';
         }
+    }
+}
+
+$('form-datos-publico').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    if (!participanteSeleccionado || participanteSeleccionado.estado === 'bloqueado') return;
+    
+    $('btn-guardar-publico').disabled = true;
+    mostrarMensaje($('mensaje-guardado-publico'), 'Guardando información...', 'confirmacion');
+
+    const form = e.target;
+    const datos = {
+        action: 'guardar',
+        mode: 'publico', // Añadir modo para mensajes
+        fila: participanteSeleccionado.fila,
+        tipoDocParticipante: form.tipoDocParticipante.value || '',
+        numDocParticipante: form.numDocParticipante.value || '',
+        tipoDocMama: form.tipoDocMama.value || '',
+        numDocMama: form.numDocMama.value || '',
+        tipoDocPapa: form.tipoDocPapa.value || '',
+        numDocPapa: form.numDocPapa.value || '',
+        parentescoOtro: form.parentescoOtro.value || '',
+        tipoDocOtro: form.tipoDocOtro.value || '',
+        numDocOtro: form.numDocOtro.value || ''
+    };
+    
+    try {
+        const result = await sendToAppsScript(datos); // POST al servidor
+
+        $('btn-guardar-publico').disabled = false;
         
-        function seleccionarParticipantePublico(participante, btn) {
-            document.querySelectorAll('#lista-resultados .btn-resultado').forEach(b => b.classList.remove('seleccionado'));
-            btn.classList.add('seleccionado');
-
-            participanteSeleccionado = participante;
+        if (result.status === 'guardado') {
+            mostrarMensaje($('mensaje-guardado-publico'), `✅ ${result.message}`, 'confirmacion');
             
-            $('info-participante-seleccionado-publico').textContent = `Participante Seleccionado: ${participante.nombre} (Código: ${participante.codigo})`;
-            $formularioPublico.style.display = 'block';
-            $('mensaje-guardado-publico').style.display = 'none';
-            $('form-datos-publico').reset(); 
+            // Calcular nueva hora de bloqueo basada en el timestamp devuelto
+            const limiteMs = result.fechaGuardado + 30 * 60 * 1000;
+            const horaBloqueoStr = new Date(limiteMs).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            iniciarContador(horaBloqueoStr);
             
-            // Cargar datos del caché
-            if (participante.estado !== 'nuevo') {
-                cargarDatosEnFormulario(participante, $('form-datos-publico'));
-            }
-
-            if (participante.estado === 'bloqueado') {
-                bloquearFormulario(true, 'Su información ya fue enviada y el tiempo de modificación ha expirado. Solo puede visualizarla.');
-            } else {
-                bloquearFormulario(false, '');
-                if (participante.estado === 'editable') {
-                    iniciarContador(participante.fechaBloqueo);
-                    mostrarMensaje($('mensaje-guardado-publico'), `Ya tiene datos guardados. Puede modificar hasta las ${participante.fechaBloqueo}.`, 'confirmacion');
-                } else {
-                    $('mensaje-tiempo-restante').style.display = 'none';
-                }
-            }
+        } else if (result.status === 'bloqueado') {
+            bloquearFormulario(true, result.message);
+            mostrarMensaje($('mensaje-guardado-publico'), `🔒 ${result.message}`, 'alerta');
+            
+        } else {
+            mostrarMensaje($('mensaje-guardado-publico'), `❌ Error al guardar: ${result.message}`, 'alerta');
         }
-        
-        $('form-datos-publico').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            if (!participanteSeleccionado || participanteSeleccionado.estado === 'bloqueado') return;
-            
-            $('btn-guardar-publico').disabled = true;
-            mostrarMensaje($('mensaje-guardado-publico'), 'Guardando información...', 'confirmacion');
-
-            const form = e.target;
-            const datos = {
-                action: 'guardar',
-                mode: 'publico', 
-                fila: participanteSeleccionado.fila,
-                tipoDocParticipante: form.tipoDocParticipante.value || '',
-                numDocParticipante: form.numDocParticipante.value || '',
-                tipoDocMama: form.tipoDocMama.value || '',
-                numDocMama: form.numDocMama.value || '',
-                tipoDocPapa: form.tipoDocPapa.value || '',
-                numDocPapa: form.numDocPapa.value || '',
-                parentescoOtro: form.parentescoOtro.value || '',
-                tipoDocOtro: form.tipoDocOtro.value || '',
-                numDocOtro: form.numDocOtro.value || ''
-            };
-            
-            try {
-                const result = await sendToAppsScript(datos); // POST al servidor
-
-                $('btn-guardar-publico').disabled = false;
-                
-                if (result.status === 'guardado') {
-                    mostrarMensaje($('mensaje-guardado-publico'), `✅ ${result.message}`, 'confirmacion');
-                    
-                    // Calcular nueva hora de bloqueo basada en el timestamp devuelto
-                    const limiteMs = result.fechaGuardado + 30 * 60 * 1000;
-                    const horaBloqueoStr = new Date(limiteMs).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                    iniciarContador(horaBloqueoStr);
-                    
-                } else if (result.status === 'bloqueado') {
-                    bloquearFormulario(true, result.message);
-                    mostrarMensaje($('mensaje-guardado-publico'), `🔒 ${result.message}`, 'alerta');
-                    
-                } else {
-                    mostrarMensaje($('mensaje-guardado-publico'), `❌ Error al guardar: ${result.message}`, 'alerta');
-                }
-            } catch (error) {
-                 $('btn-guardar-publico').disabled = false;
-                 mostrarMensaje($('mensaje-guardado-publico'), `❌ Error de red o servidor: ${error.message}`, 'alerta');
-            }
-        });
-
-
+    } catch (error) {
+         $('btn-guardar-publico').disabled = false;
+         mostrarMensaje($('mensaje-guardado-publico'), `❌ Error de red o servidor: ${error.message}`, 'alerta');
+    }
+});
         // ----------------------------------------------------
         // 4. LÓGICA DE ACCESO TUTORA (LOGIN Y FILTRO)
         // ----------------------------------------------------
