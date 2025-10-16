@@ -1164,6 +1164,43 @@
             color: var(--color-texto-light);
             font-style: italic;
         }
+
+        /* --- Botón de Salir (Logout) --- */
+.btn-logout {
+    background: var(--color-alerta); /* Usar el color de alerta (rojo) */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    margin-left: auto; /* Empuja el botón a la derecha */
+    flex-shrink: 0;
+}
+
+.btn-logout:hover {
+    background: #dc2626; /* Un rojo más oscuro al pasar el mouse */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+/* Modificar .paso-titulo para alinear el título y el botón de salir */
+.paso-titulo {
+    color: var(--color-primario);
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    font-weight: 700;
+    padding-bottom: 15px;
+    border-bottom: 3px solid var(--color-secundario);
+    display: flex; /* CAMBIO: NECESARIO para alinear el botón */
+    align-items: center;
+    gap: 12px;
+}
     </style>
 </head>
 
@@ -1340,6 +1377,9 @@
                 <h2 class="paso-titulo" id="titulo-gestion-tutora">
                     <span class="paso-numero">2</span>
                     <span>Gestión de Participantes (Tutora)</span>
+                    <button class="btn-logout" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </button>
                 </h2>
 
                 <div class="select-tutora-box">
@@ -1396,10 +1436,16 @@
 
         <div id="tab-admin" class="tab-content">
             <section id="seccion-dashboard-admin" class="card anim-entrada">
-                <h2 class="paso-titulo">
-                    <span class="paso-numero">1</span>
-                    <span>Dashboard de Administrador</span>
-                </h2>
+                <section id="seccion-admin-dashboard" class="card anim-entrada" style="display:none;">
+                    <h2 class="paso-titulo" id="titulo-admin-dashboard">
+                        <span class="paso-numero">1</span>
+                        <span>Dashboard de Administrador</span>
+                        <button class="btn-logout" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Salir
+                        </button>
+                    </h2>
+                    <p>Bienvenido Administrador. Utilice el botón "Salir" para cerrar la sesión.</p>
+                </section>
 
                 <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-secundario);">
                     <span>🌎</span>
@@ -1515,10 +1561,12 @@
         let isChartJsLoaded = typeof Chart !== 'undefined';
 
         // --- DOM Elements ---
-        const $ = id => document.getElementById(id);
-        const $busqueda = $('seccion-busqueda'), $resultados = $('seccion-resultados'), $formularioPublico = $('seccion-formulario-publico');
-        const $login = $('seccion-login'), $gestionTutora = $('seccion-gestion-tutora'), $formularioTutora = $('seccion-formulario-tutora');
-
+// --- DOM Elements ---
+const $ = id => document.getElementById(id); 
+const $busqueda = $('seccion-busqueda'), $resultados = $('seccion-resultados'), $formularioPublico = $('seccion-formulario-publico');
+const $login = $('seccion-login'), $gestionTutora = $('seccion-gestion-tutora'), $formularioTutora = $('seccion-formulario-tutora');
+// NUEVA LÍNEA AÑADIDA
+const $adminDashboard = $('seccion-admin-dashboard');
 
         // ==================== FUNCIONES AUXILIARES ====================
 
@@ -1663,7 +1711,7 @@
 
                 const mensajeRestante = $('mensaje-tiempo-restante');
                 if (mensajeRestante) {
-                    mensajeRestante.innerHTML = `⏳ Tiempo restante para modificar: <strong>${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}</strong>`;
+                    mensajeRestante.innerHTML = `⏳ <strong>Tienes Exatamente 00:30:00 Minutos Exactos para realizar alguna modificacion.</strong>`;
                     mensajeRestante.style.display = 'block';
                     mensajeRestante.className = 'mensaje-tiempo-restante';
                 }
@@ -2106,6 +2154,44 @@
                 mostrarMensaje($('mensaje-busqueda'), result.message || 'Ocurrió un error desconocido.', 'alerta');
             }
         });
+
+        // ==================== FUNCIONALIDAD DE LOGOUT ====================
+// ==================== FUNCIONALIDAD DE LOGOUT CORREGIDA ====================
+
+/** * Cierra la sesión, limpia el estado y regresa a la pantalla de inicio.
+ * Muestra las secciones de login para reingreso.
+ */
+ function logout() {
+    // 1. Detener el contador de bloqueo si está activo
+    if (timerBloqueo) {
+        clearInterval(timerBloqueo);
+        timerBloqueo = null;
+    }
+    
+    // 2. Resetear el estado global
+    sessionCache.user = null;
+    participanteSeleccionado = null;
+    modoActual = 'publico'; 
+    
+    // 3. Ocultar TODAS las secciones de gestión
+    $gestionTutora.style.display = 'none';
+    $formularioTutora.style.display = 'none';
+    $dashboardAdmin.style.display = 'none'; // Usamos $dashboardAdmin
+    
+    // 4. Volver a la pestaña pública para limpiar la vista
+    cambiarTab('tab-publico'); 
+    
+    // 5. Asegurar que las secciones de login se muestren para que puedan reingresar.
+    $loginTutora.style.display = 'block';
+    $loginAdmin.style.display = 'block';
+
+    // 6. Limpiar campos de login (Usamos querySelectorAll para limpiar ambos formularios)
+    document.querySelectorAll('[name="login-user"]').forEach(input => input.value = '');
+    document.querySelectorAll('[name="login-pass"]').forEach(input => input.value = '');
+
+    mostrarMensaje($('mensaje-login-tutora'), 'Sesión cerrada exitosamente.', 'alerta');
+    mostrarMensaje($('mensaje-login-admin'), 'Sesión cerrada exitosamente.', 'alerta');
+}
 
         function renderResultadosPublicos(resultados) {
             const listaResultados = $('lista-resultados');
@@ -2665,6 +2751,8 @@
             const adminSelectEstado = $('admin-select-estado');
             if (adminSelectEstado) adminSelectEstado.addEventListener('change', filtrarParticipantesAdmin);
         });
+
+        
     </script>
 </body>
 
