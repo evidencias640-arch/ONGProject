@@ -411,25 +411,31 @@
         // 2. CONEXIÓN Y UTILIDADES GENERALES
         // ----------------------------------------------------
 
-        async function sendToAppsScript(data) {
-            if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbywQEJ-2OiBf14fCx8_U8imJnGwJaOFJES_2KXN4V7uQ9mRoZhJqi2fDEVVmGyAOHQ-zA/exec') {
-                 mostrarMensaje($('mensaje-busqueda'), '❌ Error: La URL del Apps Script no ha sido actualizada. Pégala en el código JS.', 'alerta');
-                 return { status: 'error', message: 'URL no configurada.' };
-            }
+async function sendToAppsScript(data) {
+                    
             try {
                 const response = await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'cors',
+                    mode: 'cors', // Necesario para la comunicación externa
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
+                
                 if (!response.ok) {
+                    // Si la respuesta HTTP no es 200 (ej. 405 Method Not Allowed)
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                
+                // Intenta parsear la respuesta JSON del Apps Script
                 return await response.json();
+                
             } catch (error) {
                 console.error('Error de conexión o CORS:', error);
-                return { status: 'error', message: `Error de red o CORS. Verifique el despliegue de Apps Script. (${error.message})` };
+                // Muestra un mensaje de error más claro al usuario
+                return { 
+                    status: 'error', 
+                    message: `Error de red/servidor. Por favor, verifica el despliegue de Apps Script: (${error.message})` 
+                };
             }
         }
         
