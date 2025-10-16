@@ -214,7 +214,7 @@
         
         // ⚠️ PEGA AQUÍ LA URL DE TU APLICACIÓN WEB DE APPS SCRIPT
         // Esta URL DEBE ser la del despliegue FINAL y debe tener doGET configurado.
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwIF6dEvcv8huzQLEjGQyghGSyJnnUqdBySZwtHN_7EO9NNtx7-gEqpyC2zjvWE3e3Mrw/exec'; 
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxCWMc1ZBqHwbGHMV4K4Re5J0XdgV9b2lXiC-xCz6iZqlgGiMy_61RTiYcfjZbXaWNXA/exec'; 
         
         // --- Credenciales y Data Mock (DEBE SER SEGURO EN PRODUCCIÓN) ---
         const TUTORA_USER = 'Tutora678';
@@ -471,13 +471,7 @@
         // ----------------------------------------------------
 
         /** Envía datos al Apps Script (postMessage method) forzando la comunicación. */
-        async function sendToAppsScript(data) {
-            
-            if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwIF6dEvcv8huzQLEjGQyghGSyJnnUqdBySZwtHN_7EO9NNtx7-gEqpyC2zjvWE3e3Mrw/exec') {
-                 mostrarMensaje($('mensaje-busqueda'), '❌ Error: La URL del Apps Script aún no ha sido reemplazada con su URL FINAL de despliegue.', 'alerta');
-                 return { status: 'error', message: 'URL no configurada correctamente.' };
-            }
-            
+        async function sendToAppsScript(data) {  
             return new Promise((resolve, reject) => {
                 const id = ++requestIdCounter;
                 const payload = { ...data, id: id };
