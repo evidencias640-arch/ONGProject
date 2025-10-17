@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Datos | CO0678</title>
+    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/svgs/solid/chart-bar.svg" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 
@@ -1165,42 +1165,297 @@
             font-style: italic;
         }
 
-        /* --- Botón de Salir (Logout) --- */
-.btn-logout {
-    background: var(--color-alerta); /* Usar el color de alerta (rojo) */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-    margin-left: auto; /* Empuja el botón a la derecha */
-    flex-shrink: 0;
-}
+        /* --- ESTILOS DEL BOTÓN SALIR (LOGOUT) --- */
 
-.btn-logout:hover {
-    background: #dc2626; /* Un rojo más oscuro al pasar el mouse */
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
-}
+        .btn-logout {
+            background: var(--color-alerta);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+            margin-left: auto;
+            /* Empuja el botón a la derecha */
+            flex-shrink: 0;
+        }
 
-/* Modificar .paso-titulo para alinear el título y el botón de salir */
-.paso-titulo {
-    color: var(--color-primario);
-    font-size: 1.6rem;
-    margin-bottom: 25px;
-    font-weight: 700;
-    padding-bottom: 15px;
-    border-bottom: 3px solid var(--color-secundario);
-    display: flex; /* CAMBIO: NECESARIO para alinear el botón */
-    align-items: center;
-    gap: 12px;
-}
+        .btn-logout:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        /* Ajuste necesario para que el botón se alinee correctamente */
+        .paso-titulo {
+            display: flex;
+            align-items: center;
+            /* Las demás propiedades de .paso-titulo se mantienen intactas */
+        }
+
+        /* -------------------------------------- */
+        /* 3. Estilos del Pop-up (Modal) Detalle  */
+        /* -------------------------------------- */
+
+        /* 🔑 DETALLE-OVERLAY (Fondo y Posición Global) */
+        .detalle-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            /* Fondo más oscuro para enfoque total */
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            /* Permite el scroll del fondo si el modal es muy alto */
+            overflow-y: auto;
+        }
+
+        .detalle-overlay.visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* 🔑 DETALLE-CONTAINER (La Caja del Pop-up) */
+        .detalle-container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+
+            width: 95%;
+            max-width: 650px;
+            /* Ancho cómodo para escritorio */
+            max-height: 90vh;
+            /* Máximo alto de la pantalla */
+            overflow-y: auto;
+            /* Permite scroll del contenido interno del modal */
+
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            /* Sombra más profunda */
+
+            /* Centrado flexible: Usa relative y margin para funcionar con overflow-y */
+            position: relative;
+            margin: 30px auto;
+            /* Centrado vertical y horizontal */
+
+            /* Animación con rebote */
+            transform: scale(0.95);
+            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .detalle-overlay.visible .detalle-container {
+            transform: scale(1);
+        }
+
+        /* --- ELEMENTOS BÁSICOS DEL MODAL --- */
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            /* Fija el encabezado para que siempre esté visible al hacer scroll */
+            position: sticky;
+            top: -25px;
+            background-color: #fff;
+            z-index: 10;
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 1.6rem;
+            color: var(--color-primario, #0891b2);
+            font-weight: 700;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #94a3b8;
+            line-height: 1;
+            padding: 0 5px;
+            transition: color 0.2s, transform 0.3s;
+        }
+
+        .close-button:hover {
+            color: #dc2626;
+            transform: rotate(90deg);
+        }
+
+        /* --- ESTRUCTURA RESPONSIVA (GRID) --- */
+
+        .info-section {
+            margin-bottom: 30px;
+        }
+
+        /* Cuadrícula Responsive: Se adapta automáticamente a 1 o 2 columnas */
+        .modal-grid {
+            display: grid;
+            /* Crea columnas de 250px mínimo. Si no caben dos, pasa a una */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px 30px;
+        }
+
+        .modal-body p {
+            margin: 0;
+            line-height: 1.4;
+            padding: 0;
+        }
+
+        .grid-item {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+        }
+
+        .grid-item.full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Etiqueta (Ej: 'Código:') */
+        .modal-body strong {
+            color: var(--color-texto, #0f172a);
+            font-weight: 600;
+            margin-right: 5px;
+            flex-shrink: 0;
+            /* IMPEDIMOS QUE SE COMPRIMA */
+            /* ELIMINADO: width: 150px; */
+        }
+
+        /* Valor (Ej: '12345') */
+        .modal-body .grid-item span {
+            font-weight: 400;
+            color: var(--color-texto-light, #475569);
+            word-break: break-word;
+        }
+
+        /* --- SECCIONES Y ACUDIENTES --- */
+
+        .subtitulo-familiar {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            color: var(--color-primario-dark, #0e7490);
+            margin: 15px 0 15px;
+            border-left: 5px solid var(--color-primario, #0891b2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Contenedor de cada acudiente (Card) */
+        .acudiente-card {
+            border: 1px solid #f1f5f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            background-color: #fcfcfc;
+            /* Fondo ligeramente gris para contraste */
+            transition: box-shadow 0.3s;
+        }
+
+        .acudiente-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            /* Sombra más definida en hover */
+        }
+
+        .acudiente-card h3 {
+            font-size: 1.15rem;
+            color: var(--color-texto, #0f172a);
+            margin: 0 0 12px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #e5e7eb;
+            /* Línea separadora */
+        }
+
+        /* --- ESTILOS ADICIONALES --- */
+
+        .tag-modal {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .tag-completo {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-incompleto {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .modal-hint {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-align: right;
+            margin-top: 20px;
+            font-style: italic;
+            padding-top: 10px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin: 20px 0;
+        }
+
+        /* --- 📱 MEDIA QUERY (RESPONSIVIDAD MÓVIL) --- */
+        @media (max-width: 550px) {
+            .detalle-container {
+                padding: 15px;
+                margin: 2vh auto;
+            }
+
+            .modal-header {
+                top: -15px;
+                /* Ajuste para el padding reducido */
+            }
+
+            .modal-title {
+                font-size: 1.4rem;
+            }
+
+            /* En móviles, la etiqueta y el valor se APILAN verticalmente */
+            .grid-item {
+                display: block;
+            }
+
+            .modal-body strong {
+                display: block;
+                margin-bottom: 2px;
+                font-size: 0.95rem;
+            }
+
+            .modal-grid {
+                gap: 15px;
+                /* Ajuste de separación */
+            }
+
+            .acudiente-card {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 
@@ -1281,14 +1536,14 @@
         <div class="tabs">
             <button class="tab-btn active" data-tab="tab-publico">
                 <span>👪</span>
-                <span>Acceso Público (Fecha)</span>
+                <span>Acceso Público</span>
             </button>
             <button class="tab-btn" data-tab="tab-tutora">
                 <span>👩‍🏫</span>
                 <span>Acceso Administrativos</span>
             </button>
             <button class="tab-btn" data-tab="tab-admin" style="display:none;" id="tab-btn-admin">
-                <span>👑</span>
+                <span>💻</span>
                 <span>Dashboard Admin</span>
             </button>
         </div>
@@ -1375,11 +1630,8 @@
 
             <section id="seccion-gestion-tutora" class="card anim-entrada" style="display: none;">
                 <h2 class="paso-titulo" id="titulo-gestion-tutora">
-                    <span class="paso-numero">2</span>
-                    <span>Gestión de Participantes (Tutora)</span>
-                    <button class="btn-logout" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i> Salir
-                    </button>
+                    <span class="paso-numero">2</span> <span>Gestión de Participantes (Tutora)</span>
+                    <button class="btn-logout" onclick="logout()"> <i class="fas fa-sign-out-alt"></i> Salir </button>
                 </h2>
 
                 <div class="select-tutora-box">
@@ -1438,13 +1690,11 @@
             <section id="seccion-dashboard-admin" class="card anim-entrada">
                 <section id="seccion-admin-dashboard" class="card anim-entrada" style="display:none;">
                     <h2 class="paso-titulo" id="titulo-admin-dashboard">
-                        <span class="paso-numero">1</span>
-                        <span>Dashboard de Administrador</span>
-                        <button class="btn-logout" onclick="logout()">
-                            <i class="fas fa-sign-out-alt"></i> Salir
+                        <span class="paso-numero">1</span> <span>Dashboard de Administrador</span>
+                        <button class="btn-logout" onclick="logout()"> <i class="fas fa-sign-out-alt"></i> Salir
                         </button>
                     </h2>
-                    <p>Bienvenido Administrador. Utilice el botón "Salir" para cerrar la sesión.</p>
+                    <p>Bienvenido Administrador.</p>
                 </section>
 
                 <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-secundario);">
@@ -1517,13 +1767,17 @@
                     <span>📋</span>
                     <span>Listado de Participantes (Admin):</span>
                 </h3>
-
                 <div id="lista-participantes-admin" class="lista-participantes">
                 </div>
             </section>
         </div>
 
     </main>
+
+    <div id="detalle-overlay" class="detalle-overlay">
+        <div id="detalle-container" class="detalle-container">
+        </div>
+    </div>
 
     <footer class="footer">
         <p>&copy; 2025 ParentAccess. Desarrollado con ❤️ para el bienestar social.</p>
@@ -1536,6 +1790,8 @@
 
         // ⚠️ DEBE VERIFICAR QUE ESTA URL SEA LA CORRECTA DE SU DEPLIEGUE
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx4Iv227I2p3hfZlSQe9MkiwNzJ0YjTq8GoJ_BFGBrHoy8UENZXE2DLEImpBH3GBBw-nA/exec';
+
+        const INTERVALO_REFRESCO_MS = 5000; // 5 segundos
 
         // --- Credenciales y Data --
         const TUTORA_USER = 'tutora678';
@@ -1561,12 +1817,24 @@
         let isChartJsLoaded = typeof Chart !== 'undefined';
 
         // --- DOM Elements ---
-// --- DOM Elements ---
-const $ = id => document.getElementById(id); 
-const $busqueda = $('seccion-busqueda'), $resultados = $('seccion-resultados'), $formularioPublico = $('seccion-formulario-publico');
-const $login = $('seccion-login'), $gestionTutora = $('seccion-gestion-tutora'), $formularioTutora = $('seccion-formulario-tutora');
-// NUEVA LÍNEA AÑADIDA
-const $adminDashboard = $('seccion-admin-dashboard');
+        const $ = id => document.getElementById(id);
+        const $busqueda = $('seccion-busqueda'), $resultados = $('seccion-resultados'), $formularioPublico = $('seccion-formulario-publico');
+        const $login = $('seccion-login'), $gestionTutora = $('seccion-gestion-tutora'), $formularioTutora = $('seccion-formulario-tutora');
+        // NUEVA LÍNEA AÑADIDA
+        const $adminDashboard = $('seccion-admin-dashboard');
+
+        function iniciarRefrescoAutomatico() {
+            // 1. Carga inicial: Con loader visible (mostrarProgreso = true, que es el valor por defecto)
+            loadAllSheetData(true);
+
+            console.log(`[INICIO] Refresco automático activado cada ${INTERVALO_REFRESCO_MS / 1000} segundos.`);
+
+            // 2. Loop de actualización: SILENCIOSO (mostrarProgreso = false)
+            setInterval(() => loadAllSheetData(false), INTERVALO_REFRESCO_MS);
+        }
+
+        // 3. Reemplaza tu antigua línea de arranque con esta:
+        document.addEventListener('DOMContentLoaded', iniciarRefrescoAutomatico);
 
         // ==================== FUNCIONES AUXILIARES ====================
 
@@ -1711,7 +1979,7 @@ const $adminDashboard = $('seccion-admin-dashboard');
 
                 const mensajeRestante = $('mensaje-tiempo-restante');
                 if (mensajeRestante) {
-                    mensajeRestante.innerHTML = `⏳ <strong>Tienes Exatamente 00:30:00 Minutos Exactos para realizar alguna modificacion.</strong>`;
+                    mensajeRestante.innerHTML = `⏳ <strong>Tienes Exatamente 00:30:00 Minutos para realizar alguna modificacion.</strong>`;
                     mensajeRestante.style.display = 'block';
                     mensajeRestante.className = 'mensaje-tiempo-restante';
                 }
@@ -1959,9 +2227,15 @@ const $adminDashboard = $('seccion-admin-dashboard');
 
         // ==================== CONEXIÓN Y CACHÉ ====================
 
-        /** Carga todos los datos de la hoja (GET) al inicio. */
-        async function loadAllSheetData() {
-            showLoader('Cargando y Validando Datos...');
+        async function loadAllSheetData(mostrarProgreso = true) {
+
+            // 🔑 CLAVE: Solo mostramos el loader en la carga inicial (cuando mostrarProgreso es true)
+            if (mostrarProgreso) {
+                showLoader('Cargando y Validando Datos...');
+            } else {
+                // Mensaje para debug. Solo se ve en la consola.
+                console.log(`[REFRESCO SILENCIOSO] Actualizando datos... (${new Date().toLocaleTimeString()})`);
+            }
 
             // PASO 1: Inicializar la caché de tutoras antes de cargar los participantes
             initializeTutorasCache();
@@ -1975,29 +2249,32 @@ const $adminDashboard = $('seccion-admin-dashboard');
 
                 const result = await response.json();
 
-                // CORRECCIÓN CLAVE: El Apps Script devuelve 'data', no 'participantes'
                 if (result.status === 'exito' && result.data) {
 
                     // PASO 2: Mapear los datos de participantes para añadir el 'tutora_id'
                     participantesCache = result.data.map(p => {
-                        // Buscamos el ID en nuestra caché interna de tutoras
                         const tutoraEntry = tutorasCache.find(t => t.nombre === p.tutora);
 
                         return {
                             ...p,
-                            // Asignamos el ID de la tutora. Si no se encuentra, usamos un ID genérico
                             tutora_id: tutoraEntry ? tutoraEntry.id : nameToId(p.tutora || 'Sin Asignar'),
-                            // El estado depende de si llenó un campo de identificación
                             participante_estado: p.tipoDocParticipante ? 'Completo' : 'Incompleto'
                         };
                     });
 
                     dataLoaded = true;
-                    hideLoader();
 
-                    // Llenar selects de tutoras ahora que la caché está poblada
+                    // 🔑 CLAVE: Ocultamos el loader solo si se mostró
+                    if (mostrarProgreso) {
+                        hideLoader();
+                    }
+
+                    // Llenar selects de tutoras (solo se hace al inicio, pero no interfiere)
                     llenarSelectTutoras($('select-tutora'), false);
                     llenarSelectTutoras($('admin-select-tutora'), true);
+
+                    // 🔑 CLAVE: Redibujar la lista. ESTO SIEMPRE DEBE EJECUTARSE
+                    filtrarParticipantesAdmin();
 
                     if (isChartJsLoaded) {
                         updateGlobalStats();
@@ -2005,15 +2282,27 @@ const $adminDashboard = $('seccion-admin-dashboard');
                         console.warn("Chart.js no está cargado. El dashboard de admin no mostrará la gráfica.");
                     }
 
-                    mostrarMensaje($('mensaje-busqueda'), 'Sistema listo. Ingrese la fecha o inicie sesión.', 'confirmacion');
+                    // 🔑 CLAVE: Mostrar mensaje de éxito solo en la carga inicial
+                    if (mostrarProgreso) {
+                        mostrarMensaje($('mensaje-busqueda'), 'Sistema listo. Ingrese la fecha o inicie sesión.', 'confirmacion');
+                    }
+
                     return { status: 'exito' };
                 } else {
                     throw new Error(result.message || 'Error al cargar los datos iniciales o formato de respuesta incorrecto.');
                 }
             } catch (error) {
-                console.error('Error al cargar datos iniciales:', error);
-                hideLoader();
-                mostrarMensaje($('mensaje-busqueda'), `Error crítico al inicializar (GET): ${error.message}. Verifique el Apps Script.`, 'alerta');
+                // Manejo de Errores
+                console.error('Error al cargar datos:', error);
+
+                // 🔑 CLAVE: Solo mostramos el error visible si es la carga inicial
+                if (mostrarProgreso) {
+                    hideLoader();
+                    mostrarMensaje($('mensaje-busqueda'), `Error crítico al inicializar (GET): ${error.message}. Verifique el Apps Script.`, 'alerta');
+                } else {
+                    // En modo refresco, solo registramos el error en consola y continuamos el ciclo
+                    console.warn(`[REFRESCO FALLIDO] Error en ciclo silencioso: ${error.message}. Se reintentará en el próximo intervalo.`);
+                }
                 return { status: 'error', message: error.message };
             }
         }
@@ -2119,7 +2408,6 @@ const $adminDashboard = $('seccion-admin-dashboard');
             return { status: 'error', message: 'Acción no válida.' };
         }
 
-
         // ==================== LÓGICA DE ACCESO PÚBLICO ====================
 
         $('form-busqueda').addEventListener('submit', async (e) => {
@@ -2155,43 +2443,47 @@ const $adminDashboard = $('seccion-admin-dashboard');
             }
         });
 
-        // ==================== FUNCIONALIDAD DE LOGOUT ====================
-// ==================== FUNCIONALIDAD DE LOGOUT CORREGIDA ====================
+        // --- FUNCIÓN DE LOGOUT ADAPTADA A TU ESTRUCTURA ---
+        function logout() {
+            // 1. Resetear el estado global
+            // Se asume que sessionCache, participanteSeleccionado, y modoActual están declarados globalmente.
+            if (typeof sessionCache !== 'undefined') sessionCache.user = null;
+            if (typeof participanteSeleccionado !== 'undefined') participanteSeleccionado = null;
+            if (typeof modoActual !== 'undefined') modoActual = 'publico';
 
-/** * Cierra la sesión, limpia el estado y regresa a la pantalla de inicio.
- * Muestra las secciones de login para reingreso.
- */
- function logout() {
-    // 1. Detener el contador de bloqueo si está activo
-    if (timerBloqueo) {
-        clearInterval(timerBloqueo);
-        timerBloqueo = null;
-    }
-    
-    // 2. Resetear el estado global
-    sessionCache.user = null;
-    participanteSeleccionado = null;
-    modoActual = 'publico'; 
-    
-    // 3. Ocultar TODAS las secciones de gestión
-    $gestionTutora.style.display = 'none';
-    $formularioTutora.style.display = 'none';
-    $dashboardAdmin.style.display = 'none'; // Usamos $dashboardAdmin
-    
-    // 4. Volver a la pestaña pública para limpiar la vista
-    cambiarTab('tab-publico'); 
-    
-    // 5. Asegurar que las secciones de login se muestren para que puedan reingresar.
-    $loginTutora.style.display = 'block';
-    $loginAdmin.style.display = 'block';
+            // 2. Ocultar TODAS las secciones de gestión (Usando las variables DOM que definiste)
+            $gestionTutora.style.display = 'none';
+            $formularioTutora.style.display = 'none';
 
-    // 6. Limpiar campos de login (Usamos querySelectorAll para limpiar ambos formularios)
-    document.querySelectorAll('[name="login-user"]').forEach(input => input.value = '');
-    document.querySelectorAll('[name="login-pass"]').forEach(input => input.value = '');
+            // Oculta la sección específica del Dashboard Admin
+            if ($adminDashboard) $adminDashboard.style.display = 'none';
 
-    mostrarMensaje($('mensaje-login-tutora'), 'Sesión cerrada exitosamente.', 'alerta');
-    mostrarMensaje($('mensaje-login-admin'), 'Sesión cerrada exitosamente.', 'alerta');
-}
+            // Ocultar la pestaña del admin si está presente (se asume el ID 'tab-btn-admin')
+            const tabAdminBtn = $('tab-btn-admin');
+            if (tabAdminBtn) tabAdminBtn.style.display = 'none';
+
+            // 3. Volver a la pestaña pública
+            if (typeof cambiarTab === 'function') {
+                cambiarTab('tab-publico');
+            } else if (typeof activateTab === 'function') {
+                activateTab('tab-publico');
+            }
+
+            // 4. Asegurar que la sección de login se muestre.
+            $login.style.display = 'block';
+
+            // 5. Limpiar campos de login
+            document.querySelectorAll('#form-login input[type="text"], #form-login input[type="password"], #form-login select').forEach(input => input.value = '');
+
+            // 6. Mostrar mensaje de cierre de sesión
+            const mensajeLogin = $('mensaje-login');
+            if (mensajeLogin && typeof mostrarMensaje === 'function') {
+                // Usamos la función personalizada 'mostrarMensaje'
+                mostrarMensaje(mensajeLogin, 'Sesión cerrada exitosamente.', 'alerta');
+            }
+        }
+
+        window.logout = logout; // Esto asegura que el HTML pueda llamar a la función
 
         function renderResultadosPublicos(resultados) {
             const listaResultados = $('lista-resultados');
@@ -2653,6 +2945,10 @@ const $adminDashboard = $('seccion-admin-dashboard');
             renderTutoraBreakdown(participantesCache);
         }
 
+        // =================================================================
+        // FUNCIÓN DE FILTRADO ORIGINAL (MODIFICADA PARA LLAMAR AL MODAL)
+        // =================================================================
+
         function filtrarParticipantesAdmin() {
             const tutoraFiltro = $('admin-select-tutora').value; // Es un ID limpio (tutora_id)
             const estadoFiltro = $('admin-select-estado').value;
@@ -2664,7 +2960,6 @@ const $adminDashboard = $('seccion-admin-dashboard');
             let participantesFiltrados = participantesCache;
 
             if (tutoraFiltro && tutoraFiltro !== 'todos') {
-                // CORRECCIÓN CLAVE: El filtro usa el 'tutora_id'
                 participantesFiltrados = participantesFiltrados.filter(p => p.tutora_id === tutoraFiltro);
             }
 
@@ -2691,16 +2986,22 @@ const $adminDashboard = $('seccion-admin-dashboard');
                     <strong style="font-size: 1.1rem; color: var(--color-texto);">${p.nombre}</strong>
                     <p style="font-size: 0.9rem; color: var(--color-texto-light); margin-top: 5px;">
                         <span style="font-weight: 700;">Tutora:</span> ${nombreTutora} | 
-                        <span style="font-weight: 700;">ID:</span> ${p.participante_id}
+                        <span style="font-weight: 700;">Código:</span> ${p.codigo}
                     </p>
                 </div>
                 <div class="tag-estado ${tagClass}">${estado.toUpperCase()}</div>
             `;
 
+                    // 🔑 MODIFICACIÓN: Agregar el event listener que llama al modal
+                    btn.addEventListener('click', () => {
+                        mostrarDetalleParticipante(p);
+                    });
+
                     listaAdmin.appendChild(btn);
                 });
             }
 
+            // ... (El resto de tu código para las estadísticas) ...
             const totalFiltrado = participantesFiltrados.length;
             const completosFiltrados = participantesFiltrados.filter(p => p.participante_estado === 'Completo').length;
             const porcentajeFiltrado = totalFiltrado > 0 ? ((completosFiltrados / totalFiltrado) * 100).toFixed(1) : 0;
@@ -2752,7 +3053,120 @@ const $adminDashboard = $('seccion-admin-dashboard');
             if (adminSelectEstado) adminSelectEstado.addEventListener('change', filtrarParticipantesAdmin);
         });
 
-        
+        /**
+         * Muestra un pop-up estilizado con la información detallada del participante.
+         * CLAVES CORREGIDAS: Usa los nombres de propiedades del objeto 'participante'
+         * que corresponden a tu estructura de datos (ej: tipoDocParticipante).
+         * * @param {Object} participante - El objeto completo del participante (p).
+         */
+        function mostrarDetalleParticipante(participante) {
+            // Se asume que la función '$' existe y es un alias para document.getElementById
+            const modal = $('detalle-overlay');
+            const modalContenido = $('detalle-container');
+
+            if (!modal || !modalContenido) {
+                console.error('Estructura del modal de detalle no encontrada.');
+                return;
+            }
+
+            const p = participante; // Alias del objeto para simplificar
+            const nombreTutora = p.tutora || 'Sin asignar';
+            const estado = p.participante_estado;
+            const estadoTag = `<span class="tag-modal ${estado === 'Completo' ? 'tag-completo' : 'tag-incompleto'}">${estado.toUpperCase()}</span>`;
+
+            // 🔑 AHORA USAMOS LAS CLAVES EXACTAS DE TU OBJETO:
+
+            // Participante
+            const tipoDocP = p.tipoDocParticipante || 'N/A';
+            const numDocP = p.numDocParticipante || 'N/A';
+
+            // Madre
+            const tipoDocM = p.tipoDocMama || 'N/A';
+            const numDocM = p.numDocMama || 'N/A';
+
+            // Padre
+            const tipoDocPa = p.tipoDocPapa || 'N/A';
+            const numDocPa = p.numDocPapa || 'N/A';
+
+            // Otro Acudiente
+            const parentescoOtro = p.parentescoOtro || 'Otro'; // Usar el parentesco si existe
+            const tipoDocO = p.tipoDocOtro || 'N/A';
+            const numDocO = p.numDocOtro || 'N/A';
+
+
+            modalContenido.innerHTML = `
+        <div class="modal-header">
+            <h2 class="modal-title">${p.nombre}</h2>
+            <button class="close-button" onclick="cerrarModalDetalle()">&times;</button>
+        </div>
+        <div class="modal-body">
+            
+            <div class="info-section">
+                <p class="subtitulo-familiar"><i class="fas fa-user-circle"></i> Participante</p>
+                <div class="modal-grid">
+                    <p class="grid-item"><strong>Código:</strong> <span>${p.codigo || 'N/A'}</span></p>
+                    <p class="grid-item"><strong>Estado:</strong> <span>${estadoTag}</span></p>
+                    <p class="grid-item full-width"><strong>Documento:</strong> <span>${tipoDocP}  -  ${numDocP}</span></p>
+                    <p class="grid-item full-width"><strong>Tutora:</strong> <span>${nombreTutora}</span></p>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="info-section">
+                <p class="subtitulo-familiar"><i class="fas fa-users"></i> Documentación de Acudientes</p>
+                
+                <div class="acudiente-card">
+                    <h3>Madre</h3>
+                    <div class="modal-grid">
+                        <p class="grid-item"><strong>Tipo Doc:</strong> <span>${tipoDocM}</span></p>
+                        <p class="grid-item"><strong>N° Documento:</strong> <span>${numDocM}</span></p>
+                    </div>
+                </div>
+
+                <div class="acudiente-card">
+                    <h3>Padre</h3>
+                    <div class="modal-grid">
+                        <p class="grid-item"><strong>Tipo Doc:</strong> <span>${tipoDocPa}</span></p>
+                        <p class="grid-item"><strong>N° Documento:</strong> <span>${numDocPa}</span></p>
+                    </div>
+                </div>
+
+                <div class="acudiente-card">
+                    <h3>${parentescoOtro}</h3>
+                    <div class="modal-grid">
+                        <p class="grid-item"><strong>Tipo Doc:</strong> <span>${tipoDocO}</span></p>
+                        <p class="grid-item"><strong>N° Documento:</strong> <span>${numDocO}</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="modal-hint">Datos generales del registro.</p>
+        </div>
+    `;
+
+            modal.classList.add('visible');
+        }
+
+        // (Las funciones 'cerrarModalDetalle' y el listener de 'document' se mantienen igual)
+
+        // (Las funciones 'cerrarModalDetalle' y el listener de 'document' se mantienen igual)
+
+        function cerrarModalDetalle() {
+            const modal = $('detalle-overlay');
+            if (modal) {
+                modal.classList.remove('visible');
+            }
+        }
+
+        // Lógica para cerrar al hacer clic en el fondo
+        document.addEventListener('click', (event) => {
+            const modal = $('detalle-overlay');
+            if (modal && modal.classList.contains('visible') && event.target === modal) {
+                cerrarModalDetalle();
+            }
+        });
+
     </script>
 </body>
 
