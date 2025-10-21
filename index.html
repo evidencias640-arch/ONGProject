@@ -2,14 +2,13 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gestión de Datos | CO0678</title>
-    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/svgs/solid/chart-bar.svg" type="image/svg+xml">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/svgs/solid/chart-bar.svg"
+        type="image/svg+xml" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
-
-    <!-- Enlace al archivo CSS externo -->
     <style>
         /* ========================================================= */
         /* CSS STYLES - DISEÑO PROFESIONAL MEJORADO                 */
@@ -30,7 +29,8 @@
             --color-warning: #f59e0b;
             --color-completo: #d1fae5;
             --color-incompleto: #fee2e2;
-            --sombra-card: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --sombra-card: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
             --sombra-hover: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             --gradient-primary: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
             --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
@@ -44,7 +44,7 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: "Poppins", sans-serif;
             background: var(--gradient-bg);
             color: var(--color-texto);
             line-height: 1.6;
@@ -55,15 +55,18 @@
 
         /* Patrón de fondo decorativo */
         body::before {
-            content: '';
+            content: "";
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(8, 145, 178, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.03) 0%, transparent 50%);
+            background-image: radial-gradient(circle at 20% 50%,
+                    rgba(8, 145, 178, 0.03) 0%,
+                    transparent 50%),
+                radial-gradient(circle at 80% 80%,
+                    rgba(16, 185, 129, 0.03) 0%,
+                    transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
@@ -91,7 +94,7 @@
         }
 
         header::before {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
@@ -133,7 +136,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #10b981 100%);
+            background: linear-gradient(135deg,
+                    #0891b2 0%,
+                    #06b6d4 50%,
+                    #10b981 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -347,7 +353,7 @@
         }
 
         .card::before {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
@@ -526,7 +532,7 @@
             font-size: 1rem;
             transition: all 0.3s ease;
             background: white;
-            font-family: 'Poppins', sans-serif;
+            font-family: "Poppins", sans-serif;
         }
 
         input:not([type="checkbox"]):focus,
@@ -592,7 +598,7 @@
             gap: 10px;
             width: 100%;
             margin-top: 10px;
-            font-family: 'Poppins', sans-serif;
+            font-family: "Poppins", sans-serif;
             position: relative;
             overflow: hidden;
         }
@@ -633,7 +639,7 @@
         /* Efecto de onda al hacer click */
         .btn-primario::after,
         .btn-secundario::after {
-            content: '';
+            content: "";
             position: absolute;
             top: 50%;
             left: 50%;
@@ -1103,7 +1109,7 @@
 
         .btn-primario::before,
         .btn-secundario::before {
-            content: '';
+            content: "";
             position: absolute;
             top: 50%;
             left: 50%;
@@ -1157,7 +1163,7 @@
         /* Estilo para cuando se carga la lista de participantes */
         .lista-participantes:empty::after,
         .tutora-participante-list:empty::after {
-            content: 'Cargando participantes...';
+            content: "Cargando participantes...";
             display: block;
             text-align: center;
             padding: 40px;
@@ -1457,6 +1463,64 @@
             }
         }
     </style>
+    <style>
+        /* Estilo para todos los campos de formulario inválidos */
+        input:invalid,
+        select:invalid {
+            /* Pone el borde y la sombra en rojo fuerte */
+            border: 2px solid #dc3545 !important;
+            /* Rojo */
+            box-shadow: 0 0 5px rgba(220, 53, 69, 0.7) !important;
+        }
+
+        /* Opcional: Para resaltar la etiqueta cuando el campo es inválido */
+        .input-grupo:has(input:invalid) label,
+        .input-grupo:has(select:invalid) label {
+            color: #dc3545;
+            /* Pone el texto de la etiqueta en rojo */
+            font-weight: bold;
+        }
+    </style>
+    <style>
+        .radio-grupo {
+            display: flex;
+            gap: 20px;
+            margin-top: 5px;
+        }
+
+        .radio-grupo input[type="radio"] {
+            /* Ocultar el radio button nativo */
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .radio-grupo label {
+            cursor: pointer;
+            padding: 8px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: all 0.3s;
+            background-color: #f9f9f9;
+        }
+
+        .radio-grupo input[type="radio"]:checked+label {
+            background-color: #007bff;
+            /* Color azul profesional al seleccionar */
+            color: white;
+            border-color: #0056b3;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Opcional: Estilo para la leyenda */
+        .fieldset-academico legend {
+            font-size: 1.2em;
+            font-weight: bold;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 
 <body>
@@ -1464,7 +1528,9 @@
     <div class="loader-overlay" id="loader-overlay">
         <div class="loader-content">
             <div class="loader-spinner"></div>
-            <div class="loader-text" id="loader-text">Cargando y Validando Datos...</div>
+            <div class="loader-text" id="loader-text">
+                Cargando y Validando Datos...
+            </div>
             <div class="loader-subtext">Por favor espere un momento</div>
         </div>
     </div>
@@ -1478,17 +1544,28 @@
             </div>
             <div class="modal-body">
                 <h3>🔒 Confidencialidad y Protección de Datos</h3>
-                <p>Este sistema es de <strong>uso exclusivo</strong> para el personal autorizado del proyecto de la
-                    Guerreros C.A.P.I. Toda la información recopilada es tratada con estricta confidencialidad.</p>
+                <p>
+                    Este sistema es de <strong>uso exclusivo</strong> para el personal
+                    autorizado del proyecto de la Guerreros C.A.P.I. Toda la información
+                    recopilada es tratada con estricta confidencialidad.
+                </p>
 
                 <h3>✅ Consentimiento Informado</h3>
                 <p>Al utilizar esta plataforma, usted reconoce y acepta que:</p>
                 <ul>
-                    <li>Los datos proporcionados serán utilizados únicamente para fines del proyecto social.</li>
-                    <li>La información personal está protegida conforme a las leyes de protección de datos vigentes.
+                    <li>
+                        Los datos proporcionados serán utilizados únicamente para fines
+                        del proyecto social.
+                    </li>
+                    <li>
+                        La información personal está protegida conforme a las leyes de
+                        protección de datos vigentes.
                     </li>
                     <li>Solo personal autorizado tendrá acceso a esta información.</li>
-                    <li>Los datos no serán compartidos con terceros sin consentimiento previo.</li>
+                    <li>
+                        Los datos no serán compartidos con terceros sin consentimiento
+                        previo.
+                    </li>
                 </ul>
 
                 <h3>👥 Responsabilidades del Usuario</h3>
@@ -1501,16 +1578,25 @@
                 </ul>
 
                 <h3>⏱️ Política de Edición</h3>
-                <p>Los padres/acudientes disponen de <strong>30 minutos</strong> desde el primer guardado para realizar
-                    modificaciones. Transcurrido este tiempo, solo las tutoras autorizadas podrán editar la información.
+                <p>
+                    Los padres/acudientes disponen de <strong>30 minutos</strong> desde
+                    el primer guardado para realizar modificaciones. Transcurrido este
+                    tiempo, solo las tutoras autorizadas podrán editar la información.
                 </p>
 
                 <h3>📞 Contacto y Soporte</h3>
-                <p>Para cualquier duda o inconveniente, por favor contacte al equipo administrativo del proyecto.</p>
+                <p>
+                    Para cualquier duda o inconveniente, por favor contacte al equipo
+                    administrativo del proyecto.
+                </p>
             </div>
             <div class="modal-footer">
-                <button class="btn-modal btn-accept" id="btn-accept-terms">Acepto los Términos</button>
-                <button class="btn-modal btn-decline" id="btn-decline-terms">No Acepto</button>
+                <button class="btn-modal btn-accept" id="btn-accept-terms">
+                    Acepto los Términos
+                </button>
+                <button class="btn-modal btn-decline" id="btn-decline-terms">
+                    No Acepto
+                </button>
             </div>
         </div>
     </div>
@@ -1523,7 +1609,9 @@
     </div>
 
     <!-- Botón flotante para ver términos -->
-    <div class="terms-link" id="terms-link" title="Ver Términos y Condiciones">📋</div>
+    <div class="terms-link" id="terms-link" title="Ver Términos y Condiciones">
+        📋
+    </div>
 
     <header>
         <div class="logo-container">
@@ -1542,7 +1630,7 @@
                 <span>👩‍🏫</span>
                 <span>Acceso Administrativos</span>
             </button>
-            <button class="tab-btn" data-tab="tab-admin" style="display:none;" id="tab-btn-admin">
+            <button class="tab-btn" data-tab="tab-admin" style="display: none" id="tab-btn-admin">
                 <span>💻</span>
                 <span>Dashboard Admin</span>
             </button>
@@ -1552,11 +1640,12 @@
             <div class="consentimiento-box">
                 <div class="consentimiento-icon">🤝</div>
                 <div>
-                    <strong>Instrucciones para Padres/Acudientes:</strong> Ingrese la fecha de nacimiento de su hijo(a)
-                    para confirmar identidad y actualizar sus datos de contacto.
+                    <strong>Instrucciones para Padres/Acudientes:</strong> Ingrese la
+                    fecha de nacimiento de su hijo(a) para confirmar identidad y
+                    actualizar sus datos de contacto.
                 </div>
             </div>
-            <br>
+            <br />
             <section id="seccion-busqueda" class="card anim-entrada">
                 <h2 class="paso-titulo">
                     <span class="paso-numero">1</span>
@@ -1581,11 +1670,11 @@
                         <span>🔍</span>
                         <span>Buscar Participante</span>
                     </button>
-                    <div id="mensaje-busqueda" class="mensaje-alerta" style="display:none;"></div>
+                    <div id="mensaje-busqueda" class="mensaje-alerta" style="display: none"></div>
                 </form>
             </section>
 
-            <section id="seccion-resultados" class="card anim-entrada" style="display: none;">
+            <section id="seccion-resultados" class="card anim-entrada" style="display: none">
                 <h2 class="paso-titulo">
                     <span class="paso-numero">2</span>
                     <span>Seleccione y Complete (Acudiente)</span>
@@ -1593,10 +1682,10 @@
                 <div id="lista-resultados" class="lista-participantes"></div>
             </section>
 
-            <section id="seccion-formulario-publico" class="card anim-entrada" style="display: none;">
+            <section id="seccion-formulario-publico" class="card anim-entrada" style="display: none">
                 <p id="info-participante-seleccionado-publico" class="participante-info-resaltada"></p>
-                <div id="mensaje-guardado-publico" class="mensaje-confirmacion" style="display:none;"></div>
-                <div id="mensaje-tiempo-restante" class="mensaje-tiempo-restante" style="display:none;"></div>
+                <div id="mensaje-guardado-publico" class="mensaje-confirmacion" style="display: none"></div>
+                <div id="mensaje-tiempo-restante" class="mensaje-tiempo-restante" style="display: none"></div>
                 <form id="form-datos-publico"></form>
                 <button type="submit" form="form-datos-publico" id="btn-guardar-publico" class="btn-secundario">
                     <span>💾</span>
@@ -1614,24 +1703,27 @@
                 <form id="form-login">
                     <div class="input-grupo">
                         <label for="login-user">👤 Usuario</label>
-                        <input type="text" id="login-user" required placeholder="Ingrese su usuario">
+                        <input type="text" id="login-user" required placeholder="Ingrese su usuario" />
                     </div>
                     <div class="input-grupo">
                         <label for="login-pass">🔑 Contraseña</label>
-                        <input type="password" id="login-pass" required placeholder="Ingrese su contraseña">
+                        <input type="password" id="login-pass" required placeholder="Ingrese su contraseña" />
                     </div>
                     <button type="submit" class="btn-primario">
                         <span>🔓</span>
                         <span>Ingresar</span>
                     </button>
-                    <div id="mensaje-login" class="mensaje-alerta" style="display:none;"></div>
+                    <div id="mensaje-login" class="mensaje-alerta" style="display: none"></div>
                 </form>
             </section>
 
-            <section id="seccion-gestion-tutora" class="card anim-entrada" style="display: none;">
+            <section id="seccion-gestion-tutora" class="card anim-entrada" style="display: none">
                 <h2 class="paso-titulo" id="titulo-gestion-tutora">
-                    <span class="paso-numero">2</span> <span>Gestión de Participantes (Tutora)</span>
-                    <button class="btn-logout" onclick="logout()"> <i class="fas fa-sign-out-alt"></i> Salir </button>
+                    <span class="paso-numero">2</span>
+                    <span>Gestión de Participantes (Tutora)</span>
+                    <button class="btn-logout" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </button>
                 </h2>
 
                 <div class="select-tutora-box">
@@ -1645,39 +1737,47 @@
                     </button>
                 </div>
 
-                <div id="tutora-stats-box" style="margin-bottom: 25px; display: none;">
-                    <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-secundario);">
+                <div id="tutora-stats-box" style="margin-bottom: 25px; display: none">
+                    <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-secundario)">
                         <span>📈</span>
                         <span>Resumen de Gestión</span>
                     </h3>
                     <div class="grid-2col">
                         <div class="input-grupo">
                             <label>✅ Completados / Total</label>
-                            <input type="text" id="stats-tutora-ratio" readonly value="0/0">
+                            <input type="text" id="stats-tutora-ratio" readonly value="0/0" />
                         </div>
                         <div class="input-grupo">
                             <label>🎯 Porcentaje de Avance</label>
-                            <input type="text" id="stats-tutora-porcentaje" readonly value="0%">
+                            <input type="text" id="stats-tutora-porcentaje" readonly value="0%" />
                         </div>
                     </div>
                 </div>
 
-                <h3
-                    style="margin-top:30px; border-bottom:2px solid #e2e8f0; padding-bottom:15px; color: var(--color-primario); font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                <h3 style="
+              margin-top: 30px;
+              border-bottom: 2px solid #e2e8f0;
+              padding-bottom: 15px;
+              color: var(--color-primario);
+              font-size: 1.2rem;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            ">
                     <span>📋</span>
                     <span>Listado de Casos:</span>
                 </h3>
                 <div id="lista-participantes-tutora" class="tutora-participante-list"></div>
             </section>
 
-            <section id="seccion-formulario-tutora" class="card anim-entrada" style="display: none;">
+            <section id="seccion-formulario-tutora" class="card anim-entrada" style="display: none">
                 <h2 class="paso-titulo">
                     <span class="paso-numero">3</span>
                     <span>Edición de Datos (Tutora)</span>
                 </h2>
                 <p id="info-participante-seleccionado-tutora" class="participante-info-resaltada"></p>
 
-                <div id="mensaje-guardado-tutora" class="mensaje-confirmacion" style="display:none;"></div>
+                <div id="mensaje-guardado-tutora" class="mensaje-confirmacion" style="display: none"></div>
                 <form id="form-datos-tutora"></form>
                 <button type="submit" form="form-datos-tutora" id="btn-guardar-tutora" class="btn-secundario">
                     <span>💾</span>
@@ -1688,55 +1788,56 @@
 
         <div id="tab-admin" class="tab-content">
             <section id="seccion-dashboard-admin" class="card anim-entrada">
-                <section id="seccion-admin-dashboard" class="card anim-entrada" style="display:none;">
+                <section id="seccion-admin-dashboard" class="card anim-entrada" style="display: none">
                     <h2 class="paso-titulo" id="titulo-admin-dashboard">
-                        <span class="paso-numero">1</span> <span>Dashboard de Administrador</span>
-                        <button class="btn-logout" onclick="logout()"> <i class="fas fa-sign-out-alt"></i> Salir
+                        <span class="paso-numero">1</span>
+                        <span>Dashboard de Administrador</span>
+                        <button class="btn-logout" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Salir
                         </button>
                     </h2>
                     <p>Bienvenido Administrador.</p>
                 </section>
 
-                <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-secundario);">
+                <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-secundario)">
                     <span>🌎</span>
                     <span>Estadísticas Globales del Proyecto</span>
                 </h3>
-                <div class="grid-2col" style="margin-bottom: 30px;">
+                <div class="grid-2col" style="margin-bottom: 30px">
                     <div class="input-grupo">
                         <label>👥 Total Participantes</label>
-                        <input type="text" id="stats-total-general" readonly value="0">
+                        <input type="text" id="stats-total-general" readonly value="0" />
                     </div>
                     <div class="input-grupo">
                         <label>✅ Participantes Completados</label>
-                        <input type="text" id="stats-completados-general" readonly value="0">
+                        <input type="text" id="stats-completados-general" readonly value="0" />
                     </div>
                     <div class="input-grupo">
                         <label>❌ Participantes Faltantes</label>
-                        <input type="text" id="stats-faltantes-general" readonly value="0">
+                        <input type="text" id="stats-faltantes-general" readonly value="0" />
                     </div>
                     <div class="input-grupo">
                         <label>🎯 Porcentaje de Avance</label>
-                        <input type="text" id="stats-porcentaje-general" readonly value="0%">
+                        <input type="text" id="stats-porcentaje-general" readonly value="0%" />
                     </div>
                 </div>
 
-                <div style="margin-bottom: 30px; height: 180px;">
+                <div style="margin-bottom: 30px; height: 180px">
                     <canvas id="completionChart"></canvas>
                 </div>
 
-                <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-primario);">
+                <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-primario)">
                     <span>📊</span>
                     <span>Avance por Tutora (Desglose)</span>
                 </h3>
-                <div id="admin-tutora-breakdown" class="lista-participantes" style="margin-bottom: 30px;">
-                </div>
+                <div id="admin-tutora-breakdown" class="lista-participantes" style="margin-bottom: 30px"></div>
 
-                <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-secundario);">
+                <h3 class="subtitulo-familiar" style="border-left: 4px solid var(--color-secundario)">
                     <span>🔎</span>
                     <span>Filtro de Participantes (Lista Inferior)</span>
                 </h3>
 
-                <div class="grid-2col" style="margin-bottom: 30px;">
+                <div class="grid-2col" style="margin-bottom: 30px">
                     <div class="input-grupo">
                         <label for="admin-select-tutora">👩‍🏫 Filtrar por Tutora</label>
                         <select id="admin-select-tutora" required></select>
@@ -1751,37 +1852,46 @@
                     </div>
                 </div>
 
-                <div class="grid-2col" style="margin-bottom: 30px;">
+                <div class="grid-2col" style="margin-bottom: 30px">
                     <div class="input-grupo">
                         <label>📊 Total de Participantes Filtrados</label>
-                        <input type="text" id="stats-total-participantes" readonly value="0">
+                        <input type="text" id="stats-total-participantes" readonly value="0" />
                     </div>
                     <div class="input-grupo">
                         <label>✅ % Completado Filtrado</label>
-                        <input type="text" id="stats-porcentaje-completo" readonly value="0%">
+                        <input type="text" id="stats-porcentaje-completo" readonly value="0%" />
                     </div>
                 </div>
 
-                <h3
-                    style="margin-top:30px; border-bottom:2px solid #e2e8f0; padding-bottom:15px; color: var(--color-primario); font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                <h3 style="
+              margin-top: 30px;
+              border-bottom: 2px solid #e2e8f0;
+              padding-bottom: 15px;
+              color: var(--color-primario);
+              font-size: 1.2rem;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            ">
                     <span>📋</span>
                     <span>Listado de Participantes (Admin):</span>
                 </h3>
-                <div id="lista-participantes-admin" class="lista-participantes">
-                </div>
+                <div id="lista-participantes-admin" class="lista-participantes"></div>
             </section>
         </div>
-
     </main>
 
     <div id="detalle-overlay" class="detalle-overlay">
-        <div id="detalle-container" class="detalle-container">
-        </div>
+        <div id="detalle-container" class="detalle-container"></div>
     </div>
 
     <footer class="footer">
-        <p>&copy; 2025 ParentAccess. Desarrollado con ❤️ para el bienestar social.</p>
-        <p style="margin-top: 10px; font-size: 0.85rem;">Todos los derechos reservados. Uso exclusivo del proyecto.</p>
+        <p>
+            &copy; 2025 ParentAccess. Desarrollado con ❤️ para el bienestar social.
+        </p>
+        <p style="margin-top: 10px; font-size: 0.85rem">
+            Todos los derechos reservados. Uso exclusivo del proyecto.
+        </p>
     </footer>
     <script src="animaciones.js"></script>
     <script>
@@ -1790,117 +1900,143 @@
         /* ========================================================= */
 
         // ⚠️ DEBE VERIFICAR QUE ESTA URL SEA LA CORRECTA DE SU DEPLIEGUE
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx4Iv227I2p3hfZlSQe9MkiwNzJ0YjTq8GoJ_BFGBrHoy8UENZXE2DLEImpBH3GBBw-nA/exec';
+        const APPS_SCRIPT_URL =
+            "https://script.google.com/macros/s/AKfycbx4Iv227I2p3hfZlSQe9MkiwNzJ0YjTq8GoJ_BFGBrHoy8UENZXE2DLEImpBH3GBBw-nA/exec";
 
         const INTERVALO_REFRESCO_MS = 5000; // 5 segundos
 
         // --- Credenciales y Data --
-        const TUTORA_USER = 'tutora678';
-        const TUTORA_PASS = 'tutora678';
-        const ADMIN_USER = 'admin678';
-        const ADMIN_PASS = 'admin678';
+        const TUTORA_USER = "tutora678";
+        const TUTORA_PASS = "tutora678";
+        const ADMIN_USER = "admin678";
+        const ADMIN_PASS = "admin678";
 
         // ⭐️ LISTA ESTATICA DE TUTORAS (Fuente única de verdad para nombres y IDs)
-        const TUTORAS_DISPONIBLES = ['Diana Carolina Ureña Mendoza', 'Yrany Lisbeth Martinez Sanchez', 'Juliana Villamizar Ortiz', 'Helen Abelyn Sanchez Herrera', 'Otro/Administrador'];
+        const TUTORAS_DISPONIBLES = [
+            "Diana Carolina Ureña Mendoza",
+            "Yrany Lisbeth Martinez Sanchez",
+            "Juliana Villamizar Ortiz",
+            "Helen Abelyn Sanchez Herrera",
+            "Otro/Administrador",
+        ];
 
         // --- Estado Global y Caché --
         let participanteSeleccionado = null;
-        let modoActual = 'publico';
+        let modoActual = "publico";
         let timerBloqueo = null;
         const SELECT_BASE_OP = '<option value="">Seleccione...</option>';
 
         let participantesCache = [];
-        let tutorasCache = [];       // Contendrá IDs limpios y nombres completos.
+        let tutorasCache = []; // Contendrá IDs limpios y nombres completos.
         let sessionCache = { user: null };
         let dataLoaded = false;
         let completionChartInstance = null;
         // Verifica si Chart.js se cargó (necesario para las gráficas de Admin)
-        let isChartJsLoaded = typeof Chart !== 'undefined';
+        let isChartJsLoaded = typeof Chart !== "undefined";
 
         // --- DOM Elements ---
-        const $ = id => document.getElementById(id);
-        const $busqueda = $('seccion-busqueda'), $resultados = $('seccion-resultados'), $formularioPublico = $('seccion-formulario-publico');
-        const $login = $('seccion-login'), $gestionTutora = $('seccion-gestion-tutora'), $formularioTutora = $('seccion-formulario-tutora');
+        const $ = (id) => document.getElementById(id);
+        const $busqueda = $("seccion-busqueda"),
+            $resultados = $("seccion-resultados"),
+            $formularioPublico = $("seccion-formulario-publico");
+        const $login = $("seccion-login"),
+            $gestionTutora = $("seccion-gestion-tutora"),
+            $formularioTutora = $("seccion-formulario-tutora");
         // NUEVA LÍNEA AÑADIDA
-        const $adminDashboard = $('seccion-admin-dashboard');
+        const $adminDashboard = $("seccion-admin-dashboard");
 
         function iniciarRefrescoAutomatico() {
             // 1. Carga inicial: Con loader visible (mostrarProgreso = true, que es el valor por defecto)
             loadAllSheetData(true);
 
-            console.log(`[INICIO] Refresco automático activado cada ${INTERVALO_REFRESCO_MS / 1000} segundos.`);
+            console.log(
+                `[INICIO] Refresco automático activado cada ${INTERVALO_REFRESCO_MS / 1000
+                } segundos.`
+            );
 
             // 2. Loop de actualización: SILENCIOSO (mostrarProgreso = false)
             setInterval(() => loadAllSheetData(false), INTERVALO_REFRESCO_MS);
         }
 
         // 3. Reemplaza tu antigua línea de arranque con esta:
-        document.addEventListener('DOMContentLoaded', iniciarRefrescoAutomatico);
+        document.addEventListener("DOMContentLoaded", iniciarRefrescoAutomatico);
 
         // ==================== FUNCIONES AUXILIARES ====================
 
         /** Convierte el nombre de una tutora en un ID simple y único. */
         const nameToId = (name) => {
-            return name.toLowerCase().replace(/[^a-z0-9]/g, '');
+            return name.toLowerCase().replace(/[^a-z0-9]/g, "");
         };
 
         /** Inicializa el caché de tutoras a partir de la lista estática. */
         function initializeTutorasCache() {
             // 1. Generar Tutora IDs a partir de la lista estática
-            let generatedTutoras = TUTORAS_DISPONIBLES
-                .filter(name => name !== 'Otro/Administrador')
-                .map(name => ({
-                    id: nameToId(name),
-                    nombre: name,
-                    role: 'tutora'
-                }));
+            let generatedTutoras = TUTORAS_DISPONIBLES.filter(
+                (name) => name !== "Otro/Administrador"
+            ).map((name) => ({
+                id: nameToId(name),
+                nombre: name,
+                role: "tutora",
+            }));
 
             // 2. Agregar la entrada del administrador
-            generatedTutoras.push({ id: ADMIN_USER, nombre: 'Admin General', role: 'admin' });
+            generatedTutoras.push({
+                id: ADMIN_USER,
+                nombre: "Admin General",
+                role: "admin",
+            });
 
             tutorasCache = generatedTutoras;
         }
 
         // ==================== LOADER Y ANIMACIONES ====================
 
-        function showLoader(text = 'Cargando y Validando Datos...') {
-            const loader = $('loader-overlay');
-            const loaderText = $('loader-text');
-            if (loader) loader.classList.remove('hidden');
+        function showLoader(text = "Cargando y Validando Datos...") {
+            const loader = $("loader-overlay");
+            const loaderText = $("loader-text");
+            if (loader) loader.classList.remove("hidden");
             if (loaderText) loaderText.textContent = text;
         }
 
         function hideLoader() {
-            const loader = $('loader-overlay');
-            const loaderText = $('loader-text');
-            if (loaderText) loaderText.textContent = '✅ Datos Cargados y Validados Correctamente';
+            const loader = $("loader-overlay");
+            const loaderText = $("loader-text");
+            if (loaderText)
+                loaderText.textContent =
+                    "✅ Datos Cargados y Validados Correctamente";
 
             setTimeout(() => {
-                if (loader) loader.classList.add('hidden');
+                if (loader) loader.classList.add("hidden");
             }, 1000);
         }
 
         function showSaveAnimation(isSaving = true) {
-            const overlay = $('save-overlay');
-            const animation = $('save-animation');
-            const icon = $('save-icon');
-            const text = $('save-text');
+            const overlay = $("save-overlay");
+            const animation = $("save-animation");
+            const icon = $("save-icon");
+            const text = $("save-text");
 
-            if (overlay) overlay.classList.add('show');
-            if (animation) animation.classList.add('show');
+            if (overlay) overlay.classList.add("show");
+            if (animation) animation.classList.add("show");
 
             if (isSaving) {
-                if (icon) { icon.textContent = '💾'; icon.className = 'save-icon saving'; }
-                if (text) text.textContent = 'Guardando información...';
+                if (icon) {
+                    icon.textContent = "💾";
+                    icon.className = "save-icon saving";
+                }
+                if (text) text.textContent = "Guardando información...";
             }
         }
 
         function showSaveSuccess() {
-            const icon = $('save-icon');
-            const text = $('save-text');
+            const icon = $("save-icon");
+            const text = $("save-text");
 
-            if (icon) { icon.textContent = '✅'; icon.className = 'save-icon success'; }
-            if (text) text.textContent = '¡Guardado Exitoso!';
+            if (icon) {
+                icon.textContent = "✅";
+                icon.className = "save-icon success";
+            }
+            if (text) text.textContent = "¡Guardado Exitoso!";
 
             setTimeout(() => {
                 hideSaveAnimation();
@@ -1908,11 +2044,14 @@
         }
 
         function showSaveError(message) {
-            const icon = $('save-icon');
-            const text = $('save-text');
+            const icon = $("save-icon");
+            const text = $("save-text");
 
-            if (icon) { icon.textContent = '❌'; icon.className = 'save-icon'; }
-            if (text) text.textContent = message || 'Error al guardar';
+            if (icon) {
+                icon.textContent = "❌";
+                icon.className = "save-icon";
+            }
+            if (text) text.textContent = message || "Error al guardar";
 
             setTimeout(() => {
                 hideSaveAnimation();
@@ -1920,29 +2059,29 @@
         }
 
         function hideSaveAnimation() {
-            const overlay = $('save-overlay');
-            const animation = $('save-animation');
+            const overlay = $("save-overlay");
+            const animation = $("save-animation");
 
-            if (overlay) overlay.classList.remove('show');
-            if (animation) animation.classList.remove('show');
+            if (overlay) overlay.classList.remove("show");
+            if (animation) animation.classList.remove("show");
         }
 
         function mostrarMensaje(elemento, texto, tipo) {
             if (!elemento) return;
             elemento.textContent = texto;
-            elemento.style.display = 'block';
-            elemento.className = '';
+            elemento.style.display = "block";
+            elemento.className = "";
 
-            let icono = '';
-            if (tipo === 'alerta') {
-                elemento.classList.add('mensaje-alerta');
-                icono = '⚠️ ';
-            } else if (tipo === 'confirmacion') {
-                elemento.classList.add('mensaje-confirmacion');
-                icono = '✅ ';
-            } else if (tipo === 'tiempo') {
-                elemento.classList.add('mensaje-tiempo-restante');
-                icono = '⏳ ';
+            let icono = "";
+            if (tipo === "alerta") {
+                elemento.classList.add("mensaje-alerta");
+                icono = "⚠️ ";
+            } else if (tipo === "confirmacion") {
+                elemento.classList.add("mensaje-confirmacion");
+                icono = "✅ ";
+            } else if (tipo === "tiempo") {
+                elemento.classList.add("mensaje-tiempo-restante");
+                icono = "⏳ ";
             }
 
             elemento.textContent = icono + texto;
@@ -1952,7 +2091,7 @@
         function iniciarContador(horaBloqueoStr) {
             if (timerBloqueo) clearInterval(timerBloqueo);
 
-            const partes = horaBloqueoStr.split(':');
+            const partes = horaBloqueoStr.split(":");
             let horaBloqueo = new Date();
 
             horaBloqueo.setHours(Number(partes[0]));
@@ -1961,7 +2100,7 @@
             horaBloqueo.setMilliseconds(0);
 
             // Ajuste para cambios de día
-            if (horaBloqueo.getTime() < new Date().getTime() - (5 * 60 * 1000)) {
+            if (horaBloqueo.getTime() < new Date().getTime() - 5 * 60 * 1000) {
                 horaBloqueo = new Date(horaBloqueo.getTime() + 24 * 60 * 60 * 1000);
             }
 
@@ -1971,18 +2110,21 @@
 
                 if (diferenciaMs <= 0) {
                     clearInterval(timerBloqueo);
-                    bloquearFormulario(true, 'El tiempo de 30 minutos ha expirado. El formulario está bloqueado.');
+                    bloquearFormulario(
+                        true,
+                        "El tiempo de 30 minutos ha expirado. El formulario está bloqueado."
+                    );
                     return;
                 }
 
                 const minutos = Math.floor(diferenciaMs / (1000 * 60));
                 const segundos = Math.floor((diferenciaMs % (1000 * 60)) / 1000);
 
-                const mensajeRestante = $('mensaje-tiempo-restante');
+                const mensajeRestante = $("mensaje-tiempo-restante");
                 if (mensajeRestante) {
                     mensajeRestante.innerHTML = `⏳ <strong>Tienes Exatamente 00:30:00 Minutos para realizar alguna modificacion.</strong>`;
-                    mensajeRestante.style.display = 'block';
-                    mensajeRestante.className = 'mensaje-tiempo-restante';
+                    mensajeRestante.style.display = "block";
+                    mensajeRestante.className = "mensaje-tiempo-restante";
                 }
             };
 
@@ -1992,73 +2134,82 @@
 
         /** Bloquea o desbloquea todos los campos del formulario público. */
         function bloquearFormulario(bloquear, mensaje) {
-            const formElement = $('form-datos-publico');
-            const btnGuardar = $('btn-guardar-publico');
+            const formElement = $("form-datos-publico");
+            const btnGuardar = $("btn-guardar-publico");
             if (!formElement || !btnGuardar) return;
 
-            const inputs = formElement.querySelectorAll('input, select');
-            const mensajeRestante = $('mensaje-tiempo-restante');
+            const inputs = formElement.querySelectorAll("input, select");
+            const mensajeRestante = $("mensaje-tiempo-restante");
 
-            inputs.forEach(input => { input.disabled = bloquear; });
+            inputs.forEach((input) => {
+                input.disabled = bloquear;
+            });
             btnGuardar.disabled = bloquear;
 
             if (mensajeRestante) {
                 if (bloquear) {
                     mensajeRestante.innerHTML = `🔒 ${mensaje}`;
-                    mensajeRestante.style.display = 'block';
-                    mensajeRestante.classList.add('mensaje-alerta');
-                    mensajeRestante.classList.remove('mensaje-tiempo-restante');
+                    mensajeRestante.style.display = "block";
+                    mensajeRestante.classList.add("mensaje-alerta");
+                    mensajeRestante.classList.remove("mensaje-tiempo-restante");
                     clearInterval(timerBloqueo);
                 } else {
-                    mensajeRestante.style.display = 'none';
-                    mensajeRestante.classList.remove('mensaje-alerta');
-                    mensajeRestante.classList.add('mensaje-tiempo-restante');
+                    mensajeRestante.style.display = "none";
+                    mensajeRestante.classList.remove("mensaje-alerta");
+                    mensajeRestante.classList.add("mensaje-tiempo-restante");
                 }
             }
         }
 
-
         // ==================== TÉRMINOS Y CONDICIONES ====================
 
         function showTermsModal() {
-            const modal = $('modal-terms');
-            if (modal) modal.classList.add('show');
+            const modal = $("modal-terms");
+            if (modal) modal.classList.add("show");
         }
 
         function hideTermsModal() {
-            const modal = $('modal-terms');
-            if (modal) modal.classList.remove('show');
+            const modal = $("modal-terms");
+            if (modal) modal.classList.remove("show");
         }
-
 
         // ==================== TABS, SELECTS, FORM TEMPLATES ====================
 
         function cambiarTab(tabId) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document
+                .querySelectorAll(".tab-btn")
+                .forEach((btn) => btn.classList.remove("active"));
+            document
+                .querySelectorAll(".tab-content")
+                .forEach((content) => content.classList.remove("active"));
 
             const button = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
-            if (button) button.classList.add('active');
+            if (button) button.classList.add("active");
             const content = $(tabId);
-            if (content) content.classList.add('active');
+            if (content) content.classList.add("active");
 
-            modoActual = (tabId === 'tab-publico' ? 'publico' : (tabId === 'tab-tutora' ? 'tutora' : 'admin'));
+            modoActual =
+                tabId === "tab-publico"
+                    ? "publico"
+                    : tabId === "tab-tutora"
+                        ? "tutora"
+                        : "admin";
         }
 
         function initTabs() {
-            document.querySelectorAll('.tab-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const tabId = button.getAttribute('data-tab');
+            document.querySelectorAll(".tab-btn").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const tabId = button.getAttribute("data-tab");
                     cambiarTab(tabId);
 
-                    if (tabId === 'tab-publico') {
-                        $login.style.display = 'block';
-                        $gestionTutora.style.display = 'none';
-                        $formularioTutora.style.display = 'none';
-                        $resultados.style.display = 'none';
-                        $formularioPublico.style.display = 'none';
+                    if (tabId === "tab-publico") {
+                        $login.style.display = "block";
+                        $gestionTutora.style.display = "none";
+                        $formularioTutora.style.display = "none";
+                        $resultados.style.display = "none";
+                        $formularioPublico.style.display = "none";
                     }
-                    if (tabId === 'tab-admin') {
+                    if (tabId === "tab-admin") {
                         if (dataLoaded) filtrarParticipantesAdmin();
                     }
                 });
@@ -2066,19 +2217,34 @@
         }
 
         function initFechaSelects() {
-            const diaSelect = $('dia'), mesSelect = $('mes'), anoSelect = $('ano');
+            const diaSelect = $("dia"),
+                mesSelect = $("mes"),
+                anoSelect = $("ano");
             if (!diaSelect || !mesSelect || !anoSelect) return;
 
             diaSelect.innerHTML = SELECT_BASE_OP;
             for (let i = 1; i <= 31; i++) {
-                const value = i < 10 ? '0' + i : String(i);
+                const value = i < 10 ? "0" + i : String(i);
                 diaSelect.innerHTML += `<option value="${value}">${value}</option>`;
             }
 
             mesSelect.innerHTML = SELECT_BASE_OP;
-            const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            const meses = [
+                "Enero",
+                "Febrero",
+                "Marzo",
+                "Abril",
+                "Mayo",
+                "Junio",
+                "Julio",
+                "Agosto",
+                "Septiembre",
+                "Octubre",
+                "Noviembre",
+                "Diciembre",
+            ];
             for (let i = 0; i < 12; i++) {
-                const value = (i + 1) < 10 ? '0' + (i + 1) : String(i + 1);
+                const value = i + 1 < 10 ? "0" + (i + 1) : String(i + 1);
                 mesSelect.innerHTML += `<option value="${value}">${meses[i]}</option>`;
             }
 
@@ -2095,13 +2261,16 @@
 
             selectElement.innerHTML = SELECT_BASE_OP;
             if (includeAll) {
-                selectElement.innerHTML = '<option value="todos">Todos los Participantes</option>';
+                selectElement.innerHTML =
+                    '<option value="todos">Todos los Participantes</option>';
             }
 
             // Usamos la caché de tutoras generada con IDs
             tutorasCache
-                .filter(t => t.role === 'tutora' || (includeAll && t.role === 'admin'))
-                .forEach(tutora => {
+                .filter(
+                    (t) => t.role === "tutora" || (includeAll && t.role === "admin")
+                )
+                .forEach((tutora) => {
                     selectElement.innerHTML += `<option value="${tutora.id}">${tutora.nombre}</option>`;
                 });
         }
@@ -2109,7 +2278,7 @@
         function initFormularioTemplates() {
             const template = `
         <fieldset>
-            <legend>🆔 Identificación del Participante</legend>
+            <legend>🆔 Información del Participante</legend>
             <div class="grid-2col">
                 <div class="input-grupo">
                     <label for="tipoDocParticipante">📄 Tipo de Documento</label>
@@ -2128,10 +2297,218 @@
                     <label for="numDocParticipante">🔢 Número de Documento</label>
                     <input type="text" id="numDocParticipante" name="numDocParticipante" pattern="\\d+" title="Solo números" required placeholder="Ingrese el número">
                 </div>
+                <div class="input-grupo">
+                    <label for="regimenSalud">🩺 Regimen de Salud</label>
+                    <select id="regimenSalud" name="regimenSalud" required onchange="manejarRegimenSalud(this.value)">
+                        <option value="">Seleccione una opción</option>
+                        <option value="Subsidiado">Subsidiado - SUB</option>
+                        <option value="Contributivo">Contributivo - CON</option>
+                        <option value="No Salud">No Salud</option> </select>
+                    </div>
+                    <div class="input-grupo">
+                        <label for="epsActivo">💊 EPS Activo</label>
+                        <select id="epsActivo" name="epsActivo" required onchange="mostrarCampoOtraEPS(this.value)">
+                            <option value="">Seleccione su EPS</option>
+                            <option value="Ambuq">Ambuq</option>
+                            <option value="Cajacopi">Cajacopi</option>
+                            <option value="Comfacor">Comfacor</option>
+                            <option value="Comfasucre">Comfasucre</option>
+                            <option value="Comparta">Comparta</option>
+                            <option value="Coosalud">Coosalud</option>
+                            <option value="Emdisalud">Emdisalud</option>
+                            <option value="Mutual ser">Mutual ser</option>
+                            <option value="Nueva EPS">Nueva EPS</option>
+                            <option value="Saludvida">Saludvida</option>
+                            <option value="Salud total">Salud total</option>
+                            <option value="Cafesalud">Cafesalud</option>
+                            <option value="Convida">Convida</option>
+                            <option value="OTRA">OTRA (Especifique)</option>
+                        </select>
+    
+                        <input type="text" id="otraEps" name="otraEps" style="display:none; margin-top: 10px;" 
+                        placeholder="Escriba el nombre de la EPS">
+                    </div>
+
+                    <div class="input-grupo">
+                        <label for="estudiaActual">🎓 Educación</label>
+    
+                        <label>¿Estudia actualmente?</label>
+                        <div class="radio-grupo" id="estudia-actualmente-radio">
+                            <input type="radio" id="estudia-si" name="estudiaActual" value="si"  onchange="manejarEstudio(this.value)">
+                            <label for="estudia-si">Sí</label>
+            
+                            <input type="radio" id="estudia-no" name="estudiaActual" value="no"  onchange="manejarEstudio(this.value)">
+                            <label for="estudia-no">No</label>
+                        </div>
+                    </div>
+
+                    <div class="input-grupo campo-dependiente" id="cursoActualGrupo" style="display:none;">
+                        <label for="cursoActual">Nivel/Curso Actual:</label>
+                        <select id="cursoActual" name="cursoActual" >
+                            <option value="">Seleccione el curso actual</option>
+                            <option value="Transicion">Transición</option>
+                            <option value="1">1° de Básica</option>
+                            <option value="2">2° de Básica</option>
+                            <option value="3">3° de Básica</option>
+                            <option value="4">4° de Básica</option>
+                            <option value="5">5° de Básica</option>
+                            <option value="6">6° de Básica</option>
+                            <option value="7">7° de Básica</option>
+                            <option value="8">8° de Básica</option>
+                            <option value="9">9° de Básica</option>
+                            <option value="10">10° de Media</option>
+                            <option value="Tecnico año 1">Tecnologo - Año 1</option>
+                            <option value="Tecnico año 2">Tecnologo - Año 2</option>
+                            <option value="Tecnologo año 1">Tecnologo - Año 1</option>
+                            <option value="Tecnologo año 2">Tecnologo - Año 2</option>
+                            <option value="Tecnologo año 3">Tecnologo - Año 3</option>
+                            <option value="Tecnologo año 4">Tecnologo - Año 4</option>
+                            <option value="Universidad1">Universidad - Año 1</option>
+                            <option value="Universidad2">Universidad - Año 2</option>
+                            <option value="Universidad3">Universidad - Año 3</option>
+                            <option value="Universidad4">Universidad - Año 4</option>
+                            <option value="Universidad5">Universidad - Año 5</option>
+                        </select>
+                    </div>
+                    
+                    <div class="seccion-no-estudia" id="seccionNoEstudia" style="display:none;">
+        
+                        <div class="input-grupo">
+                            <label for="ultimoAnio">Último año cursado:</label>
+                            <select id="ultimoAnio" name="ultimoAnio" >
+                                <option value="">Seleccione el último año cursado</option>
+                                <option value="Transicion">Transición</option>
+                                <option value="1">1° de Básica</option>
+                                <option value="2">2° de Básica</option>
+                                <option value="3">3° de Básica</option>
+                                <option value="4">4° de Básica</option>
+                                <option value="5">5° de Básica</option>
+                                <option value="6">6° de Básica</option>
+                                <option value="7">7° de Básica</option>
+                                <option value="8">8° de Básica</option>
+                                <option value="9">9° de Básica</option>
+                                <option value="10">10° de Media</option>
+                                <option value="Tecnico año 1">Tecnologo - Año 1</option>
+                                <option value="Tecnico año 2">Tecnologo - Año 2</option>
+                                <option value="Tecnologo año 1">Tecnologo - Año 1</option>
+                                <option value="Tecnologo año 2">Tecnologo - Año 2</option>
+                                <option value="Tecnologo año 3">Tecnologo - Año 3</option>
+                                <option value="Tecnologo año 4">Tecnologo - Año 4</option>
+                                <option value="Universidad1">Universidad - Año 1</option>
+                                <option value="Universidad2">Universidad - Año 2</option>
+                                <option value="Universidad3">Universidad - Año 3</option>
+                                <option value="Universidad4">Universidad - Año 4</option>
+                                <option value="Universidad5">Universidad - Año 5</option>
+                            </select>
+                        </div>
+
+                        <div class="input-grupo">
+                            <label>¿Estudiará el próximo año?</label>
+                            <div class="radio-grupo">
+                                <input type="radio" id="futuro-si" name="estudioFuturo" value="si" onchange="manejarEstudioFuturo(this.value)">
+                                <label for="futuro-si">Sí</label>
+        
+                                <input type="radio" id="futuro-no" name="estudioFuturo" value="no" onchange="manejarEstudioFuturo(this.value)">
+                                <label for="futuro-no">No (Sin estudios)</label>
+                            </div>
+                        </div>
+        
+                        <div class="input-grupo campo-dependiente" id="cursoFuturoGrupo" style="display:none;">
+                            <label for="cursoFuturo">Año a cursar el próximo año:</label>
+                            <select id="cursoFuturo" name="cursoFuturo">
+                                <option value="">Seleccione el curso</option>
+                                <option value="Transicion">Transición</option>
+                                <option value="1">1° de Básica</option>
+                                <option value="2">2° de Básica</option>
+                                <option value="3">3° de Básica</option>
+                                <option value="4">4° de Básica</option>
+                                <option value="5">5° de Básica</option>
+                                <option value="6">6° de Básica</option>
+                                <option value="7">7° de Básica</option>
+                                <option value="8">8° de Básica</option>
+                                <option value="9">9° de Básica</option>
+                                <option value="10">10° de Media</option>
+                                <option value="11">11° de Media</option>
+                                <option value="Tecnico año 1">Técnico - Año 1</option>
+                                <option value="Tecnico año 2">Técnico - Año 2</option>
+                                <option value="Tecnologo año 1">Tecnólogo - Año 1</option>
+                                <option value="Tecnologo año 2">Tecnólogo - Año 2</option>
+                                <option value="Tecnologo año 3">Tecnólogo - Año 3</option>
+                                <option value="Tecnologo año 4">Tecnólogo - Año 4</option>
+                                <option value="Universidad1">Universidad - Año 1</option>
+                                <option value="Universidad2">Universidad - Año 2</option>
+                                <option value="Universidad3">Universidad - Año 3</option>
+                                <option value="Universidad4">Universidad - Año 4</option>
+                                <option value="Universidad5">Universidad - Año 5</option>
+                                <option value="Aceleracion">ACELERACIÓN (2 años en 1)</option>
+                            </select>
+                        </div>
+        
+                        <div class="input-grupo campo-dependiente" id="sinEstudiosGrupo" style="display:none;">
+                            <input type="text" id="sinEstudios" name="sinEstudios" value="SIN ESTUDIOS - Confirmado" readonly>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </fieldset>
+
+
+                <fieldset>
+                    <legend>📞 Datos de Contacto y Ubicación</legend>
+
+                    <div class="grid-2col">
+                        <div class="input-grupo">
+                            <label for="direccion">🏡 Dirección Vivienda</label>
+                            <input type="text" id="direccion" name="direccion" required placeholder="Escriba la dirección completa">
+                        </div>
+                        <div class="input-grupo">
+                            <label for="barrio">🏮 Barrio</label>
+                            <input type="text" id="barrio" name="barrio" required placeholder="Escriba el nombre del barrio">
+                        </div>
+                    </div>
+
+                    <div class="input-grupo">
+                        <label for="telefono">📱 Número de Telefono</label>
+                        <input type="text" id="telefono" name="telefono" required placeholder="Escriba El Número de Telefono Actual">
+                    </div>
+                </fieldset>
+            <fieldset>
+    <legend>🗺️ Planes de Movilidad</legend>
+    <div class="grid-2col">
+        <div class="input-grupo">
+            <label for="irse">Piensa Irse de la Zona</label>
+            <select id="irse" name="irse" required onchange="manejarMotivoIrse(this.value)">
+                <option value="">Seleccione una opción</option>
+                <option value="3 Meses">Probablemente en unos 3 Meses</option> 
+                <option value="6 Meses">Probablemente en unos 6 Meses</option> 
+                <option value="En 1 Año">Probablemente en unos 1 Año</option>
+                <option value="SI">Si, me voy para otra ciudad</option>
+                <option value="NO">No, ya me estableci en la Zona</option> 
+            </select>
+        </div>
+
+        <div class="input-grupo campo-dependiente" id="motivoIrseGrupo" style="display:none;">
+            <label for="motivoIrse">Motivo Principal de la Partida:</label>
+            <select id="motivoIrse" name="motivoIrse" disabled>
+                <option value="">Seleccione un motivo</option>
+                <option value="Violencia/Seguridad">Violencia/Inseguridad</option>
+                <option value="Economico/Trabajo">Mejorar Situación Económica/Laboral/Vivienda</option>
+                <option value="Familiar/Hogar">Reunificación Familiar/Problemas de Convivencia</option>
+                <option value="Estudios/Educacion">Continuar Estudios/Educación (Cambio de ciudad/país)</option>
+                <option value="Salud/Medico">Acceso a Servicios de Salud/Médicos</option>
+                <option value="Otro">Otro Motivo</option>
+            </select>
+        </div>
+    </div>
+
+
+                </fieldset>
+
+
         <fieldset>
             <legend>👨‍👩‍👧 Datos de Contacto del Acudiente Principal</legend>
+    
             <h3 class="subtitulo-familiar">
                 <span>👩</span>
                 <span>Información de la Madre</span>
@@ -2139,42 +2516,45 @@
             <div class="grid-2col">
                 <div class="input-grupo">
                     <label for="tipoDocMama">📄 Tipo Doc. Madre</label>
-                    <select id="tipoDocMama" name="tipoDocMama">
-                        <option value="">Seleccione o Dejar Vacío</option>
+                    <select id="tipoDocMama" name="tipoDocMama" required onchange="validarDocumento('tipoDocMama', 'numDocMama')">
+                        <option value="">Seleccione la Opcion Verifica</option>
                         <option value="C.C">Cédula de Ciudadanía (CC)</option>
                         <option value="Acta Nacimiento">Acta de Nacimiento (VEN)</option>
                         <option value="PEP">Permiso Especial de Permanencia (PEP)</option>
                         <option value="PPT">Permiso por Protección Temporal (PPT)</option>
                         <option value="Cedula Extrangeria">Cédula de Extrangeria (CE)</option>
-                    </select>
-                </div>
-                <div class="input-grupo">
-                    <label for="numDocMama">🔢 Número Doc. Madre</label>
-                    <input type="text" id="numDocMama" name="numDocMama" pattern="\\d+" title="Solo números" placeholder="Opcional">
-                </div>
-            </div>
-            <h3 class="subtitulo-familiar">
-                <span>👨</span>
-                <span>Información del Padre</span>
-            </h3>
-            <div class="grid-2col">
-                <div class="input-grupo">
-                    <label for="tipoDocPapa">📄 Tipo Doc. Padre</label>
-                    <select id="tipoDocPapa" name="tipoDocPapa">
-                        <option value="">Seleccione o Dejar Vacío</option>
-                        <option value="C.C">Cédula de Ciudadanía (CC)</option>
-                        <option value="Acta Nacimiento">Acta de Nacimiento (VEN)</option>
-                        <option value="PEP">Permiso Especial de Permanencia (PEP)</option>
-                        <option value="PPT">Permiso por Protección Temporal (PPT)</option>
-                        <option value="Cedula Extrangeria">Cédula de Extrangeria (CE)</option>
-                    </select>
-                </div>
-                <div class="input-grupo">
-                    <label for="numDocPapa">🔢 Número Doc. Padre</label>
-                    <input type="text" id="numDocPapa" name="numDocPapa" pattern="\\d+" title="Solo números" placeholder="Opcional">
-                </div>
-            </div>
-        </fieldset>
+                        <option value="No vive">No vive con la Madre</option>
+            </select>
+        </div>
+        <div class="input-grupo">
+            <label for="numDocMama">🔢 Número Doc. Madre</label>
+            <input type="text" id="numDocMama" name="numDocMama" pattern="\\d+" title="Solo números" required placeholder="Ingrese el número">
+        </div>
+    </div>
+    
+    <h3 class="subtitulo-familiar">
+        <span>👨</span>
+        <span>Información del Padre</span>
+    </h3>
+    <div class="grid-2col">
+        <div class="input-grupo">
+            <label for="tipoDocPapa">📄 Tipo Doc. Padre</label>
+            <select id="tipoDocPapa" name="tipoDocPapa" required onchange="validarDocumento('tipoDocPapa', 'numDocPapa')">
+                <option value="">Seleccione la Opcion Verifica</option>
+                <option value="C.C">Cédula de Ciudadanía (CC)</option>
+                <option value="Acta Nacimiento">Acta de Nacimiento (VEN)</option>
+                <option value="PEP">Permiso Especial de Permanencia (PEP)</option>
+                <option value="PPT">Permiso por Protección Temporal (PPT)</option>
+                <option value="Cedula Extrangeria">Cédula de Extrangeria (CE)</option>
+                <option value="No vive">No vive con el Padre</option>
+            </select>
+        </div>
+        <div class="input-grupo">
+            <label for="numDocPapa">🔢 Número Doc. Padre</label>
+            <input type="text" id="numDocPapa" name="numDocPapa" pattern="\\d+" title="Solo números" required placeholder="Ingrese el número">
+        </div>
+    </div>
+</fieldset>
         <fieldset id="fieldset-otro-familiar">
             <legend>👤 Otro Familiar/Acudiente (Si no es Mamá o Papá)</legend>
             <div class="input-grupo">
@@ -2210,39 +2590,37 @@
             </div>
         </fieldset>
     `;
-            const formPublico = $('form-datos-publico');
+            const formPublico = $("form-datos-publico");
             if (formPublico) formPublico.innerHTML = template;
-            const formTutora = $('form-datos-tutora');
+            const formTutora = $("form-datos-tutora");
             if (formTutora) formTutora.innerHTML = template;
         }
 
         function cargarDatosEnFormulario(participante, formElement) {
-            formElement.querySelectorAll('input, select').forEach(field => {
+            formElement.querySelectorAll("input, select").forEach((field) => {
                 const key = field.name;
                 if (participante[key] !== undefined) {
-                    field.value = participante[key] || '';
+                    field.value = participante[key] || "";
                 }
             });
         }
 
-
         // ==================== CONEXIÓN Y CACHÉ ====================
 
         async function loadAllSheetData(mostrarProgreso = true) {
-
             // 🔑 CLAVE: Solo mostramos el loader en la carga inicial (cuando mostrarProgreso es true)
             if (mostrarProgreso) {
-                showLoader('Cargando y Validando Datos...');
+                showLoader("Cargando y Validando Datos...");
             } else {
                 // Mensaje para debug. Solo se ve en la consola.
-                console.log(`[REFRESCO SILENCIOSO] Actualizando datos... (${new Date().toLocaleTimeString()})`);
+                console.log(`[.] Hacking (${new Date().toLocaleTimeString()})`);
             }
 
             // PASO 1: Inicializar la caché de tutoras antes de cargar los participantes
             initializeTutorasCache();
 
             try {
-                const response = await fetch(APPS_SCRIPT_URL, { method: 'GET' });
+                const response = await fetch(APPS_SCRIPT_URL, { method: "GET" });
 
                 if (!response.ok) {
                     throw new Error(`Error HTTP: ${response.status}`);
@@ -2250,16 +2628,21 @@
 
                 const result = await response.json();
 
-                if (result.status === 'exito' && result.data) {
-
+                if (result.status === "exito" && result.data) {
                     // PASO 2: Mapear los datos de participantes para añadir el 'tutora_id'
-                    participantesCache = result.data.map(p => {
-                        const tutoraEntry = tutorasCache.find(t => t.nombre === p.tutora);
+                    participantesCache = result.data.map((p) => {
+                        const tutoraEntry = tutorasCache.find(
+                            (t) => t.nombre === p.tutora
+                        );
 
                         return {
                             ...p,
-                            tutora_id: tutoraEntry ? tutoraEntry.id : nameToId(p.tutora || 'Sin Asignar'),
-                            participante_estado: p.tipoDocParticipante ? 'Completo' : 'Incompleto'
+                            tutora_id: tutoraEntry
+                                ? tutoraEntry.id
+                                : nameToId(p.tutora || "Sin Asignar"),
+                            participante_estado: p.tipoDocParticipante
+                                ? "Completo"
+                                : "Incompleto",
                         };
                     });
 
@@ -2271,8 +2654,8 @@
                     }
 
                     // Llenar selects de tutoras (solo se hace al inicio, pero no interfiere)
-                    llenarSelectTutoras($('select-tutora'), false);
-                    llenarSelectTutoras($('admin-select-tutora'), true);
+                    llenarSelectTutoras($("select-tutora"), false);
+                    llenarSelectTutoras($("admin-select-tutora"), true);
 
                     // 🔑 CLAVE: Redibujar la lista. ESTO SIEMPRE DEBE EJECUTARSE
                     filtrarParticipantesAdmin();
@@ -2280,106 +2663,131 @@
                     if (isChartJsLoaded) {
                         updateGlobalStats();
                     } else {
-                        console.warn("Chart.js no está cargado. El dashboard de admin no mostrará la gráfica.");
+                        console.warn(
+                            "Chart.js no está cargado. El dashboard de admin no mostrará la gráfica."
+                        );
                     }
 
                     // 🔑 CLAVE: Mostrar mensaje de éxito solo en la carga inicial
                     if (mostrarProgreso) {
-                        mostrarMensaje($('mensaje-busqueda'), 'Sistema listo. Ingrese la fecha o inicie sesión.', 'confirmacion');
+                        mostrarMensaje(
+                            $("mensaje-busqueda"),
+                            "Sistema listo. Ingrese la fecha o inicie sesión.",
+                            "confirmacion"
+                        );
                     }
 
-                    return { status: 'exito' };
+                    return { status: "exito" };
                 } else {
-                    throw new Error(result.message || 'Error al cargar los datos iniciales o formato de respuesta incorrecto.');
+                    throw new Error(
+                        result.message ||
+                        "Error al cargar los datos iniciales o formato de respuesta incorrecto."
+                    );
                 }
             } catch (error) {
                 // Manejo de Errores
-                console.error('Error al cargar datos:', error);
+                console.error("Error al cargar datos:", error);
 
                 // 🔑 CLAVE: Solo mostramos el error visible si es la carga inicial
                 if (mostrarProgreso) {
                     hideLoader();
-                    mostrarMensaje($('mensaje-busqueda'), `Error crítico al inicializar (GET): ${error.message}. Verifique el Apps Script.`, 'alerta');
+                    mostrarMensaje(
+                        $("mensaje-busqueda"),
+                        `Error crítico al inicializar (GET): ${error.message}. Verifique el Apps Script.`,
+                        "alerta"
+                    );
                 } else {
                     // En modo refresco, solo registramos el error en consola y continuamos el ciclo
-                    console.warn(`[REFRESCO FALLIDO] Error en ciclo silencioso: ${error.message}. Se reintentará en el próximo intervalo.`);
+                    console.warn(
+                        `[REFRESCO FALLIDO] Error en ciclo silencioso: ${error.message}. Se reintentará en el próximo intervalo.`
+                    );
                 }
-                return { status: 'error', message: error.message };
+                return { status: "error", message: error.message };
             }
         }
 
         /** Usa el caché local para buscar o filtrar, y hace POST para guardar. */
         async function sendToAppsScript(data) {
-            if (!dataLoaded && data.action !== 'guardar') {
-                return { status: 'error', message: 'Datos no cargados. Por favor, acepte los términos y espere a que el sistema esté listo.' };
+            if (!dataLoaded && data.action !== "guardar") {
+                return {
+                    status: "error",
+                    message:
+                        "Datos no cargados. Por favor, acepte los términos y espere a que el sistema esté listo.",
+                };
             }
 
-            if (data.action === 'buscar') {
+            if (data.action === "buscar") {
                 const fechaBusqueda = data.fecha;
                 const ahora = new Date().getTime();
 
                 const resultados = participantesCache
-                    .filter(p => p.fechaNacimiento === fechaBusqueda)
-                    .map(p => {
-                        let estado = 'nuevo';
+                    .filter((p) => p.fechaNacimiento === fechaBusqueda)
+                    .map((p) => {
+                        let estado = "nuevo";
                         let fechaBloqueo = null;
 
-                        if (p.participante_estado === 'Completo' && p.fechaGuardado) {
+                        if (p.participante_estado === "Completo" && p.fechaGuardado) {
                             const limiteMs = p.fechaGuardado + 30 * 60 * 1000;
                             if (ahora > limiteMs) {
-                                estado = 'bloqueado';
+                                estado = "bloqueado";
                             } else {
-                                estado = 'editable';
+                                estado = "editable";
                                 // Usamos el epoch time de fechaGuardado y le sumamos 30min para mostrar el límite
                                 const limiteDate = new Date(p.fechaGuardado + 30 * 60 * 1000);
-                                fechaBloqueo = limiteDate.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                                fechaBloqueo = limiteDate.toLocaleTimeString("es-CO", {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                    second: "2-digit",
+                                });
                             }
                         }
-                        if (p.participante_estado === 'Completo' && !p.fechaGuardado) {
-                            estado = 'editable';
+                        if (p.participante_estado === "Completo" && !p.fechaGuardado) {
+                            estado = "editable";
                         }
                         return { ...p, estado: estado, fechaBloqueo: fechaBloqueo };
                     });
 
                 if (resultados.length === 0) {
-                    return { status: 'error', message: 'No se encontraron participantes con esa fecha de nacimiento.' };
+                    return {
+                        status: "error",
+                        message:
+                            "No se encontraron participantes con esa fecha de nacimiento.",
+                    };
                 }
 
-                return { status: 'exito', resultados: resultados };
-
-            } else if (data.action === 'listarPorTutora') {
+                return { status: "exito", resultados: resultados };
+            } else if (data.action === "listarPorTutora") {
                 // CORRECCIÓN CLAVE: El filtro usa el 'tutora_id' generado en el mapeo.
                 const tutoraId = data.tutoraId;
                 const ahora = new Date().getTime();
 
                 const participantes = participantesCache
-                    .filter(p => p.tutora_id === tutoraId)
-                    .map(p => {
-                        let estadoTutora = 'incompleto';
-                        if (p.participante_estado === 'Completo') {
+                    .filter((p) => p.tutora_id === tutoraId)
+                    .map((p) => {
+                        let estadoTutora = "incompleto";
+                        if (p.participante_estado === "Completo") {
                             if (!p.fechaGuardado) {
-                                estadoTutora = 'completo';
+                                estadoTutora = "completo";
                             } else {
                                 const limiteMs = p.fechaGuardado + 30 * 60 * 1000;
                                 if (ahora > limiteMs) {
-                                    estadoTutora = 'bloqueado';
+                                    estadoTutora = "bloqueado";
                                 } else {
-                                    estadoTutora = 'completo';
+                                    estadoTutora = "completo";
                                 }
                             }
                         }
                         return { ...p, estado: estadoTutora };
                     });
 
-                return { status: 'exito', participantes: participantes };
-
-            } else if (data.action === 'guardar') {
+                return { status: "exito", participantes: participantes };
+            } else if (data.action === "guardar") {
                 showSaveAnimation(true);
                 const response = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: JSON.stringify(data)
+                    method: "POST",
+                    mode: "cors",
+                    headers: { "Content-Type": "text/plain" },
+                    body: JSON.stringify(data),
                 });
 
                 if (!response.ok) {
@@ -2387,16 +2795,20 @@
                 }
                 const result = await response.json();
 
-                if (result.status === 'guardado') {
-                    const participanteIndex = participantesCache.findIndex(p => p.fila === data.fila);
+                if (result.status === "guardado") {
+                    const participanteIndex = participantesCache.findIndex(
+                        (p) => p.fila === data.fila
+                    );
                     if (participanteIndex !== -1) {
                         // Actualizar el caché local con los nuevos datos
-                        participantesCache[participanteIndex].fechaGuardado = result.fechaGuardado;
-                        if (data.mode === 'publico') {
-                            participantesCache[participanteIndex].participante_estado = 'Completo';
+                        participantesCache[participanteIndex].fechaGuardado =
+                            result.fechaGuardado;
+                        if (data.mode === "publico") {
+                            participantesCache[participanteIndex].participante_estado =
+                                "Completo";
                         }
-                        Object.keys(data).forEach(key => {
-                            if (key !== 'action' && key !== 'mode' && key !== 'fila') {
+                        Object.keys(data).forEach((key) => {
+                            if (key !== "action" && key !== "mode" && key !== "fila") {
                                 participantesCache[participanteIndex][key] = data[key];
                             }
                         });
@@ -2406,41 +2818,59 @@
                 return result;
             }
 
-            return { status: 'error', message: 'Acción no válida.' };
+            return { status: "error", message: "Acción no válida." };
         }
 
         // ==================== LÓGICA DE ACCESO PÚBLICO ====================
 
-        $('form-busqueda').addEventListener('submit', async (e) => {
+        $("form-busqueda").addEventListener("submit", async (e) => {
             e.preventDefault();
 
             if (!dataLoaded) {
-                mostrarMensaje($('mensaje-busqueda'), 'El sistema aún está cargando. Por favor, espere o acepte los términos.', 'alerta');
+                mostrarMensaje(
+                    $("mensaje-busqueda"),
+                    "El sistema aún está cargando. Por favor, espere o acepte los términos.",
+                    "alerta"
+                );
                 return;
             }
 
-            $resultados.style.display = 'none';
-            $formularioPublico.style.display = 'none';
-            mostrarMensaje($('mensaje-busqueda'), 'Buscando participantes...', 'confirmacion');
+            $resultados.style.display = "none";
+            $formularioPublico.style.display = "none";
+            mostrarMensaje(
+                $("mensaje-busqueda"),
+                "Buscando participantes...",
+                "confirmacion"
+            );
 
-            const dia = $('dia').value, mes = $('mes').value, ano = $('ano').value;
+            const dia = $("dia").value,
+                mes = $("mes").value,
+                ano = $("ano").value;
             if (!dia || !mes || !ano) {
-                mostrarMensaje($('mensaje-busqueda'), 'Por favor, complete todos los campos de fecha.', 'alerta');
+                mostrarMensaje(
+                    $("mensaje-busqueda"),
+                    "Por favor, complete todos los campos de fecha.",
+                    "alerta"
+                );
                 return;
             }
 
-            const diaFormateado = String(dia).padStart(2, '0');
-            const mesFormateado = String(mes).padStart(2, '0');
+            const diaFormateado = String(dia).padStart(2, "0");
+            const mesFormateado = String(mes).padStart(2, "0");
             // CORRECCIÓN: El Apps Script usa DD/MM/YYYY, por eso debe ser 'dd/MM/yyyy'
             const fechaBusqueda = `${diaFormateado}/${mesFormateado}/${ano}`;
 
-            const data = { action: 'buscar', fecha: fechaBusqueda };
+            const data = { action: "buscar", fecha: fechaBusqueda };
             const result = await sendToAppsScript(data);
 
-            if (result.status === 'exito') {
+            if (result.status === "exito") {
                 renderResultadosPublicos(result.resultados);
             } else {
-                mostrarMensaje($('mensaje-busqueda'), result.message || 'Ocurrió un error desconocido.', 'alerta');
+                mostrarMensaje(
+                    $("mensaje-busqueda"),
+                    result.message || "Ocurrió un error desconocido.",
+                    "alerta"
+                );
             }
         });
 
@@ -2448,65 +2878,90 @@
         function logout() {
             // 1. Resetear el estado global
             // Se asume que sessionCache, participanteSeleccionado, y modoActual están declarados globalmente.
-            if (typeof sessionCache !== 'undefined') sessionCache.user = null;
-            if (typeof participanteSeleccionado !== 'undefined') participanteSeleccionado = null;
-            if (typeof modoActual !== 'undefined') modoActual = 'publico';
+            if (typeof sessionCache !== "undefined") sessionCache.user = null;
+            if (typeof participanteSeleccionado !== "undefined")
+                participanteSeleccionado = null;
+            if (typeof modoActual !== "undefined") modoActual = "publico";
 
             // 2. Ocultar TODAS las secciones de gestión (Usando las variables DOM que definiste)
-            $gestionTutora.style.display = 'none';
-            $formularioTutora.style.display = 'none';
+            $gestionTutora.style.display = "none";
+            $formularioTutora.style.display = "none";
 
             // Oculta la sección específica del Dashboard Admin
-            if ($adminDashboard) $adminDashboard.style.display = 'none';
+            if ($adminDashboard) $adminDashboard.style.display = "none";
 
             // Ocultar la pestaña del admin si está presente (se asume el ID 'tab-btn-admin')
-            const tabAdminBtn = $('tab-btn-admin');
-            if (tabAdminBtn) tabAdminBtn.style.display = 'none';
+            const tabAdminBtn = $("tab-btn-admin");
+            if (tabAdminBtn) tabAdminBtn.style.display = "none";
 
             // 3. Volver a la pestaña pública
-            if (typeof cambiarTab === 'function') {
-                cambiarTab('tab-publico');
-            } else if (typeof activateTab === 'function') {
-                activateTab('tab-publico');
+            if (typeof cambiarTab === "function") {
+                cambiarTab("tab-publico");
+            } else if (typeof activateTab === "function") {
+                activateTab("tab-publico");
             }
 
             // 4. Asegurar que la sección de login se muestre.
-            $login.style.display = 'block';
+            $login.style.display = "block";
 
             // 5. Limpiar campos de login
-            document.querySelectorAll('#form-login input[type="text"], #form-login input[type="password"], #form-login select').forEach(input => input.value = '');
+            document
+                .querySelectorAll(
+                    '#form-login input[type="text"], #form-login input[type="password"], #form-login select'
+                )
+                .forEach((input) => (input.value = ""));
 
             // 6. Mostrar mensaje de cierre de sesión
-            const mensajeLogin = $('mensaje-login');
-            if (mensajeLogin && typeof mostrarMensaje === 'function') {
+            const mensajeLogin = $("mensaje-login");
+            if (mensajeLogin && typeof mostrarMensaje === "function") {
                 // Usamos la función personalizada 'mostrarMensaje'
-                mostrarMensaje(mensajeLogin, 'Sesión cerrada exitosamente.', 'alerta');
+                mostrarMensaje(
+                    mensajeLogin,
+                    "Sesión cerrada exitosamente.",
+                    "alerta"
+                );
             }
         }
 
         window.logout = logout; // Esto asegura que el HTML pueda llamar a la función
 
         function renderResultadosPublicos(resultados) {
-            const listaResultados = $('lista-resultados');
+            const listaResultados = $("lista-resultados");
             if (!listaResultados) return;
-            listaResultados.innerHTML = '';
-            $('mensaje-busqueda').style.display = 'none';
+            listaResultados.innerHTML = "";
+            $("mensaje-busqueda").style.display = "none";
 
             if (resultados.length === 0) {
-                mostrarMensaje($('mensaje-busqueda'), 'No se encontraron participantes con esa fecha de nacimiento.', 'alerta');
+                mostrarMensaje(
+                    $("mensaje-busqueda"),
+                    "No se encontraron participantes con esa fecha de nacimiento.",
+                    "alerta"
+                );
                 return;
             }
 
-            $resultados.style.display = 'block';
+            $resultados.style.display = "block";
 
-            resultados.forEach(p => {
-                const button = document.createElement('button');
-                button.className = 'btn-resultado';
-                const estadoTexto = p.estado === 'bloqueado' ? 'BLOQUEADO' : (p.estado === 'editable' ? (p.participante_estado === 'Completo' ? `MODIFICAR (Hasta ${p.fechaBloqueo || 'Ahora'})` : 'PENDIENTE') : 'SELECCIONAR');
-                const estadoClass = p.estado === 'bloqueado' ? 'estado-bloqueado' : (p.participante_estado === 'Completo' ? 'estado-editable' : 'estado-nuevo');
+            resultados.forEach((p) => {
+                const button = document.createElement("button");
+                button.className = "btn-resultado";
+                const estadoTexto =
+                    p.estado === "bloqueado"
+                        ? "BLOQUEADO"
+                        : p.estado === "editable"
+                            ? p.participante_estado === "Completo"
+                                ? `MODIFICAR (Hasta ${p.fechaBloqueo || "Ahora"})`
+                                : "PENDIENTE"
+                            : "SELECCIONAR";
+                const estadoClass =
+                    p.estado === "bloqueado"
+                        ? "estado-bloqueado"
+                        : p.participante_estado === "Completo"
+                            ? "estado-editable"
+                            : "estado-nuevo";
 
                 // Busca el nombre de la tutora en la caché (p.tutora ya viene con el nombre)
-                const nombreTutora = p.tutora || 'Sin asignar';
+                const nombreTutora = p.tutora || "Sin asignar";
 
                 button.innerHTML = `
             <span>${p.nombre} (${p.codigo}) | Tutora: ${nombreTutora}</span>
@@ -2518,12 +2973,14 @@
         }
 
         function seleccionarParticipantePublico(participante, btn) {
-            document.querySelectorAll('#lista-resultados .btn-resultado').forEach(b => b.classList.remove('seleccionado'));
-            btn.classList.add('seleccionado');
+            document
+                .querySelectorAll("#lista-resultados .btn-resultado")
+                .forEach((b) => b.classList.remove("seleccionado"));
+            btn.classList.add("seleccionado");
 
             participanteSeleccionado = participante;
 
-            const infoParticipante = $('info-participante-seleccionado-publico');
+            const infoParticipante = $("info-participante-seleccionado-publico");
             if (infoParticipante) {
                 infoParticipante.innerHTML = `
             <span>👤</span>
@@ -2531,54 +2988,70 @@
         `;
             }
 
-            $formularioPublico.style.display = 'block';
-            $('mensaje-guardado-publico').style.display = 'none';
-            $('form-datos-publico').reset();
+            $formularioPublico.style.display = "block";
+            $("mensaje-guardado-publico").style.display = "none";
+            $("form-datos-publico").reset();
 
-            if (participante.participante_estado === 'Completo') {
-                cargarDatosEnFormulario(participante, $('form-datos-publico'));
+            if (participante.participante_estado === "Completo") {
+                cargarDatosEnFormulario(participante, $("form-datos-publico"));
             }
 
-            if (participante.estado === 'bloqueado') {
-                bloquearFormulario(true, 'Su información ya fue enviada y el tiempo de modificación ha expirado. Solo puede visualizarla.');
+            if (participante.estado === "bloqueado") {
+                bloquearFormulario(
+                    true,
+                    "Su información ya fue enviada y el tiempo de modificación ha expirado. Solo puede visualizarla."
+                );
             } else {
-                bloquearFormulario(false, '');
-                if (participante.estado === 'editable' && participante.fechaBloqueo) {
+                bloquearFormulario(false, "");
+                if (participante.estado === "editable" && participante.fechaBloqueo) {
                     iniciarContador(participante.fechaBloqueo);
-                    mostrarMensaje($('mensaje-guardado-publico'), `Ya tiene datos guardados. Puede modificar hasta las ${participante.fechaBloqueo}.`, 'confirmacion');
+                    mostrarMensaje(
+                        $("mensaje-guardado-publico"),
+                        `Ya tiene datos guardados. Puede modificar hasta las ${participante.fechaBloqueo}.`,
+                        "confirmacion"
+                    );
                 } else {
-                    const mensajeRestante = $('mensaje-tiempo-restante');
-                    if (mensajeRestante) mensajeRestante.style.display = 'none';
+                    const mensajeRestante = $("mensaje-tiempo-restante");
+                    if (mensajeRestante) mensajeRestante.style.display = "none";
                 }
             }
 
-            $formularioPublico.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            $formularioPublico.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
         }
 
-        $('form-datos-publico').addEventListener('submit', async (e) => {
+        $("form-datos-publico").addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            if (!participanteSeleccionado || participanteSeleccionado.estado === 'bloqueado') return;
+            if (
+                !participanteSeleccionado ||
+                participanteSeleccionado.estado === "bloqueado"
+            )
+                return;
 
-            const btnGuardar = $('btn-guardar-publico');
+            const btnGuardar = $("btn-guardar-publico");
             if (btnGuardar) btnGuardar.disabled = true;
 
             showSaveAnimation(true);
 
             const form = e.target;
             const datos = {
-                action: 'guardar',
-                mode: 'publico',
+                action: "guardar",
+                mode: "publico",
                 fila: participanteSeleccionado.fila,
-                tipoDocParticipante: form.tipoDocParticipante.value || '',
-                numDocParticipante: form.numDocParticipante.value || '',
-                tipoDocMama: form.tipoDocMama.value || '',
-                numDocMama: form.numDocMama.value || '',
-                tipoDocPapa: form.tipoDocPapa.value || '',
-                numDocPapa: form.numDocPapa.value || '',
-                parentescoOtro: form.parentescoOtro.value || '',
-                tipoDocOtro: form.tipoDocOtro.value || '',
-                numDocOtro: form.numDocOtro.value || ''
+                tipoDocParticipante: form.tipoDocParticipante.value || "",
+                numDocParticipante: form.numDocParticipante.value || "",
+                tipoDocMama: form.tipoDocMama.value || "",
+                numDocMama: form.numDocMama.value || "",
+                tipoDocPapa: form.tipoDocPapa.value || "",
+                numDocPapa: form.numDocPapa.value || "",
+                parentescoOtro: form.parentescoOtro.value || "",
+                tipoDocOtro: form.tipoDocOtro.value || "",
+                numDocOtro: form.numDocOtro.value || "",
+                regimenSalud: form.regimenSalud.value || "",
+                epsActivo: form.epsActivo.value || "",
             };
 
             try {
@@ -2586,117 +3059,151 @@
 
                 if (btnGuardar) btnGuardar.disabled = false;
 
-                if (result.status === 'guardado') {
+                if (result.status === "guardado") {
                     showSaveSuccess();
-                    mostrarMensaje($('mensaje-guardado-publico'), result.message, 'confirmacion');
+                    mostrarMensaje(
+                        $("mensaje-guardado-publico"),
+                        result.message,
+                        "confirmacion"
+                    );
 
                     const limiteMs = result.fechaGuardado + 30 * 60 * 1000;
-                    const horaBloqueoStr = new Date(limiteMs).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    const horaBloqueoStr = new Date(limiteMs).toLocaleTimeString(
+                        "es-CO",
+                        { hour: "2-digit", minute: "2-digit", second: "2-digit" }
+                    );
                     iniciarContador(horaBloqueoStr);
-
-                } else if (result.status === 'bloqueado') {
-                    showSaveError('Tiempo Expirado');
+                } else if (result.status === "bloqueado") {
+                    showSaveError("Tiempo Expirado");
                     bloquearFormulario(true, result.message);
-                    mostrarMensaje($('mensaje-guardado-publico'), result.message, 'alerta');
-
+                    mostrarMensaje(
+                        $("mensaje-guardado-publico"),
+                        result.message,
+                        "alerta"
+                    );
                 } else {
-                    showSaveError('Error al Guardar');
-                    mostrarMensaje($('mensaje-guardado-publico'), `Error al guardar: ${result.message}`, 'alerta');
+                    showSaveError("Error al Guardar");
+                    mostrarMensaje(
+                        $("mensaje-guardado-publico"),
+                        `Error al guardar: ${result.message}`,
+                        "alerta"
+                    );
                 }
             } catch (error) {
                 if (btnGuardar) btnGuardar.disabled = false;
-                showSaveError('Error de Conexión');
-                mostrarMensaje($('mensaje-guardado-publico'), `Error de red o servidor: ${error.message}`, 'alerta');
+                showSaveError("Error de Conexión");
+                mostrarMensaje(
+                    $("mensaje-guardado-publico"),
+                    `Error de red o servidor: ${error.message}`,
+                    "alerta"
+                );
             }
         });
 
-
         // ==================== LÓGICA DE ACCESO TUTORA / ADMIN ====================
 
-        $('form-login').addEventListener('submit', (e) => {
+        $("form-login").addEventListener("submit", (e) => {
             e.preventDefault();
 
-            const user = $('login-user').value.toLowerCase();
-            const pass = $('login-pass').value;
+            const user = $("login-user").value.toLowerCase();
+            const pass = $("login-pass").value;
 
             let role = null;
             let userId = null;
             let userName = null;
 
             if (user === TUTORA_USER && pass === TUTORA_PASS) {
-                role = 'tutora';
+                role = "tutora";
 
                 // CORRECCIÓN: Usamos la primera tutora real de nuestra caché
-                const tutora = tutorasCache.find(t => t.role === 'tutora');
+                const tutora = tutorasCache.find((t) => t.role === "tutora");
                 if (tutora) {
                     userId = tutora.id;
                     userName = tutora.nombre;
                 } else {
-                    mostrarMensaje($('mensaje-login'), 'Acceso denegado: No se encontraron tutoras registradas en el sistema.', 'alerta');
+                    mostrarMensaje(
+                        $("mensaje-login"),
+                        "Acceso denegado: No se encontraron tutoras registradas en el sistema.",
+                        "alerta"
+                    );
                     return;
                 }
-
             } else if (user === ADMIN_USER && pass === ADMIN_PASS) {
-                role = 'admin';
+                role = "admin";
                 userId = ADMIN_USER;
-                userName = 'Admin General';
+                userName = "Admin General";
             }
 
             if (role) {
                 sessionCache.user = { role: role, id: userId, nombre: userName };
-                mostrarMensaje($('mensaje-login'), `Acceso concedido como ${userName}.`, 'confirmacion');
-                $('mensaje-login').style.display = 'block';
-                $login.style.display = 'none';
+                mostrarMensaje(
+                    $("mensaje-login"),
+                    `Acceso concedido como ${userName}.`,
+                    "confirmacion"
+                );
+                $("mensaje-login").style.display = "block";
+                $login.style.display = "none";
 
-                const tabBtnAdmin = $('tab-btn-admin');
-                if (tabBtnAdmin) tabBtnAdmin.style.display = 'none';
-                $gestionTutora.style.display = 'none';
+                const tabBtnAdmin = $("tab-btn-admin");
+                if (tabBtnAdmin) tabBtnAdmin.style.display = "none";
+                $gestionTutora.style.display = "none";
 
-                if (role === 'admin') {
-                    if (tabBtnAdmin) tabBtnAdmin.style.display = 'block';
-                    cambiarTab('tab-admin');
+                if (role === "admin") {
+                    if (tabBtnAdmin) tabBtnAdmin.style.display = "block";
+                    cambiarTab("tab-admin");
                     if (dataLoaded) filtrarParticipantesAdmin();
-                } else if (role === 'tutora') {
-                    $gestionTutora.style.display = 'block';
-                    cambiarTab('tab-tutora');
-                    $('titulo-gestion-tutora').innerHTML = `<span class="paso-numero">2</span> <span>Gestión de Participantes (${userName})</span>`;
-                    $('select-tutora').value = userId;
+                } else if (role === "tutora") {
+                    $gestionTutora.style.display = "block";
+                    cambiarTab("tab-tutora");
+                    $(
+                        "titulo-gestion-tutora"
+                    ).innerHTML = `<span class="paso-numero">2</span> <span>Gestión de Participantes (${userName})</span>`;
+                    $("select-tutora").value = userId;
                 }
-
             } else {
-                mostrarMensaje($('mensaje-login'), 'Usuario o contraseña incorrectos.', 'alerta');
+                mostrarMensaje(
+                    $("mensaje-login"),
+                    "Usuario o contraseña incorrectos.",
+                    "alerta"
+                );
             }
         });
 
-        $('btn-cargar-participantes').addEventListener('click', async () => {
-            const tutoraId = $('select-tutora').value;
-            const tutoraNombre = tutorasCache.find(t => t.id === tutoraId)?.nombre || 'Su Tutora';
+        $("btn-cargar-participantes").addEventListener("click", async () => {
+            const tutoraId = $("select-tutora").value;
+            const tutoraNombre =
+                tutorasCache.find((t) => t.id === tutoraId)?.nombre || "Su Tutora";
 
             if (!tutoraId) {
-                mostrarMensaje($('mensaje-login'), 'Por favor, seleccione su nombre.', 'alerta');
+                mostrarMensaje(
+                    $("mensaje-login"),
+                    "Por favor, seleccione su nombre.",
+                    "alerta"
+                );
                 return;
             }
 
-            $('titulo-gestion-tutora').innerHTML = `
+            $("titulo-gestion-tutora").innerHTML = `
         <span class="paso-numero">2</span>
         <span>Gestión de Participantes de ${tutoraNombre}</span>
     `;
-            const listaParticipantesTutora = $('lista-participantes-tutora');
+            const listaParticipantesTutora = $("lista-participantes-tutora");
             if (listaParticipantesTutora) {
-                listaParticipantesTutora.innerHTML = '<p style="text-align:center; padding: 40px; color: var(--color-texto-light);"><span class="spinner-inline" style="width: 20px; height: 20px; border-width: 3px; border-color: var(--color-primario); border-top-color: transparent;"></span> Cargando lista...</p>';
+                listaParticipantesTutora.innerHTML =
+                    '<p style="text-align:center; padding: 40px; color: var(--color-texto-light);"><span class="spinner-inline" style="width: 20px; height: 20px; border-width: 3px; border-color: var(--color-primario); border-top-color: transparent;"></span> Cargando lista...</p>';
             }
 
-            $formularioTutora.style.display = 'none';
-            $('mensaje-guardado-tutora').style.display = 'none';
+            $formularioTutora.style.display = "none";
+            $("mensaje-guardado-tutora").style.display = "none";
 
-            const tutoraStatsBox = $('tutora-stats-box');
-            if (tutoraStatsBox) tutoraStatsBox.style.display = 'none';
+            const tutoraStatsBox = $("tutora-stats-box");
+            if (tutoraStatsBox) tutoraStatsBox.style.display = "none";
 
             // CORRECCIÓN CLAVE: El filtro usa el 'tutora_id'
-            const data = { action: 'listarPorTutora', tutoraId: tutoraId };
+            const data = { action: "listarPorTutora", tutoraId: tutoraId };
             const result = await sendToAppsScript(data);
 
-            if (result.status === 'exito') {
+            if (result.status === "exito") {
                 renderListaTutora(result.participantes);
             } else {
                 if (listaParticipantesTutora) {
@@ -2706,39 +3213,58 @@
         });
 
         function renderListaTutora(participantes) {
-            const lista = $('lista-participantes-tutora');
+            const lista = $("lista-participantes-tutora");
             if (!lista) return;
 
-            lista.innerHTML = '';
+            lista.innerHTML = "";
 
             const total = participantes.length;
-            const completos = participantes.filter(p => p.estado === 'completo' || p.estado === 'bloqueado').length;
-            const porcentaje = total > 0 ? ((completos / total) * 100).toFixed(1) : 0;
+            const completos = participantes.filter(
+                (p) => p.estado === "completo" || p.estado === "bloqueado"
+            ).length;
+            const porcentaje =
+                total > 0 ? ((completos / total) * 100).toFixed(1) : 0;
 
-            const tutoraStatsBox = $('tutora-stats-box');
-            if (tutoraStatsBox) tutoraStatsBox.style.display = 'block';
-            const statsTutoraRatio = $('stats-tutora-ratio');
+            const tutoraStatsBox = $("tutora-stats-box");
+            if (tutoraStatsBox) tutoraStatsBox.style.display = "block";
+            const statsTutoraRatio = $("stats-tutora-ratio");
             if (statsTutoraRatio) statsTutoraRatio.value = `${completos}/${total}`;
-            const statsTutoraPorcentaje = $('stats-tutora-porcentaje');
-            if (statsTutoraPorcentaje) statsTutoraPorcentaje.value = `${porcentaje}%`;
-
+            const statsTutoraPorcentaje = $("stats-tutora-porcentaje");
+            if (statsTutoraPorcentaje)
+                statsTutoraPorcentaje.value = `${porcentaje}%`;
 
             participantes.sort((a, b) => {
-                if (a.estado === 'incompleto' && b.estado !== 'incompleto') return -1;
-                if (a.estado !== 'incompleto' && b.estado === 'incompleto') return 1;
+                if (a.estado === "incompleto" && b.estado !== "incompleto") return -1;
+                if (a.estado !== "incompleto" && b.estado === "incompleto") return 1;
                 return a.nombre.localeCompare(b.nombre);
             });
 
             if (participantes.length === 0) {
-                lista.innerHTML = '<p style="text-align:center; color:#4b5563;">No hay participantes asignados a esta tutora.</p>';
+                lista.innerHTML =
+                    '<p style="text-align:center; color:#4b5563;">No hay participantes asignados a esta tutora.</p>';
                 return;
             }
 
-            participantes.forEach(p => {
-                const item = document.createElement('div');
-                const estadoClass = p.estado === 'completo' ? 'completo' : (p.estado === 'bloqueado' ? 'bloqueado' : 'incompleto');
-                const tagClass = p.estado === 'completo' ? 'tag-completo' : (p.estado === 'bloqueado' ? 'tag-bloqueado' : 'tag-incompleto');
-                const estadoTexto = p.estado === 'completo' ? 'COMPLETO' : (p.estado === 'bloqueado' ? 'BLOQUEADO' : 'INCOMPLETO');
+            participantes.forEach((p) => {
+                const item = document.createElement("div");
+                const estadoClass =
+                    p.estado === "completo"
+                        ? "completo"
+                        : p.estado === "bloqueado"
+                            ? "bloqueado"
+                            : "incompleto";
+                const tagClass =
+                    p.estado === "completo"
+                        ? "tag-completo"
+                        : p.estado === "bloqueado"
+                            ? "tag-bloqueado"
+                            : "tag-incompleto";
+                const estadoTexto =
+                    p.estado === "completo"
+                        ? "COMPLETO"
+                        : p.estado === "bloqueado"
+                            ? "BLOQUEADO"
+                            : "INCOMPLETO";
 
                 item.className = `participante-item ${estadoClass}`;
                 item.innerHTML = `
@@ -2751,12 +3277,14 @@
         }
 
         function seleccionarParticipanteTutora(participante, item) {
-            document.querySelectorAll('#lista-participantes-tutora .participante-item').forEach(i => i.classList.remove('selected'));
-            item.classList.add('selected');
+            document
+                .querySelectorAll("#lista-participantes-tutora .participante-item")
+                .forEach((i) => i.classList.remove("selected"));
+            item.classList.add("selected");
 
             participanteSeleccionado = participante;
 
-            const infoParticipante = $('info-participante-seleccionado-tutora');
+            const infoParticipante = $("info-participante-seleccionado-tutora");
             if (infoParticipante) {
                 infoParticipante.innerHTML = `
             <span>✏️</span>
@@ -2764,47 +3292,61 @@
         `;
             }
 
-            $formularioTutora.style.display = 'block';
-            $('mensaje-guardado-tutora').style.display = 'none';
+            $formularioTutora.style.display = "block";
+            $("mensaje-guardado-tutora").style.display = "none";
 
-            cargarDatosEnFormulario(participante, $('form-datos-tutora'));
+            cargarDatosEnFormulario(participante, $("form-datos-tutora"));
 
-            const btnGuardar = $('btn-guardar-tutora');
-            if (btnGuardar) btnGuardar.disabled = participante.estado === 'bloqueado';
+            const btnGuardar = $("btn-guardar-tutora");
+            if (btnGuardar)
+                btnGuardar.disabled = participante.estado === "bloqueado";
 
-            if (participante.estado === 'bloqueado') {
-                mostrarMensaje($('mensaje-guardado-tutora'), 'El acudiente ya completó el formulario y expiró el tiempo de edición. Solo puede visualizar.', 'alerta');
+            if (participante.estado === "bloqueado") {
+                mostrarMensaje(
+                    $("mensaje-guardado-tutora"),
+                    "El acudiente ya completó el formulario y expiró el tiempo de edición. Solo puede visualizar.",
+                    "alerta"
+                );
             } else {
-                $('mensaje-guardado-tutora').style.display = 'none';
+                $("mensaje-guardado-tutora").style.display = "none";
             }
 
-            $formularioTutora.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            $formularioTutora.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
         }
 
-        $('form-datos-tutora').addEventListener('submit', async (e) => {
+        $("form-datos-tutora").addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            if (!participanteSeleccionado || participanteSeleccionado.estado === 'bloqueado') return;
+            if (
+                !participanteSeleccionado ||
+                participanteSeleccionado.estado === "bloqueado"
+            )
+                return;
 
-            const btnGuardar = $('btn-guardar-tutora');
+            const btnGuardar = $("btn-guardar-tutora");
             if (btnGuardar) btnGuardar.disabled = true;
 
             showSaveAnimation(true);
 
             const form = e.target;
             const datos = {
-                action: 'guardar',
-                mode: 'tutora',
+                action: "guardar",
+                mode: "tutora",
                 fila: participanteSeleccionado.fila,
-                tipoDocParticipante: form.tipoDocParticipante.value || '',
-                numDocParticipante: form.numDocParticipante.value || '',
-                tipoDocMama: form.tipoDocMama.value || '',
-                numDocMama: form.numDocMama.value || '',
-                tipoDocPapa: form.tipoDocPapa.value || '',
-                numDocPapa: form.numDocPapa.value || '',
-                parentescoOtro: form.parentescoOtro.value || '',
-                tipoDocOtro: form.tipoDocOtro.value || '',
-                numDocOtro: form.numDocOtro.value || ''
+                tipoDocParticipante: form.tipoDocParticipante.value || "",
+                numDocParticipante: form.numDocParticipante.value || "",
+                tipoDocMama: form.tipoDocMama.value || "",
+                numDocMama: form.numDocMama.value || "",
+                tipoDocPapa: form.tipoDocPapa.value || "",
+                numDocPapa: form.numDocPapa.value || "",
+                parentescoOtro: form.parentescoOtro.value || "",
+                tipoDocOtro: form.tipoDocOtro.value || "",
+                numDocOtro: form.numDocOtro.value || "",
+                regimenSalud: form.regimenSalud.value || "",
+                epsActivo: form.epsActivo.value || "",
             };
 
             try {
@@ -2812,77 +3354,90 @@
 
                 if (btnGuardar) btnGuardar.disabled = false;
 
-                if (result.status === 'guardado') {
+                if (result.status === "guardado") {
                     showSaveSuccess();
-                    mostrarMensaje($('mensaje-guardado-tutora'), `${result.message} Los datos han sido actualizados.`, 'confirmacion');
+                    mostrarMensaje(
+                        $("mensaje-guardado-tutora"),
+                        `${result.message} Los datos han sido actualizados.`,
+                        "confirmacion"
+                    );
 
                     setTimeout(() => {
-                        const btnCargar = $('btn-cargar-participantes');
+                        const btnCargar = $("btn-cargar-participantes");
                         if (btnCargar) btnCargar.click(); // Recargar lista para actualizar estado
                     }, 1500);
                 } else {
-                    showSaveError('Error al Guardar');
-                    mostrarMensaje($('mensaje-guardado-tutora'), `Error al guardar: ${result.message}`, 'alerta');
+                    showSaveError("Error al Guardar");
+                    mostrarMensaje(
+                        $("mensaje-guardado-tutora"),
+                        `Error al guardar: ${result.message}`,
+                        "alerta"
+                    );
                 }
             } catch (error) {
                 if (btnGuardar) btnGuardar.disabled = false;
-                showSaveError('Error de Conexión');
-                mostrarMensaje($('mensaje-guardado-tutora'), `Error de red o servidor: ${error.message}`, 'alerta');
+                showSaveError("Error de Conexión");
+                mostrarMensaje(
+                    $("mensaje-guardado-tutora"),
+                    `Error de red o servidor: ${error.message}`,
+                    "alerta"
+                );
             }
         });
-
 
         // ==================== DASHBOARD ADMINISTRADOR ====================
 
         function renderCompletionChart(completos, faltantes) {
             if (!isChartJsLoaded) return;
 
-            const canvas = $('completionChart');
+            const canvas = $("completionChart");
             if (!canvas) return;
 
-            const ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext("2d");
 
             if (completionChartInstance) {
                 completionChartInstance.destroy();
             }
 
             completionChartInstance = new Chart(ctx, {
-                type: 'doughnut',
+                type: "doughnut",
                 data: {
-                    labels: ['✅ Completados', '❌ Faltantes'],
-                    datasets: [{
-                        data: [completos, faltantes],
-                        backgroundColor: [
-                            'rgba(16, 185, 129, 0.8)',
-                            'rgba(239, 68, 68, 0.8)'
-                        ],
-                        hoverOffset: 8,
-                        borderWidth: 0
-                    }]
+                    labels: ["✅ Completados", "❌ Faltantes"],
+                    datasets: [
+                        {
+                            data: [completos, faltantes],
+                            backgroundColor: [
+                                "rgba(16, 185, 129, 0.8)",
+                                "rgba(239, 68, 68, 0.8)",
+                            ],
+                            hoverOffset: 8,
+                            borderWidth: 0,
+                        },
+                    ],
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'right',
-                            labels: { boxWidth: 15, padding: 15 }
+                            position: "right",
+                            labels: { boxWidth: 15, padding: 15 },
                         },
-                        title: { display: false }
-                    }
-                }
+                        title: { display: false },
+                    },
+                },
             });
         }
 
         function renderTutoraBreakdown(participantes) {
-            const breakdownContainer = $('admin-tutora-breakdown');
+            const breakdownContainer = $("admin-tutora-breakdown");
             if (!breakdownContainer) return;
 
-            breakdownContainer.innerHTML = '';
+            breakdownContainer.innerHTML = "";
 
             const statsByTutora = participantes.reduce((acc, p) => {
                 // Usa el tutora_id (limpio) para agrupar, pero el nombre original para mostrar
-                const tutoraId = p.tutora_id || 'ID_SIN_ASIGNAR';
+                const tutoraId = p.tutora_id || "ID_SIN_ASIGNAR";
                 const name = p.tutora || `ID: ${p.tutora_id} (No Asignada)`;
 
                 if (!acc[name]) {
@@ -2890,7 +3445,7 @@
                 }
                 acc[name].total++;
 
-                if (p.participante_estado === 'Completo') {
+                if (p.participante_estado === "Completo") {
                     acc[name].completos++;
                 }
                 return acc;
@@ -2898,16 +3453,19 @@
 
             const sortedTutoras = Object.keys(statsByTutora).sort();
 
-            sortedTutoras.forEach(name => {
+            sortedTutoras.forEach((name) => {
                 const stats = statsByTutora[name];
-                const item = document.createElement('div');
+                const item = document.createElement("div");
 
                 const ratioText = `${stats.completos}/${stats.total}`;
-                const ratioPercent = stats.total > 0 ? ((stats.completos / stats.total) * 100).toFixed(0) : 0;
+                const ratioPercent =
+                    stats.total > 0
+                        ? ((stats.completos / stats.total) * 100).toFixed(0)
+                        : 0;
 
-                item.className = 'btn-resultado';
-                item.style.backgroundColor = 'var(--color-fondo)';
-                item.style.border = '2px solid var(--color-secundario-light)';
+                item.className = "btn-resultado";
+                item.style.backgroundColor = "var(--color-fondo)";
+                item.style.border = "2px solid var(--color-secundario-light)";
 
                 const isComplete = stats.completos === stats.total;
 
@@ -2915,7 +3473,8 @@
             <div>
                 <strong style="color: var(--color-primario);">${name}</strong>
             </div>
-            <div style="font-weight: 700; font-size: 1.2rem; color: ${isComplete ? 'var(--color-exito)' : 'var(--color-warning)'}">
+            <div style="font-weight: 700; font-size: 1.2rem; color: ${isComplete ? "var(--color-exito)" : "var(--color-warning)"
+                    }">
                 ${ratioText} 
                 <span style="font-size: 0.9rem; font-weight: 500; color: var(--color-texto-light);">(${ratioPercent}%)</span>
             </div>
@@ -2928,18 +3487,22 @@
             if (!dataLoaded) return;
 
             const total = participantesCache.length;
-            const completos = participantesCache.filter(p => p.participante_estado === 'Completo').length;
+            const completos = participantesCache.filter(
+                (p) => p.participante_estado === "Completo"
+            ).length;
             const faltantes = total - completos;
-            const porcentaje = total > 0 ? ((completos / total) * 100).toFixed(1) : 0;
+            const porcentaje =
+                total > 0 ? ((completos / total) * 100).toFixed(1) : 0;
 
-            const statsTotalGeneral = $('stats-total-general');
+            const statsTotalGeneral = $("stats-total-general");
             if (statsTotalGeneral) statsTotalGeneral.value = total;
-            const statsCompletadosGeneral = $('stats-completados-general');
+            const statsCompletadosGeneral = $("stats-completados-general");
             if (statsCompletadosGeneral) statsCompletadosGeneral.value = completos;
-            const statsFaltantesGeneral = $('stats-faltantes-general');
+            const statsFaltantesGeneral = $("stats-faltantes-general");
             if (statsFaltantesGeneral) statsFaltantesGeneral.value = faltantes;
-            const statsPorcentajeGeneral = $('stats-porcentaje-general');
-            if (statsPorcentajeGeneral) statsPorcentajeGeneral.value = `${porcentaje}%`;
+            const statsPorcentajeGeneral = $("stats-porcentaje-general");
+            if (statsPorcentajeGeneral)
+                statsPorcentajeGeneral.value = `${porcentaje}%`;
 
             if (isChartJsLoaded) renderCompletionChart(completos, faltantes);
 
@@ -2951,50 +3514,59 @@
         // =================================================================
 
         function filtrarParticipantesAdmin() {
-            const tutoraFiltro = $('admin-select-tutora').value; // Es un ID limpio (tutora_id)
-            const estadoFiltro = $('admin-select-estado').value;
-            const listaAdmin = $('lista-participantes-admin');
+            const tutoraFiltro = $("admin-select-tutora").value; // Es un ID limpio (tutora_id)
+            const estadoFiltro = $("admin-select-estado").value;
+            const listaAdmin = $("lista-participantes-admin");
             if (!listaAdmin) return;
 
-            listaAdmin.innerHTML = '';
+            listaAdmin.innerHTML = "";
 
             let participantesFiltrados = participantesCache;
 
-            if (tutoraFiltro && tutoraFiltro !== 'todos') {
-                participantesFiltrados = participantesFiltrados.filter(p => p.tutora_id === tutoraFiltro);
+            if (tutoraFiltro && tutoraFiltro !== "todos") {
+                participantesFiltrados = participantesFiltrados.filter(
+                    (p) => p.tutora_id === tutoraFiltro
+                );
             }
 
-            if (estadoFiltro && estadoFiltro !== 'todos') {
-                participantesFiltrados = participantesFiltrados.filter(p => p.participante_estado.toLowerCase() === estadoFiltro);
+            if (estadoFiltro && estadoFiltro !== "todos") {
+                participantesFiltrados = participantesFiltrados.filter(
+                    (p) => p.participante_estado.toLowerCase() === estadoFiltro
+                );
             }
 
             if (participantesFiltrados.length === 0) {
-                listaAdmin.innerHTML = '<p style="text-align:center; padding: 40px; color: var(--color-texto-light);">No hay participantes que coincidan con los filtros.</p>';
+                listaAdmin.innerHTML =
+                    '<p style="text-align:center; padding: 40px; color: var(--color-texto-light);">No hay participantes que coincidan con los filtros.</p>';
             } else {
-                participantesFiltrados.forEach(p => {
-                    const btn = document.createElement('button');
+                participantesFiltrados.forEach((p) => {
+                    const btn = document.createElement("button");
                     const estado = p.participante_estado;
-                    const estadoClass = estado === 'Completo' ? 'completo' : 'incompleto';
-                    const tagClass = estado === 'Completo' ? 'tag-completo' : 'tag-incompleto';
+                    const estadoClass =
+                        estado === "Completo" ? "completo" : "incompleto";
+                    const tagClass =
+                        estado === "Completo" ? "tag-completo" : "tag-incompleto";
 
                     btn.className = `btn-resultado ${estadoClass}`;
-                    btn.type = 'button';
+                    btn.type = "button";
 
-                    const nombreTutora = p.tutora || 'Sin asignar';
+                    const nombreTutora = p.tutora || "Sin asignar";
 
                     btn.innerHTML = `
                 <div>
-                    <strong style="font-size: 1.1rem; color: var(--color-texto);">${p.nombre}</strong>
+                    <strong style="font-size: 1.1rem; color: var(--color-texto);">${p.nombre
+                        }</strong>
                     <p style="font-size: 0.9rem; color: var(--color-texto-light); margin-top: 5px;">
                         <span style="font-weight: 700;">Tutora:</span> ${nombreTutora} | 
-                        <span style="font-weight: 700;">Código:</span> ${p.codigo}
+                        <span style="font-weight: 700;">Código:</span> ${p.codigo
+                        }
                     </p>
                 </div>
                 <div class="tag-estado ${tagClass}">${estado.toUpperCase()}</div>
             `;
 
                     // 🔑 MODIFICACIÓN: Agregar el event listener que llama al modal
-                    btn.addEventListener('click', () => {
+                    btn.addEventListener("click", () => {
                         mostrarDetalleParticipante(p);
                     });
 
@@ -3004,36 +3576,50 @@
 
             // ... (El resto de tu código para las estadísticas) ...
             const totalFiltrado = participantesFiltrados.length;
-            const completosFiltrados = participantesFiltrados.filter(p => p.participante_estado === 'Completo').length;
-            const porcentajeFiltrado = totalFiltrado > 0 ? ((completosFiltrados / totalFiltrado) * 100).toFixed(1) : 0;
+            const completosFiltrados = participantesFiltrados.filter(
+                (p) => p.participante_estado === "Completo"
+            ).length;
+            const porcentajeFiltrado =
+                totalFiltrado > 0
+                    ? ((completosFiltrados / totalFiltrado) * 100).toFixed(1)
+                    : 0;
 
-            const statsTotalParticipantes = $('stats-total-participantes');
-            if (statsTotalParticipantes) statsTotalParticipantes.value = totalFiltrado;
-            const statsPorcentajeCompleto = $('stats-porcentaje-completo');
-            if (statsPorcentajeCompleto) statsPorcentajeCompleto.value = `${porcentajeFiltrado}%`;
+            const statsTotalParticipantes = $("stats-total-participantes");
+            if (statsTotalParticipantes)
+                statsTotalParticipantes.value = totalFiltrado;
+            const statsPorcentajeCompleto = $("stats-porcentaje-completo");
+            if (statsPorcentajeCompleto)
+                statsPorcentajeCompleto.value = `${porcentajeFiltrado}%`;
         }
 
         // ==================== INICIALIZACIÓN DE EVENTOS ====================
 
         function initTermsButton() {
-            const termsLink = $('terms-link');
-            if (termsLink) termsLink.addEventListener('click', () => { showTermsModal(); });
+            const termsLink = $("terms-link");
+            if (termsLink)
+                termsLink.addEventListener("click", () => {
+                    showTermsModal();
+                });
 
-            const btnAccept = $('btn-accept-terms');
-            if (btnAccept) btnAccept.addEventListener('click', async () => {
-                hideTermsModal();
-                await loadAllSheetData();
-            });
+            const btnAccept = $("btn-accept-terms");
+            if (btnAccept)
+                btnAccept.addEventListener("click", async () => {
+                    hideTermsModal();
+                    await loadAllSheetData();
+                });
 
-            const btnDecline = $('btn-decline-terms');
-            if (btnDecline) btnDecline.addEventListener('click', () => {
-                alert('Debe aceptar los términos y condiciones para utilizar el sistema.');
-            });
+            const btnDecline = $("btn-decline-terms");
+            if (btnDecline)
+                btnDecline.addEventListener("click", () => {
+                    alert(
+                        "Debe aceptar los términos y condiciones para utilizar el sistema."
+                    );
+                });
         }
 
-        document.addEventListener('DOMContentLoaded', async () => {
+        document.addEventListener("DOMContentLoaded", async () => {
             // ⚠️ Re-verificar si Chart.js se cargó, para el dashboard
-            isChartJsLoaded = typeof Chart !== 'undefined';
+            isChartJsLoaded = typeof Chart !== "undefined";
 
             showTermsModal();
 
@@ -3043,15 +3629,23 @@
             initTabs();
             initTermsButton();
 
-            document.querySelectorAll('.anim-entrada').forEach((el, index) => {
+            document.querySelectorAll(".anim-entrada").forEach((el, index) => {
                 el.style.animationDelay = `${index * 0.1}s`;
             });
 
             // Eventos de filtros del Administrador
-            const adminSelectTutora = $('admin-select-tutora');
-            if (adminSelectTutora) adminSelectTutora.addEventListener('change', filtrarParticipantesAdmin);
-            const adminSelectEstado = $('admin-select-estado');
-            if (adminSelectEstado) adminSelectEstado.addEventListener('change', filtrarParticipantesAdmin);
+            const adminSelectTutora = $("admin-select-tutora");
+            if (adminSelectTutora)
+                adminSelectTutora.addEventListener(
+                    "change",
+                    filtrarParticipantesAdmin
+                );
+            const adminSelectEstado = $("admin-select-estado");
+            if (adminSelectEstado)
+                adminSelectEstado.addEventListener(
+                    "change",
+                    filtrarParticipantesAdmin
+                );
         });
 
         /**
@@ -3062,38 +3656,38 @@
          */
         function mostrarDetalleParticipante(participante) {
             // Se asume que la función '$' existe y es un alias para document.getElementById
-            const modal = $('detalle-overlay');
-            const modalContenido = $('detalle-container');
+            const modal = $("detalle-overlay");
+            const modalContenido = $("detalle-container");
 
             if (!modal || !modalContenido) {
-                console.error('Estructura del modal de detalle no encontrada.');
+                console.error("Estructura del modal de detalle no encontrada.");
                 return;
             }
 
             const p = participante; // Alias del objeto para simplificar
-            const nombreTutora = p.tutora || 'Sin asignar';
+            const nombreTutora = p.tutora || "Sin asignar";
             const estado = p.participante_estado;
-            const estadoTag = `<span class="tag-modal ${estado === 'Completo' ? 'tag-completo' : 'tag-incompleto'}">${estado.toUpperCase()}</span>`;
+            const estadoTag = `<span class="tag-modal ${estado === "Completo" ? "tag-completo" : "tag-incompleto"
+                }">${estado.toUpperCase()}</span>`;
 
             // 🔑 AHORA USAMOS LAS CLAVES EXACTAS DE TU OBJETO:
 
             // Participante
-            const tipoDocP = p.tipoDocParticipante || 'N/A';
-            const numDocP = p.numDocParticipante || 'N/A';
+            const tipoDocP = p.tipoDocParticipante || "N/A";
+            const numDocP = p.numDocParticipante || "N/A";
 
             // Madre
-            const tipoDocM = p.tipoDocMama || 'N/A';
-            const numDocM = p.numDocMama || 'N/A';
+            const tipoDocM = p.tipoDocMama || "N/A";
+            const numDocM = p.numDocMama || "N/A";
 
             // Padre
-            const tipoDocPa = p.tipoDocPapa || 'N/A';
-            const numDocPa = p.numDocPapa || 'N/A';
+            const tipoDocPa = p.tipoDocPapa || "N/A";
+            const numDocPa = p.numDocPapa || "N/A";
 
             // Otro Acudiente
-            const parentescoOtro = p.parentescoOtro || 'Otro'; // Usar el parentesco si existe
-            const tipoDocO = p.tipoDocOtro || 'N/A';
-            const numDocO = p.numDocOtro || 'N/A';
-
+            const parentescoOtro = p.parentescoOtro || "Otro"; // Usar el parentesco si existe
+            const tipoDocO = p.tipoDocOtro || "N/A";
+            const numDocO = p.numDocOtro || "N/A";
 
             modalContenido.innerHTML = `
         <div class="modal-header">
@@ -3105,11 +3699,28 @@
             <div class="info-section">
                 <p class="subtitulo-familiar"><i class="fas fa-user-circle"></i> Participante</p>
                 <div class="modal-grid">
-                    <p class="grid-item"><strong>Código:</strong> <span>${p.codigo || 'N/A'}</span></p>
-                    <p class="grid-item"><strong>Estado:</strong> <span>${estadoTag}</span></p>
-                    <p class="grid-item full-width"><strong>Documento:</strong> <span>${tipoDocP}  -  ${numDocP}</span></p>
-                    <p class="grid-item full-width"><strong>Tutora:</strong> <span>${nombreTutora}</span></p>
-                </div>
+                  <p class="grid-item"><strong>Código:</strong> <span>${p.codigo || "N/A"
+                }</span></p>
+                  <p class="grid-item"><strong>Estado:</strong> <span>${estadoTag}</span></p>
+                  <p class="grid-item full-width"><strong>Documento:</strong> <span>${tipoDocP} - ${numDocP}</span></p>
+                  
+                  <p class="grid-item full-width"><strong>Salud:</strong> <span>${p.regimenSalud
+                } - ${p.epsActivo}</span></p>
+                  
+                  <p class="grid-item full-width">
+                      <strong>Educación:</strong> 
+                      <span>
+                          ${p.estudiaActual === 'si' ? 'Estudia: Sí' : 'Estudia: No'}
+                          
+                          | Curso: ${p.cursoActual_ultimoAnio || 'N/A'}
+                          
+                          | Futuro: ${p.estudiaFuturo === 'si' ? 'Sí' : (p.estudiaFuturo === 'no' ? 'No' : 'N/A')}
+                          
+                          | Próx. Curso: ${p.cursoFuturo_final || 'N/A'}
+                      </span>
+                  </p>
+                  <p class="grid-item full-width"><strong>Tutora:</strong> <span>${nombreTutora}</span></p>
+              </div>
             </div>
 
             <hr>
@@ -3146,7 +3757,7 @@
         </div>
     `;
 
-            modal.classList.add('visible');
+            modal.classList.add("visible");
         }
 
         // (Las funciones 'cerrarModalDetalle' y el listener de 'document' se mantienen igual)
@@ -3154,20 +3765,372 @@
         // (Las funciones 'cerrarModalDetalle' y el listener de 'document' se mantienen igual)
 
         function cerrarModalDetalle() {
-            const modal = $('detalle-overlay');
+            const modal = $("detalle-overlay");
             if (modal) {
-                modal.classList.remove('visible');
+                modal.classList.remove("visible");
             }
         }
 
         // Lógica para cerrar al hacer clic en el fondo
-        document.addEventListener('click', (event) => {
-            const modal = $('detalle-overlay');
-            if (modal && modal.classList.contains('visible') && event.target === modal) {
+        document.addEventListener("click", (event) => {
+            const modal = $("detalle-overlay");
+            if (
+                modal &&
+                modal.classList.contains("visible") &&
+                event.target === modal
+            ) {
                 cerrarModalDetalle();
             }
         });
+    </script>
+    <script>
+        // =================================================================
+        // FUNCIÓN 1: MANEJAR EL REGIMEN DE SALUD (Bloqueo Condicional de EPS)
+        // =================================================================
+        function manejarRegimenSalud(valorSeleccionado) {
+            var epsSelect = document.getElementById("epsActivo");
+            var otraEpsInput = document.getElementById("otraEps");
 
+            if (valorSeleccionado === "No Salud") {
+                // Bloquear SELECT de EPS
+                epsSelect.disabled = true;
+                epsSelect.value = "";
+                epsSelect.required = false;
+                epsSelect.style.backgroundColor = "#e9ecef";
+
+                // Bloquear INPUT de OTRA EPS
+                otraEpsInput.style.display = "none";
+                otraEpsInput.disabled = true;
+                otraEpsInput.required = false;
+                otraEpsInput.value = "";
+                otraEpsInput.name = "otraEps";
+            } else {
+                // Habilitar SELECT de EPS
+                epsSelect.disabled = false;
+                epsSelect.required = true;
+                epsSelect.style.backgroundColor = "white";
+
+                // Reactivar el campo de texto si el valor actual es "OTRA"
+                if (epsSelect.value === "OTRA") {
+                    mostrarCampoOtraEPS("OTRA");
+                } else {
+                    // Si selecciona otro régimen y no tenía "OTRA" seleccionado, asegurar nombre correcto
+                    epsSelect.name = "epsActivo";
+                }
+            }
+        }
+
+        // =================================================================
+        // FUNCIÓN 2: MOSTRAR CAMPO OTRA EPS (CORREGIDA para permitir escritura)
+        // =================================================================
+        function mostrarCampoOtraEPS(valorSeleccionado) {
+            var campoOtraEPS = document.getElementById("otraEps");
+            var epsSelect = document.getElementById("epsActivo");
+
+            // Si el select principal de EPS está deshabilitado por 'No Salud', salimos.
+            if (epsSelect.disabled) {
+                campoOtraEPS.style.display = "none";
+                return;
+            }
+
+            if (valorSeleccionado === "OTRA") {
+                campoOtraEPS.style.display = "block";
+                campoOtraEPS.required = true;
+                campoOtraEPS.disabled = false; // CLAVE: Habilitar para escribir
+
+                campoOtraEPS.name = "epsActivo";
+                epsSelect.name = "epsActivo_select";
+            } else {
+                campoOtraEPS.style.display = "none";
+                campoOtraEPS.required = false;
+                campoOtraEPS.disabled = true;
+                campoOtraEPS.value = "";
+                campoOtraEPS.name = "otraEps";
+                epsSelect.name = "epsActivo";
+            }
+        }
+
+        // =================================================================
+        // FUNCIÓN 3: VALIDACIÓN DE DOCUMENTOS Y BLOQUEO CONDICIONAL ('No vive')
+        // =================================================================
+        function validarDocumento(idTipoDoc, idNumDoc) {
+            var tipoDocSelect = document.getElementById(idTipoDoc);
+            var numDocInput = document.getElementById(idNumDoc);
+
+            // Si se selecciona "No vive"
+            if (tipoDocSelect.value === "No vive") {
+                numDocInput.value = "";
+                numDocInput.readOnly = true;
+                numDocInput.disabled = true;
+                numDocInput.required = false;
+                numDocInput.placeholder = "No aplica (No vive con el menor)";
+                numDocInput.setCustomValidity(""); // Limpiar la validación
+            } else {
+                // Habilitar el campo de número
+                numDocInput.readOnly = false;
+                numDocInput.disabled = false;
+
+                // Hacer el campo de número obligatorio si se eligió un tipo de doc
+                if (tipoDocSelect.value !== "") {
+                    numDocInput.required = true;
+                    numDocInput.placeholder = "Ingrese el número";
+                } else {
+                    numDocInput.required = false;
+                    numDocInput.placeholder = "Ingrese el número";
+                }
+            }
+        }
+
+        // =================================================================
+        // FUNCIÓN 4: PERSONALIZAR LOS MENSAJES DE ERROR
+        // =================================================================
+        function personalizarMensaje(elementoId, mensajeVacio) {
+            const elemento = document.getElementById(elementoId);
+            if (elemento) {
+                elemento.addEventListener("invalid", function (event) {
+                    event.preventDefault();
+
+                    if (elemento.validity.valueMissing) {
+                        elemento.setCustomValidity(mensajeVacio);
+                    } else if (elemento.validity.patternMismatch) {
+                        elemento.setCustomValidity(
+                            "🚨 Solo se permiten números. Verifique."
+                        );
+                    }
+                });
+
+                // Limpiar el mensaje en input y change
+                elemento.addEventListener("input", function () {
+                    elemento.setCustomValidity("");
+                });
+
+                if (elemento.tagName === "SELECT") {
+                    elemento.addEventListener("change", function () {
+                        elemento.setCustomValidity("");
+                    });
+                }
+            }
+        }
+
+        // =================================================================
+        // APLICAR MENSAJES AL CARGAR LA PÁGINA
+        // =================================================================
+        document.addEventListener("DOMContentLoaded", function () {
+            // Aplicar a los campos de la MADRE
+            personalizarMensaje(
+                "tipoDocMama",
+                "⚠️ Debe seleccionar el tipo de documento de la Madre."
+            );
+            personalizarMensaje(
+                "numDocMama",
+                "⚠️ Debe ingresar el número de documento de la Madre."
+            );
+
+            // Aplicar a los campos del PADRE
+            personalizarMensaje(
+                "tipoDocPapa",
+                "⚠️ Debe seleccionar el tipo de documento del Padre."
+            );
+            personalizarMensaje(
+                "numDocPapa",
+                "⚠️ Debe ingresar el número de documento del Padre."
+            );
+
+            // También aplicar a Régimen de Salud y EPS (asumiendo que están en la página)
+            personalizarMensaje(
+                "regimenSalud",
+                "⚠️ Debe seleccionar el Régimen de Salud."
+            );
+            personalizarMensaje("epsActivo", "⚠️ Debe seleccionar la EPS activa.");
+        });
+    </script>
+    <script>
+        // =================================================================
+        // FUNCIÓN 1: MANEJAR LA PREGUNTA PRINCIPAL: ¿ESTUDIA ACTUALMENTE? (REVISADA)
+        // =================================================================
+        function manejarEstudio(valorEstudia) {
+            const cursoActualGrupo = document.getElementById('cursoActualGrupo');
+            const cursoActualSelect = document.getElementById('cursoActual');
+            const seccionNoEstudia = document.getElementById('seccionNoEstudia');
+            const ultimoAnioSelect = document.getElementById('ultimoAnio');
+
+            const futuroSi = document.getElementById('futuro-si');
+            const futuroNo = document.getElementById('futuro-no');
+
+            resetCamposNoEstudia();
+
+            if (valorEstudia === 'si') {
+                // --- SECCIÓN ESTUDIO SÍ ---
+                cursoActualGrupo.style.display = 'block';
+                cursoActualSelect.required = true;
+
+                // Ocultar sección NO
+                seccionNoEstudia.style.display = 'none';
+                ultimoAnioSelect.required = false;
+
+                // Limpiar y remover obligatoriedad de los campos de estudio futuro
+                futuroSi.checked = false;
+                futuroNo.checked = false;
+                futuroSi.required = false;
+                futuroNo.required = false;
+
+            } else if (valorEstudia === 'no') {
+                // --- SECCIÓN ESTUDIO NO ---
+                seccionNoEstudia.style.display = 'block';
+                ultimoAnioSelect.required = true;
+
+                // Ocultar sección SÍ
+                cursoActualGrupo.style.display = 'none';
+
+                // 🛑 CLAVE: Limpiar el valor y required al final del bloque SI (cursoActual)
+                cursoActualSelect.value = '';
+                cursoActualSelect.required = false; // Asegurar que no sea requerido si está oculto
+
+                // Establecer obligatoriedad de los radio buttons futuros
+                futuroSi.required = true;
+                futuroNo.required = true;
+            }
+        }
+
+        // =================================================================
+        // FUNCIÓN 2: MANEJAR LA PREGUNTA SECUNDARIA: ¿ESTUDIARÁ EL PRÓXIMO AÑO?
+        // =================================================================
+        function manejarEstudioFuturo(valorFuturo) {
+            const cursoFuturoGrupo = document.getElementById('cursoFuturoGrupo');
+            const cursoFuturoSelect = document.getElementById('cursoFuturo');
+            const sinEstudiosGrupo = document.getElementById('sinEstudiosGrupo');
+            // const sinEstudiosInput = document.getElementById('sinEstudios'); // No es necesario aquí
+
+            // Resetear visibilidad y obligatoriedad de ambos grupos futuros
+            cursoFuturoGrupo.style.display = 'none';
+            cursoFuturoSelect.required = false;
+            cursoFuturoSelect.value = ''; // 💡 Asegurar que el select se limpia
+
+            sinEstudiosGrupo.style.display = 'none';
+
+            if (valorFuturo === 'si') {
+                // Muestra el campo para seleccionar el curso futuro y lo hace OBLIGATORIO
+                cursoFuturoGrupo.style.display = 'block';
+                cursoFuturoSelect.required = true;
+
+            } else if (valorFuturo === 'no') {
+                // Muestra el campo de SIN ESTUDIOS 
+                sinEstudiosGrupo.style.display = 'block';
+            }
+        }
+
+        // =================================================================
+        // FUNCIÓN 3: LIMPIEZA DE CAMPOS OCULTOS (CORREGIDA)
+        // =================================================================
+        function resetCamposNoEstudia() {
+            // Lista de IDs de SELECTS e INPUTS DE TEXTO que deben ser limpiados
+            const camposDeValor = ['ultimoAnio', 'cursoFuturo', 'sinEstudios'];
+
+            camposDeValor.forEach(id => {
+                const elemento = document.getElementById(id);
+                if (elemento) {
+                    // 💡 CLAVE: Limpiar solo valores, no los radio buttons que no están en esta lista
+                    if (elemento.tagName === 'SELECT' || elemento.type === 'text') {
+                        elemento.value = '';
+                    }
+                    elemento.required = false;
+                }
+            });
+
+            // 🛑 IMPORTANTE: Ya NO desmarcamos los Radio Buttons de Estudio Futuro aquí.
+            // Solo lo hacemos dentro de manejarEstudio() cuando la sección se oculta, 
+            // para permitir que el valor seleccionado se envíe.
+
+            // Ocultar los grupos dependientes
+            document.getElementById('cursoFuturoGrupo').style.display = 'none';
+            document.getElementById('sinEstudiosGrupo').style.display = 'none';
+        }
+
+        // =================================================================
+        // FUNCIÓN DE INICIALIZACIÓN (Para modificar un formulario ya guardado)
+        // =================================================================
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Inicializar la lógica principal (Estudia Actual)
+            const radioEstudia = document.querySelector('input[name="estudiaActual"]:checked');
+            if (radioEstudia) {
+                manejarEstudio(radioEstudia.value);
+
+                // 2. Inicializar la lógica futura (Solo si "No Estudia" estaba seleccionado al cargar)
+                if (radioEstudia.value === 'no') {
+                    const radioFuturo = document.querySelector('input[name="estudioFuturo"]:checked');
+                    if (radioFuturo) {
+                        manejarEstudioFuturo(radioFuturo.value);
+                    }
+                }
+            }
+        });
+
+        function guardarDatos(event) {
+            // Evitar el envío de formulario estándar
+            event.preventDefault();
+
+            // Obtener el formulario (ajusta el ID si tu formulario tiene otro)
+            const form = document.getElementById('miFormulario');
+
+            // 1. Captura de Radio Buttons (CLAVE para P y R)
+            const estudiaActualRadio = document.querySelector('input[name="estudiaActual"]:checked');
+            const estudioFuturoRadio = document.querySelector('input[name="estudioFuturo"]:checked');
+
+            // 2. CONSTRUCCIÓN EXPLÍCITA DEL OBJETO 'params'
+            const params = {
+
+                // 🛑 ATENCIÓN: DEBES REEMPLAZAR ESTOS PLACEHOLDERS CON LOS IDS REALES DE TUS CAMPOS E-O
+                tipoDocParticipante: form.querySelector('#ID_TIPO_DOC_PARTICIPANTE')?.value || '', // Columna E (Ejemplo)
+                numDocParticipante: form.querySelector('#ID_NUM_DOC_PARTICIPANTE')?.value || '',   // Columna F (Ejemplo)
+                // ... (Debe haber 7 campos más para documentos/acudientes hasta la Columna M)
+                parentescoOtro: form.querySelector('#parentescoOtro')?.value || '', // Columna K (Ejemplo)
+
+                // Mapeo de Salud (N y O)
+                regimenSalud: form.querySelector('#regimenSalud')?.value || '', // Columna N
+                epsActivo: form.querySelector('#epsActivo')?.value || '',       // Columna O 
+
+                // ✅ MAPEO DE EDUCACIÓN (CORRECCIÓN DE RADIO BUTTONS)
+                // -------------------------------------------------------------------------
+
+                // Columna P: ESTUDIA ACTUAL (Busca el radio button con name="estudiaActual" que esté checked)
+                estudiaActual: form.querySelector('input[name="estudiaActual"]:checked')?.value || '',
+
+                // Columna Q: CURSO ACTUAL / ÚLTIMO
+                cursoActual: document.getElementById('cursoActual').value || '',
+                ultimoAnio: document.getElementById('ultimoAnio').value || '',
+
+                // Columna R: ESTUDIA FUTURO (Busca el radio button con name="estudioFuturo" que esté checked)
+                estudioFuturo: form.querySelector('input[name="estudioFuturo"]:checked')?.value || '',
+
+                // Columna S: CURSO FUTURO
+                cursoFuturo: document.getElementById('cursoFuturo').value || '',
+                sinEstudios: document.getElementById('sinEstudios').value || '',
+            };
+
+            // 3. ENVÍO DE DATOS
+            console.log("Objeto Params final enviado (Verificar si P-S tienen datos aquí):", params);
+            google.script.run.withSuccessHandler(successHandler).guardarDatos(params);
+        }
+    </script>
+    <script>
+        function manejarMotivoIrse(valor) {
+            const motivoIrseGrupo = document.getElementById('motivoIrseGrupo');
+            const motivoIrseSelect = document.getElementById('motivoIrse');
+
+            // Opciones que indican que SÍ planea irse (Probablemente o SI definitivo)
+            const planeaIrse = ['SI', '3 Meses', '6 Meses', 'En 1 Año'];
+
+            if (planeaIrse.includes(valor)) {
+                // HABILITAR y MOSTRAR: Si el valor indica mudanza
+                motivoIrseGrupo.style.display = 'block';
+                motivoIrseSelect.removeAttribute('disabled');
+            } else {
+                // BLOQUEAR, LIMPIAR y OCULTAR: Si es 'NO' o no ha seleccionado nada
+                motivoIrseGrupo.style.display = 'none';
+                motivoIrseSelect.setAttribute('disabled', 'disabled');
+                motivoIrseSelect.value = ''; // Limpia el valor antes de enviar
+            }
+        }
     </script>
 </body>
 
