@@ -2336,10 +2336,10 @@
 
     <label>¿Estudia actualmente?</label>
     <div class="radio-grupo" id="estudiaActual">
-        <input type="radio" id="estudia-si" name="estudiaActual" value="SI" onchange="manejarEstudio(this.value)">
+        <input type="radio" id="estudia-si" name="estudiaActual" value="si" onchange="manejarEstudio(this.value)">
         <label for="estudia-si">Sí</label>
 
-        <input type="radio" id="estudia-no" name="estudiaActual" value="NO" onchange="manejarEstudio(this.value)">
+        <input type="radio" id="estudia-no" name="estudiaActual" value="si" onchange="manejarEstudio(this.value)">
         <label for="estudia-no">No</label>
     </div>
 </div>
@@ -3061,19 +3061,19 @@
                 epsActivo: form.epsActivo.value || "",
 
                 // 🔸 EDUCACIÓN (CORREGIDO)
-    estudiaActual: document.querySelector('input[name="estudiaActual"]:checked')?.value || "", // ✅ CORREGIDO
+                estudiaActual: document.querySelector('input[name="estudiaActual"]:checked')?.value || "", // ✅ CORREGIDO
 
-cursoActual_ultimoAnio:
-    document.getElementById('cursoActualGrupo').style.display !== 'none'
-        ? document.getElementById('cursoActual').value || ""
-        : document.getElementById('ultimoAnio').value || "",
+                cursoActual_ultimoAnio:
+                    document.getElementById('cursoActualGrupo').style.display !== 'none'
+                        ? document.getElementById('cursoActual').value || ""
+                        : document.getElementById('ultimoAnio').value || "",
 
-estudioFuturo: document.querySelector('input[name="estudioFuturo"]:checked')?.value || "", // ✅ CORREGIDO
+                estudioFuturo: document.querySelector('input[name="estudioFuturo"]:checked')?.value || "", // ✅ CORREGIDO
 
-cursoFuturo_sinEstudio:
-    document.getElementById('cursoFuturoGrupo').style.display !== 'none'
-        ? document.getElementById('cursoFuturo').value || ""
-        : document.getElementById('sinEstudios').value || "",
+                cursoFuturo_sinEstudio:
+                    document.getElementById('cursoFuturoGrupo').style.display !== 'none'
+                        ? document.getElementById('cursoFuturo').value || ""
+                        : document.getElementById('sinEstudios').value || "",
 
                 // 🔸 DATOS DE CONTACTO Y OTROS
                 telefono: form.telefono.value || "",
@@ -3380,19 +3380,19 @@ cursoFuturo_sinEstudio:
                 epsActivo: form.epsActivo.value || "",
 
                 // 🔸 EDUCACIÓN (CORREGIDO)
-    estudiaActual: document.querySelector('input[name="estudiaActual"]:checked')?.value || "", // ✅ CORREGIDO
+                estudiaActual: document.querySelector('input[name="estudiaActual"]:checked')?.value || "", // ✅ CORREGIDO
 
-cursoActual_ultimoAnio:
-    document.getElementById('cursoActualGrupo').style.display !== 'none'
-        ? document.getElementById('cursoActual').value || ""
-        : document.getElementById('ultimoAnio').value || "",
+                cursoActual_ultimoAnio:
+                    document.getElementById('cursoActualGrupo').style.display !== 'none'
+                        ? document.getElementById('cursoActual').value || ""
+                        : document.getElementById('ultimoAnio').value || "",
 
-estudioFuturo: document.querySelector('input[name="estudioFuturo"]:checked')?.value || "", // ✅ CORREGIDO
+                estudioFuturo: document.querySelector('input[name="estudioFuturo"]:checked')?.value || "", // ✅ CORREGIDO
 
-cursoFuturo_sinEstudio:
-    document.getElementById('cursoFuturoGrupo').style.display !== 'none'
-        ? document.getElementById('cursoFuturo').value || ""
-        : document.getElementById('sinEstudios').value || "",
+                cursoFuturo_sinEstudio:
+                    document.getElementById('cursoFuturoGrupo').style.display !== 'none'
+                        ? document.getElementById('cursoFuturo').value || ""
+                        : document.getElementById('sinEstudios').value || "",
 
                 // 🔸 DATOS DE CONTACTO Y OTROS
                 telefono: form.telefono.value || "",
@@ -3761,18 +3761,41 @@ cursoFuturo_sinEstudio:
                   <p class="grid-item full-width"><strong>Salud:</strong> <span>${p.regimenSalud
                 } - ${p.epsActivo}</span></p>
                   
-                  <p class="grid-item full-width">
-                      <strong>Educación:</strong> 
-                      <span>
-                          ${p.estudiaActual === 'si' ? 'Estudia: Sí' : 'Estudia: No'}
-                          
-                          | Curso: ${p.cursoActual_ultimoAnio || 'N/A'}
-                          
-                          | Futuro: ${p.estudiaFuturo === 'si' ? 'Sí' : (p.estudiaFuturo === 'no' ? 'No' : 'N/A')}
-                          
-                          | Próx. Curso: ${p.cursoFuturo_final || 'N/A'}
-                      </span>
-                  </p>
+                <p class="grid-item full-width">
+    <strong>Educación:</strong> 
+    <span>
+        ${p.estudiaActual === 'si'
+                    ? // CASO 1: SÍ ESTUDIA ACTUALMENTE
+                    `Estudia Actualmente: Sí | Curso Actual: ${p.cursoActual_ultimoAnio || 'No especificado'}`
+
+                    : // CASO 2: NO ESTUDIA ACTUALMENTE
+                    `No Estudia Actualmente | Último Año Cursado: ${p.cursoActual_ultimoAnio || 'No especificado'}`
+                }
+        
+        ${p.estudiaActual === 'no' ? ' | ' : ''} 
+
+        ${p.estudiaActual === 'no' && p.estudioFuturo
+                    ? p.estudioFuturo === 'si'
+                        ? `Estudiará el Próximo Año: Sí | Grado Futuro: ${p.cursoFuturo_sinEstudio || 'No especificado'}`
+                        : `Estudiará el Próximo Año: No | Estado: ${p.cursoFuturo_sinEstudio || 'Sin estudios'}`
+                    : ''
+                }
+    </span>
+</p>
+<p class="grid-item full-width"><strong>Telefono:</strong> <span>${p.telefono}</span></p>
+<p class="grid-item full-width"><strong>Dirección:</strong> <span>${p.direccion}</span></p>
+<p class="grid-item full-width"><strong>Barrio:</strong> <span>${p.barrio}</span></p>
+<p class="grid-item full-width"><strong>Piensa Irse de la Zona:</strong> <span>${p.irse}</span></p>
+
+${p.irse !== 'NO' && p.irse !== ''
+                    ? // Si la respuesta no es 'NO' ni vacía, muestra el motivo
+                    `<p class="grid-item full-width">
+        <strong>Motivo Principal de la Partida:</strong> 
+        <span>${p.motivoIrse || 'No especificado'}</span>
+      </p>`
+                    : // Si la respuesta es 'NO' o vacía, no muestra nada
+                    ''
+                }
                   <p class="grid-item full-width"><strong>Tutora:</strong> <span>${nombreTutora}</span></p>
               </div>
             </div>
