@@ -1864,15 +1864,15 @@
                 </div>
 
                 <h3 style="
-              margin-top: 30px;
-              border-bottom: 2px solid #e2e8f0;
-              padding-bottom: 15px;
-              color: var(--color-primario);
-              font-size: 1.2rem;
-              display: flex;
-              align-items: center;
-              gap: 10px;
-            ">
+                    margin-top: 30px;
+                    border-bottom: 2px solid #e2e8f0;
+                    padding-bottom: 15px;
+                    color: var(--color-primario);
+                    font-size: 1.2rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    ">
                     <span>📋</span>
                     <span>Listado de Participantes (Admin):</span>
                 </h3>
@@ -1894,6 +1894,9 @@
         </p>
     </footer>
     <script src="animaciones.js"></script>
+    <script src="eps.js"></script>
+    <script src="edu.js"></script>
+    <script src="movilidad.js"></script>
     <script>
         /* ========================================================= */
         /* JAVASCRIPT LOGIC - CÓDIGO COMPLETO Y SIN ERRORES DE REFERENCIA */
@@ -1917,7 +1920,6 @@
             "Yrany Lisbeth Martinez Sanchez",
             "Juliana Villamizar Ortiz",
             "Helen Abelyn Sanchez Herrera",
-            "Otro/Administrador",
         ];
 
         // --- Estado Global y Caché --
@@ -2330,125 +2332,128 @@
                     </div>
 
                     <div class="input-grupo">
-                        <label for="estudiaActual">🎓 Educación</label>
-    
-                        <label>¿Estudia actualmente?</label>
-                        <div class="radio-grupo" id="estudia-actualmente-radio">
-                            <input type="radio" id="estudia-si" name="estudiaActual" value="si"  onchange="manejarEstudio(this.value)">
-                            <label for="estudia-si">Sí</label>
-            
-                            <input type="radio" id="estudia-no" name="estudiaActual" value="no"  onchange="manejarEstudio(this.value)">
-                            <label for="estudia-no">No</label>
-                        </div>
-                    </div>
+    <label for="estudiaActual">🎓 Educación</label>
 
-                    <div class="input-grupo campo-dependiente" id="cursoActualGrupo" style="display:none;">
-                        <label for="cursoActual">Nivel/Curso Actual:</label>
-                        <select id="cursoActual" name="cursoActual" >
-                            <option value="">Seleccione el curso actual</option>
-                            <option value="Transicion">Transición</option>
-                            <option value="1">1° de Básica</option>
-                            <option value="2">2° de Básica</option>
-                            <option value="3">3° de Básica</option>
-                            <option value="4">4° de Básica</option>
-                            <option value="5">5° de Básica</option>
-                            <option value="6">6° de Básica</option>
-                            <option value="7">7° de Básica</option>
-                            <option value="8">8° de Básica</option>
-                            <option value="9">9° de Básica</option>
-                            <option value="10">10° de Media</option>
-                            <option value="Tecnico año 1">Tecnologo - Año 1</option>
-                            <option value="Tecnico año 2">Tecnologo - Año 2</option>
-                            <option value="Tecnologo año 1">Tecnologo - Año 1</option>
-                            <option value="Tecnologo año 2">Tecnologo - Año 2</option>
-                            <option value="Tecnologo año 3">Tecnologo - Año 3</option>
-                            <option value="Tecnologo año 4">Tecnologo - Año 4</option>
-                            <option value="Universidad1">Universidad - Año 1</option>
-                            <option value="Universidad2">Universidad - Año 2</option>
-                            <option value="Universidad3">Universidad - Año 3</option>
-                            <option value="Universidad4">Universidad - Año 4</option>
-                            <option value="Universidad5">Universidad - Año 5</option>
-                        </select>
-                    </div>
-                    
-                    <div class="seccion-no-estudia" id="seccionNoEstudia" style="display:none;">
-        
-                        <div class="input-grupo">
-                            <label for="ultimoAnio">Último año cursado:</label>
-                            <select id="ultimoAnio" name="ultimoAnio" >
-                                <option value="">Seleccione el último año cursado</option>
-                                <option value="Transicion">Transición</option>
-                                <option value="1">1° de Básica</option>
-                                <option value="2">2° de Básica</option>
-                                <option value="3">3° de Básica</option>
-                                <option value="4">4° de Básica</option>
-                                <option value="5">5° de Básica</option>
-                                <option value="6">6° de Básica</option>
-                                <option value="7">7° de Básica</option>
-                                <option value="8">8° de Básica</option>
-                                <option value="9">9° de Básica</option>
-                                <option value="10">10° de Media</option>
-                                <option value="Tecnico año 1">Tecnologo - Año 1</option>
-                                <option value="Tecnico año 2">Tecnologo - Año 2</option>
-                                <option value="Tecnologo año 1">Tecnologo - Año 1</option>
-                                <option value="Tecnologo año 2">Tecnologo - Año 2</option>
-                                <option value="Tecnologo año 3">Tecnologo - Año 3</option>
-                                <option value="Tecnologo año 4">Tecnologo - Año 4</option>
-                                <option value="Universidad1">Universidad - Año 1</option>
-                                <option value="Universidad2">Universidad - Año 2</option>
-                                <option value="Universidad3">Universidad - Año 3</option>
-                                <option value="Universidad4">Universidad - Año 4</option>
-                                <option value="Universidad5">Universidad - Año 5</option>
-                            </select>
-                        </div>
+    <label>¿Estudia actualmente?</label>
+    <div class="radio-grupo" id="estudiaActual">
+        <input type="radio" id="estudia-si" name="estudiaActual" value="SI" onchange="manejarEstudio(this.value)">
+        <label for="estudia-si">Sí</label>
 
-                        <div class="input-grupo">
-                            <label>¿Estudiará el próximo año?</label>
-                            <div class="radio-grupo">
-                                <input type="radio" id="futuro-si" name="estudioFuturo" value="si" onchange="manejarEstudioFuturo(this.value)">
-                                <label for="futuro-si">Sí</label>
-        
-                                <input type="radio" id="futuro-no" name="estudioFuturo" value="no" onchange="manejarEstudioFuturo(this.value)">
-                                <label for="futuro-no">No (Sin estudios)</label>
-                            </div>
-                        </div>
-        
-                        <div class="input-grupo campo-dependiente" id="cursoFuturoGrupo" style="display:none;">
-                            <label for="cursoFuturo">Año a cursar el próximo año:</label>
-                            <select id="cursoFuturo" name="cursoFuturo">
-                                <option value="">Seleccione el curso</option>
-                                <option value="Transicion">Transición</option>
-                                <option value="1">1° de Básica</option>
-                                <option value="2">2° de Básica</option>
-                                <option value="3">3° de Básica</option>
-                                <option value="4">4° de Básica</option>
-                                <option value="5">5° de Básica</option>
-                                <option value="6">6° de Básica</option>
-                                <option value="7">7° de Básica</option>
-                                <option value="8">8° de Básica</option>
-                                <option value="9">9° de Básica</option>
-                                <option value="10">10° de Media</option>
-                                <option value="11">11° de Media</option>
-                                <option value="Tecnico año 1">Técnico - Año 1</option>
-                                <option value="Tecnico año 2">Técnico - Año 2</option>
-                                <option value="Tecnologo año 1">Tecnólogo - Año 1</option>
-                                <option value="Tecnologo año 2">Tecnólogo - Año 2</option>
-                                <option value="Tecnologo año 3">Tecnólogo - Año 3</option>
-                                <option value="Tecnologo año 4">Tecnólogo - Año 4</option>
-                                <option value="Universidad1">Universidad - Año 1</option>
-                                <option value="Universidad2">Universidad - Año 2</option>
-                                <option value="Universidad3">Universidad - Año 3</option>
-                                <option value="Universidad4">Universidad - Año 4</option>
-                                <option value="Universidad5">Universidad - Año 5</option>
-                                <option value="Aceleracion">ACELERACIÓN (2 años en 1)</option>
-                            </select>
-                        </div>
-        
-                        <div class="input-grupo campo-dependiente" id="sinEstudiosGrupo" style="display:none;">
-                            <input type="text" id="sinEstudios" name="sinEstudios" value="SIN ESTUDIOS - Confirmado" readonly>
-                        </div>
+        <input type="radio" id="estudia-no" name="estudiaActual" value="NO" onchange="manejarEstudio(this.value)">
+        <label for="estudia-no">No</label>
+    </div>
+</div>
 
-                    </div>
+<div class="input-grupo campo-dependiente" id="cursoActualGrupo" style="display:none;">
+    <label for="cursoActual">Nivel/Curso Actual:</label>
+    <select id="cursoActual" name="cursoActual">
+        <option value="">Seleccione el curso actual</option>
+        <option value="Transicion">Transición</option>
+        <option value="1">1° de Básica</option>
+        <option value="2">2° de Básica</option>
+        <option value="3">3° de Básica</option>
+        <option value="4">4° de Básica</option>
+        <option value="5">5° de Básica</option>
+        <option value="6">6° de Básica</option>
+        <option value="7">7° de Básica</option>
+        <option value="8">8° de Básica</option>
+        <option value="9">9° de Básica</option>
+        <option value="10">10° de Media</option>
+        <option value="11">11° de Media</option>
+        <option value="Tecnico año 1">Técnico - Año 1</option>
+        <option value="Tecnico año 2">Técnico - Año 2</option>
+        <option value="Tecnologo año 1">Tecnólogo - Año 1</option>
+        <option value="Tecnologo año 2">Tecnólogo - Año 2</option>
+        <option value="Tecnologo año 3">Tecnólogo - Año 3</option>
+        <option value="Tecnologo año 4">Tecnólogo - Año 4</option>
+        <option value="Universidad1">Universidad - Año 1</option>
+        <option value="Universidad2">Universidad - Año 2</option>
+        <option value="Universidad3">Universidad - Año 3</option>
+        <option value="Universidad4">Universidad - Año 4</option>
+        <option value="Universidad5">Universidad - Año 5</option>
+    </select>
+</div>
+
+<div class="seccion-no-estudia" id="seccionNoEstudia" style="display:none;">
+
+    <div class="input-grupo">
+        <label for="ultimoAnio">Último año cursado:</label>
+        <select id="ultimoAnio" name="ultimoAnio">
+            <option value="">Seleccione el último año cursado</option>
+            <option value="Transicion">Transición</option>
+            <option value="1">1° de Básica</option>
+            <option value="2">2° de Básica</option>
+            <option value="3">3° de Básica</option>
+            <option value="4">4° de Básica</option>
+            <option value="5">5° de Básica</option>
+            <option value="6">6° de Básica</option>
+            <option value="7">7° de Básica</option>
+            <option value="8">8° de Básica</option>
+            <option value="9">9° de Básica</option>
+            <option value="10">10° de Media</option>
+            <option value="11">11° de Media</option>
+            <option value="Tecnico año 1">Técnico - Año 1</option>
+            <option value="Tecnico año 2">Técnico - Año 2</option>
+            <option value="Tecnologo año 1">Tecnólogo - Año 1</option>
+            <option value="Tecnologo año 2">Tecnólogo - Año 2</option>
+            <option value="Tecnologo año 3">Tecnólogo - Año 3</option>
+            <option value="Tecnologo año 4">Tecnólogo - Año 4</option>
+            <option value="Universidad1">Universidad - Año 1</option>
+            <option value="Universidad2">Universidad - Año 2</option>
+            <option value="Universidad3">Universidad - Año 3</option>
+            <option value="Universidad4">Universidad - Año 4</option>
+            <option value="Universidad5">Universidad - Año 5</option>
+        </select>
+    </div>
+
+    <div class="input-grupo">
+        <label>¿Estudiará el próximo año?</label>
+        <div class="radio-grupo">
+            <input type="radio" id="futuro-si" name="estudioFuturo" value="si" onchange="manejarEstudioFuturo(this.value)">
+            <label for="futuro-si">Sí</label>
+
+            <input type="radio" id="futuro-no" name="estudioFuturo" value="no" onchange="manejarEstudioFuturo(this.value)">
+            <label for="futuro-no">No (Sin estudios)</label>
+        </div>
+    </div>
+
+    <div class="input-grupo campo-dependiente" id="cursoFuturoGrupo" style="display:none;">
+        <label for="cursoFuturo">Año a cursar el próximo año:</label>
+        <select id="cursoFuturo" name="cursoFuturo">
+            <option value="">Seleccione el curso</option>
+            <option value="Transicion">Transición</option>
+            <option value="1">1° de Básica</option>
+            <option value="2">2° de Básica</option>
+            <option value="3">3° de Básica</option>
+            <option value="4">4° de Básica</option>
+            <option value="5">5° de Básica</option>
+            <option value="6">6° de Básica</option>
+            <option value="7">7° de Básica</option>
+            <option value="8">8° de Básica</option>
+            <option value="9">9° de Básica</option>
+            <option value="10">10° de Media</option>
+            <option value="11">11° de Media</option>
+            <option value="Tecnico año 1">Técnico - Año 1</option>
+            <option value="Tecnico año 2">Técnico - Año 2</option>
+            <option value="Tecnologo año 1">Tecnólogo - Año 1</option>
+            <option value="Tecnologo año 2">Tecnólogo - Año 2</option>
+            <option value="Tecnologo año 3">Tecnólogo - Año 3</option>
+            <option value="Tecnologo año 4">Tecnólogo - Año 4</option>
+            <option value="Universidad1">Universidad - Año 1</option>
+            <option value="Universidad2">Universidad - Año 2</option>
+            <option value="Universidad3">Universidad - Año 3</option>
+            <option value="Universidad4">Universidad - Año 4</option>
+            <option value="Universidad5">Universidad - Año 5</option>
+            <option value="Aceleracion">ACELERACIÓN (2 años en 1)</option>
+        </select>
+    </div>
+
+    <div class="input-grupo campo-dependiente" id="sinEstudiosGrupo" style="display:none;">
+        <input type="text" id="sinEstudios" name="sinEstudios" value="SIN ESTUDIOS - Confirmado" readonly>
+    </div>
+
+</div>
+
                 </div>
             </div>
         </fieldset>
@@ -3037,10 +3042,12 @@
             showSaveAnimation(true);
 
             const form = e.target;
+
             const datos = {
                 action: "guardar",
-                mode: "publico",
+                mode: "publico", // o "publico" según el bloque
                 fila: participanteSeleccionado.fila,
+
                 tipoDocParticipante: form.tipoDocParticipante.value || "",
                 numDocParticipante: form.numDocParticipante.value || "",
                 tipoDocMama: form.tipoDocMama.value || "",
@@ -3052,6 +3059,28 @@
                 numDocOtro: form.numDocOtro.value || "",
                 regimenSalud: form.regimenSalud.value || "",
                 epsActivo: form.epsActivo.value || "",
+
+                // 🔸 EDUCACIÓN (CORREGIDO)
+    estudiaActual: document.querySelector('input[name="estudiaActual"]:checked')?.value || "", // ✅ CORREGIDO
+
+cursoActual_ultimoAnio:
+    document.getElementById('cursoActualGrupo').style.display !== 'none'
+        ? document.getElementById('cursoActual').value || ""
+        : document.getElementById('ultimoAnio').value || "",
+
+estudioFuturo: document.querySelector('input[name="estudioFuturo"]:checked')?.value || "", // ✅ CORREGIDO
+
+cursoFuturo_sinEstudio:
+    document.getElementById('cursoFuturoGrupo').style.display !== 'none'
+        ? document.getElementById('cursoFuturo').value || ""
+        : document.getElementById('sinEstudios').value || "",
+
+                // 🔸 DATOS DE CONTACTO Y OTROS
+                telefono: form.telefono.value || "",
+                direccion: form.direccion.value || "",
+                barrio: form.barrio.value || "",
+                irse: form.irse.value || "",
+                motivoIrse: form.motivoIrse.value || "",
             };
 
             try {
@@ -3332,10 +3361,12 @@
             showSaveAnimation(true);
 
             const form = e.target;
+
             const datos = {
                 action: "guardar",
-                mode: "tutora",
+                mode: "tutora", // o "publico" según el bloque
                 fila: participanteSeleccionado.fila,
+
                 tipoDocParticipante: form.tipoDocParticipante.value || "",
                 numDocParticipante: form.numDocParticipante.value || "",
                 tipoDocMama: form.tipoDocMama.value || "",
@@ -3347,7 +3378,30 @@
                 numDocOtro: form.numDocOtro.value || "",
                 regimenSalud: form.regimenSalud.value || "",
                 epsActivo: form.epsActivo.value || "",
+
+                // 🔸 EDUCACIÓN (CORREGIDO)
+    estudiaActual: document.querySelector('input[name="estudiaActual"]:checked')?.value || "", // ✅ CORREGIDO
+
+cursoActual_ultimoAnio:
+    document.getElementById('cursoActualGrupo').style.display !== 'none'
+        ? document.getElementById('cursoActual').value || ""
+        : document.getElementById('ultimoAnio').value || "",
+
+estudioFuturo: document.querySelector('input[name="estudioFuturo"]:checked')?.value || "", // ✅ CORREGIDO
+
+cursoFuturo_sinEstudio:
+    document.getElementById('cursoFuturoGrupo').style.display !== 'none'
+        ? document.getElementById('cursoFuturo').value || ""
+        : document.getElementById('sinEstudios').value || "",
+
+                // 🔸 DATOS DE CONTACTO Y OTROS
+                telefono: form.telefono.value || "",
+                direccion: form.direccion.value || "",
+                barrio: form.barrio.value || "",
+                irse: form.irse.value || "",
+                motivoIrse: form.motivoIrse.value || "",
             };
+
 
             try {
                 const result = await sendToAppsScript(datos);
@@ -3783,355 +3837,7 @@
             }
         });
     </script>
-    <script>
-        // =================================================================
-        // FUNCIÓN 1: MANEJAR EL REGIMEN DE SALUD (Bloqueo Condicional de EPS)
-        // =================================================================
-        function manejarRegimenSalud(valorSeleccionado) {
-            var epsSelect = document.getElementById("epsActivo");
-            var otraEpsInput = document.getElementById("otraEps");
 
-            if (valorSeleccionado === "No Salud") {
-                // Bloquear SELECT de EPS
-                epsSelect.disabled = true;
-                epsSelect.value = "";
-                epsSelect.required = false;
-                epsSelect.style.backgroundColor = "#e9ecef";
-
-                // Bloquear INPUT de OTRA EPS
-                otraEpsInput.style.display = "none";
-                otraEpsInput.disabled = true;
-                otraEpsInput.required = false;
-                otraEpsInput.value = "";
-                otraEpsInput.name = "otraEps";
-            } else {
-                // Habilitar SELECT de EPS
-                epsSelect.disabled = false;
-                epsSelect.required = true;
-                epsSelect.style.backgroundColor = "white";
-
-                // Reactivar el campo de texto si el valor actual es "OTRA"
-                if (epsSelect.value === "OTRA") {
-                    mostrarCampoOtraEPS("OTRA");
-                } else {
-                    // Si selecciona otro régimen y no tenía "OTRA" seleccionado, asegurar nombre correcto
-                    epsSelect.name = "epsActivo";
-                }
-            }
-        }
-
-        // =================================================================
-        // FUNCIÓN 2: MOSTRAR CAMPO OTRA EPS (CORREGIDA para permitir escritura)
-        // =================================================================
-        function mostrarCampoOtraEPS(valorSeleccionado) {
-            var campoOtraEPS = document.getElementById("otraEps");
-            var epsSelect = document.getElementById("epsActivo");
-
-            // Si el select principal de EPS está deshabilitado por 'No Salud', salimos.
-            if (epsSelect.disabled) {
-                campoOtraEPS.style.display = "none";
-                return;
-            }
-
-            if (valorSeleccionado === "OTRA") {
-                campoOtraEPS.style.display = "block";
-                campoOtraEPS.required = true;
-                campoOtraEPS.disabled = false; // CLAVE: Habilitar para escribir
-
-                campoOtraEPS.name = "epsActivo";
-                epsSelect.name = "epsActivo_select";
-            } else {
-                campoOtraEPS.style.display = "none";
-                campoOtraEPS.required = false;
-                campoOtraEPS.disabled = true;
-                campoOtraEPS.value = "";
-                campoOtraEPS.name = "otraEps";
-                epsSelect.name = "epsActivo";
-            }
-        }
-
-        // =================================================================
-        // FUNCIÓN 3: VALIDACIÓN DE DOCUMENTOS Y BLOQUEO CONDICIONAL ('No vive')
-        // =================================================================
-        function validarDocumento(idTipoDoc, idNumDoc) {
-            var tipoDocSelect = document.getElementById(idTipoDoc);
-            var numDocInput = document.getElementById(idNumDoc);
-
-            // Si se selecciona "No vive"
-            if (tipoDocSelect.value === "No vive") {
-                numDocInput.value = "";
-                numDocInput.readOnly = true;
-                numDocInput.disabled = true;
-                numDocInput.required = false;
-                numDocInput.placeholder = "No aplica (No vive con el menor)";
-                numDocInput.setCustomValidity(""); // Limpiar la validación
-            } else {
-                // Habilitar el campo de número
-                numDocInput.readOnly = false;
-                numDocInput.disabled = false;
-
-                // Hacer el campo de número obligatorio si se eligió un tipo de doc
-                if (tipoDocSelect.value !== "") {
-                    numDocInput.required = true;
-                    numDocInput.placeholder = "Ingrese el número";
-                } else {
-                    numDocInput.required = false;
-                    numDocInput.placeholder = "Ingrese el número";
-                }
-            }
-        }
-
-        // =================================================================
-        // FUNCIÓN 4: PERSONALIZAR LOS MENSAJES DE ERROR
-        // =================================================================
-        function personalizarMensaje(elementoId, mensajeVacio) {
-            const elemento = document.getElementById(elementoId);
-            if (elemento) {
-                elemento.addEventListener("invalid", function (event) {
-                    event.preventDefault();
-
-                    if (elemento.validity.valueMissing) {
-                        elemento.setCustomValidity(mensajeVacio);
-                    } else if (elemento.validity.patternMismatch) {
-                        elemento.setCustomValidity(
-                            "🚨 Solo se permiten números. Verifique."
-                        );
-                    }
-                });
-
-                // Limpiar el mensaje en input y change
-                elemento.addEventListener("input", function () {
-                    elemento.setCustomValidity("");
-                });
-
-                if (elemento.tagName === "SELECT") {
-                    elemento.addEventListener("change", function () {
-                        elemento.setCustomValidity("");
-                    });
-                }
-            }
-        }
-
-        // =================================================================
-        // APLICAR MENSAJES AL CARGAR LA PÁGINA
-        // =================================================================
-        document.addEventListener("DOMContentLoaded", function () {
-            // Aplicar a los campos de la MADRE
-            personalizarMensaje(
-                "tipoDocMama",
-                "⚠️ Debe seleccionar el tipo de documento de la Madre."
-            );
-            personalizarMensaje(
-                "numDocMama",
-                "⚠️ Debe ingresar el número de documento de la Madre."
-            );
-
-            // Aplicar a los campos del PADRE
-            personalizarMensaje(
-                "tipoDocPapa",
-                "⚠️ Debe seleccionar el tipo de documento del Padre."
-            );
-            personalizarMensaje(
-                "numDocPapa",
-                "⚠️ Debe ingresar el número de documento del Padre."
-            );
-
-            // También aplicar a Régimen de Salud y EPS (asumiendo que están en la página)
-            personalizarMensaje(
-                "regimenSalud",
-                "⚠️ Debe seleccionar el Régimen de Salud."
-            );
-            personalizarMensaje("epsActivo", "⚠️ Debe seleccionar la EPS activa.");
-        });
-    </script>
-    <script>
-        // =================================================================
-        // FUNCIÓN 1: MANEJAR LA PREGUNTA PRINCIPAL: ¿ESTUDIA ACTUALMENTE? (REVISADA)
-        // =================================================================
-        function manejarEstudio(valorEstudia) {
-            const cursoActualGrupo = document.getElementById('cursoActualGrupo');
-            const cursoActualSelect = document.getElementById('cursoActual');
-            const seccionNoEstudia = document.getElementById('seccionNoEstudia');
-            const ultimoAnioSelect = document.getElementById('ultimoAnio');
-
-            const futuroSi = document.getElementById('futuro-si');
-            const futuroNo = document.getElementById('futuro-no');
-
-            resetCamposNoEstudia();
-
-            if (valorEstudia === 'si') {
-                // --- SECCIÓN ESTUDIO SÍ ---
-                cursoActualGrupo.style.display = 'block';
-                cursoActualSelect.required = true;
-
-                // Ocultar sección NO
-                seccionNoEstudia.style.display = 'none';
-                ultimoAnioSelect.required = false;
-
-                // Limpiar y remover obligatoriedad de los campos de estudio futuro
-                futuroSi.checked = false;
-                futuroNo.checked = false;
-                futuroSi.required = false;
-                futuroNo.required = false;
-
-            } else if (valorEstudia === 'no') {
-                // --- SECCIÓN ESTUDIO NO ---
-                seccionNoEstudia.style.display = 'block';
-                ultimoAnioSelect.required = true;
-
-                // Ocultar sección SÍ
-                cursoActualGrupo.style.display = 'none';
-
-                // 🛑 CLAVE: Limpiar el valor y required al final del bloque SI (cursoActual)
-                cursoActualSelect.value = '';
-                cursoActualSelect.required = false; // Asegurar que no sea requerido si está oculto
-
-                // Establecer obligatoriedad de los radio buttons futuros
-                futuroSi.required = true;
-                futuroNo.required = true;
-            }
-        }
-
-        // =================================================================
-        // FUNCIÓN 2: MANEJAR LA PREGUNTA SECUNDARIA: ¿ESTUDIARÁ EL PRÓXIMO AÑO?
-        // =================================================================
-        function manejarEstudioFuturo(valorFuturo) {
-            const cursoFuturoGrupo = document.getElementById('cursoFuturoGrupo');
-            const cursoFuturoSelect = document.getElementById('cursoFuturo');
-            const sinEstudiosGrupo = document.getElementById('sinEstudiosGrupo');
-            // const sinEstudiosInput = document.getElementById('sinEstudios'); // No es necesario aquí
-
-            // Resetear visibilidad y obligatoriedad de ambos grupos futuros
-            cursoFuturoGrupo.style.display = 'none';
-            cursoFuturoSelect.required = false;
-            cursoFuturoSelect.value = ''; // 💡 Asegurar que el select se limpia
-
-            sinEstudiosGrupo.style.display = 'none';
-
-            if (valorFuturo === 'si') {
-                // Muestra el campo para seleccionar el curso futuro y lo hace OBLIGATORIO
-                cursoFuturoGrupo.style.display = 'block';
-                cursoFuturoSelect.required = true;
-
-            } else if (valorFuturo === 'no') {
-                // Muestra el campo de SIN ESTUDIOS 
-                sinEstudiosGrupo.style.display = 'block';
-            }
-        }
-
-        // =================================================================
-        // FUNCIÓN 3: LIMPIEZA DE CAMPOS OCULTOS (CORREGIDA)
-        // =================================================================
-        function resetCamposNoEstudia() {
-            // Lista de IDs de SELECTS e INPUTS DE TEXTO que deben ser limpiados
-            const camposDeValor = ['ultimoAnio', 'cursoFuturo', 'sinEstudios'];
-
-            camposDeValor.forEach(id => {
-                const elemento = document.getElementById(id);
-                if (elemento) {
-                    // 💡 CLAVE: Limpiar solo valores, no los radio buttons que no están en esta lista
-                    if (elemento.tagName === 'SELECT' || elemento.type === 'text') {
-                        elemento.value = '';
-                    }
-                    elemento.required = false;
-                }
-            });
-
-            // 🛑 IMPORTANTE: Ya NO desmarcamos los Radio Buttons de Estudio Futuro aquí.
-            // Solo lo hacemos dentro de manejarEstudio() cuando la sección se oculta, 
-            // para permitir que el valor seleccionado se envíe.
-
-            // Ocultar los grupos dependientes
-            document.getElementById('cursoFuturoGrupo').style.display = 'none';
-            document.getElementById('sinEstudiosGrupo').style.display = 'none';
-        }
-
-        // =================================================================
-        // FUNCIÓN DE INICIALIZACIÓN (Para modificar un formulario ya guardado)
-        // =================================================================
-        document.addEventListener('DOMContentLoaded', function () {
-            // 1. Inicializar la lógica principal (Estudia Actual)
-            const radioEstudia = document.querySelector('input[name="estudiaActual"]:checked');
-            if (radioEstudia) {
-                manejarEstudio(radioEstudia.value);
-
-                // 2. Inicializar la lógica futura (Solo si "No Estudia" estaba seleccionado al cargar)
-                if (radioEstudia.value === 'no') {
-                    const radioFuturo = document.querySelector('input[name="estudioFuturo"]:checked');
-                    if (radioFuturo) {
-                        manejarEstudioFuturo(radioFuturo.value);
-                    }
-                }
-            }
-        });
-
-        function guardarDatos(event) {
-            // Evitar el envío de formulario estándar
-            event.preventDefault();
-
-            // Obtener el formulario (ajusta el ID si tu formulario tiene otro)
-            const form = document.getElementById('miFormulario');
-
-            // 1. Captura de Radio Buttons (CLAVE para P y R)
-            const estudiaActualRadio = document.querySelector('input[name="estudiaActual"]:checked');
-            const estudioFuturoRadio = document.querySelector('input[name="estudioFuturo"]:checked');
-
-            // 2. CONSTRUCCIÓN EXPLÍCITA DEL OBJETO 'params'
-            const params = {
-
-                // 🛑 ATENCIÓN: DEBES REEMPLAZAR ESTOS PLACEHOLDERS CON LOS IDS REALES DE TUS CAMPOS E-O
-                tipoDocParticipante: form.querySelector('#ID_TIPO_DOC_PARTICIPANTE')?.value || '', // Columna E (Ejemplo)
-                numDocParticipante: form.querySelector('#ID_NUM_DOC_PARTICIPANTE')?.value || '',   // Columna F (Ejemplo)
-                // ... (Debe haber 7 campos más para documentos/acudientes hasta la Columna M)
-                parentescoOtro: form.querySelector('#parentescoOtro')?.value || '', // Columna K (Ejemplo)
-
-                // Mapeo de Salud (N y O)
-                regimenSalud: form.querySelector('#regimenSalud')?.value || '', // Columna N
-                epsActivo: form.querySelector('#epsActivo')?.value || '',       // Columna O 
-
-                // ✅ MAPEO DE EDUCACIÓN (CORRECCIÓN DE RADIO BUTTONS)
-                // -------------------------------------------------------------------------
-
-                // Columna P: ESTUDIA ACTUAL (Busca el radio button con name="estudiaActual" que esté checked)
-                estudiaActual: form.querySelector('input[name="estudiaActual"]:checked')?.value || '',
-
-                // Columna Q: CURSO ACTUAL / ÚLTIMO
-                cursoActual: document.getElementById('cursoActual').value || '',
-                ultimoAnio: document.getElementById('ultimoAnio').value || '',
-
-                // Columna R: ESTUDIA FUTURO (Busca el radio button con name="estudioFuturo" que esté checked)
-                estudioFuturo: form.querySelector('input[name="estudioFuturo"]:checked')?.value || '',
-
-                // Columna S: CURSO FUTURO
-                cursoFuturo: document.getElementById('cursoFuturo').value || '',
-                sinEstudios: document.getElementById('sinEstudios').value || '',
-            };
-
-            // 3. ENVÍO DE DATOS
-            console.log("Objeto Params final enviado (Verificar si P-S tienen datos aquí):", params);
-            google.script.run.withSuccessHandler(successHandler).guardarDatos(params);
-        }
-    </script>
-    <script>
-        function manejarMotivoIrse(valor) {
-            const motivoIrseGrupo = document.getElementById('motivoIrseGrupo');
-            const motivoIrseSelect = document.getElementById('motivoIrse');
-
-            // Opciones que indican que SÍ planea irse (Probablemente o SI definitivo)
-            const planeaIrse = ['SI', '3 Meses', '6 Meses', 'En 1 Año'];
-
-            if (planeaIrse.includes(valor)) {
-                // HABILITAR y MOSTRAR: Si el valor indica mudanza
-                motivoIrseGrupo.style.display = 'block';
-                motivoIrseSelect.removeAttribute('disabled');
-            } else {
-                // BLOQUEAR, LIMPIAR y OCULTAR: Si es 'NO' o no ha seleccionado nada
-                motivoIrseGrupo.style.display = 'none';
-                motivoIrseSelect.setAttribute('disabled', 'disabled');
-                motivoIrseSelect.value = ''; // Limpia el valor antes de enviar
-            }
-        }
-    </script>
 </body>
 
 </html>
