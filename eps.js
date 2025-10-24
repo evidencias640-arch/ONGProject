@@ -64,36 +64,75 @@
             }
         }
 
-        // =================================================================
-        // FUNCIÓN 3: VALIDACIÓN DE DOCUMENTOS Y BLOQUEO CONDICIONAL ('No vive')
-        // =================================================================
-        function validarDocumento(idTipoDoc, idNumDoc) {
-            var tipoDocSelect = document.getElementById(idTipoDoc);
-            var numDocInput = document.getElementById(idNumDoc);
+// =================================================================
+// FUNCIÓN DE CONTROL DE BLOQUEO (SI/NO) - Actualizada para poner "NO VIVE"
+// =================================================================
+function controlarBloqueo(idControl, idNombre, idTipoDoc, idNumDoc) {
+    var controlSelect = document.getElementById(idControl);
+    var nombreInput = document.getElementById(idNombre); 
+    var tipoDocSelect = document.getElementById(idTipoDoc);
+    var numDocInput = document.getElementById(idNumDoc);
 
-            // Si se selecciona "No vive"
-            if (tipoDocSelect.value === "No vive") {
-                numDocInput.value = "";
-                numDocInput.readOnly = true;
-                numDocInput.disabled = true;
-                numDocInput.required = false;
-                numDocInput.placeholder = "No aplica (No vive con el menor)";
-                numDocInput.setCustomValidity(""); // Limpiar la validación
-            } else {
-                // Habilitar el campo de número
-                numDocInput.readOnly = false;
-                numDocInput.disabled = false;
+    // Determina si el progenitor NO vive con el menor
+    var debeBloquearse = controlSelect.value === "NO";
 
-                // Hacer el campo de número obligatorio si se eligió un tipo de doc
-                if (tipoDocSelect.value !== "") {
-                    numDocInput.required = true;
-                    numDocInput.placeholder = "Ingrese el número";
-                } else {
-                    numDocInput.required = false;
-                    numDocInput.placeholder = "Ingrese el número";
-                }
+    // Función auxiliar para aplicar bloqueo/desbloqueo a un elemento
+    function aplicarEstado(elemento, bloquear, valorBloqueado, placeholderBloqueado) {
+        elemento.readOnly = bloquear;
+        elemento.disabled = bloquear;
+        elemento.required = !bloquear;
+        
+        if (bloquear) {
+            // CAMBIO: Establecer el valor en "NO VIVE"
+            elemento.value = valorBloqueado; 
+            elemento.placeholder = placeholderBloqueado;
+            elemento.setCustomValidity("");
+        } else {
+            elemento.value = ""; // Limpiar cualquier valor fijo
+            // Restablecer placeholders y patrones
+            if (elemento.id.includes('numDoc')) {
+                elemento.placeholder = "Ingrese el número";
+            } else if (elemento.id.includes('nombre')) {
+                elemento.placeholder = "Ingrese el nombre completo";
+            } else { // Para el select de tipo de documento
+                elemento.placeholder = ""; 
+                elemento.selectedIndex = 0; // Opcional: regresa al primer item del select
             }
         }
+    }
+
+    if (debeBloquearse) {
+        // Bloquear todos los campos y establecer su valor en "NO VIVE"
+        
+        // Bloqueo del Nombre
+        aplicarEstado(nombreInput, true, "NO VIVE", "Bloqueado");
+        
+        // Bloqueo del Tipo de Documento
+        aplicarEstado(tipoDocSelect, true, "NO VIVE", "Bloqueado");
+        
+        // Bloqueo del Número de Documento
+        aplicarEstado(numDocInput, true, "NO VIVE", "Bloqueado");
+        
+    } else {
+        // Desbloquear y Reestablecer
+        
+        // Desbloquear todos los campos
+        aplicarEstado(nombreInput, false);
+        aplicarEstado(tipoDocSelect, false);
+        aplicarEstado(numDocInput, false);
+        
+        // Asegurar que sean requeridos si selecciona "SI"
+        if (controlSelect.value === "SI") {
+            nombreInput.required = true;
+            tipoDocSelect.required = true;
+            numDocInput.required = true;
+        } else {
+            nombreInput.required = false;
+            tipoDocSelect.required = false;
+            numDocInput.required = false;
+        }
+    }
+}
 
         // =================================================================
         // FUNCIÓN 4: PERSONALIZAR LOS MENSAJES DE ERROR
