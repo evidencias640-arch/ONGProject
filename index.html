@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestión de Datos | CO0678</title>
-    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/svgs/solid/chart-bar.svg"
-        type="image/svg+xml" />
+    <title>Gestión de Datos | 678</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
     <style>
@@ -979,31 +978,95 @@
             font-size: 0.9rem;
         }
 
-        /* ==================== ICONO DE TÉRMINOS ==================== */
-        .terms-link {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--gradient-primary);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(8, 145, 178, 0.4);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
+/* ==================== ICONO DE TÉRMINOS ==================== */
+.terms-link {
+    position: fixed;
+    bottom: 20px; /* Posición original: 20px del borde inferior */
+    right: 20px;
+    background: var(--gradient-primary);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(8, 145, 178, 0.4);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
 
-        .terms-link:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 6px 30px rgba(8, 145, 178, 0.6);
-        }
+.terms-link:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 6px 30px rgba(8, 145, 178, 0.6);
+}
 
+/* ==================== ICONO DE ICC (SOLO IMAGEN) ==================== */
+.icc {
+    position: fixed;
+    bottom: 90px; 
+    right: 20px;
+    
+    /* Usar la imagen como fondo */
+    background: url('logo.png') no-repeat center center;
+    background-size: contain; /* 🔥 CAMBIO: Usar 'contain' para que la imagen se vea completa */
+    background-color: transparent; /* Asegurar que no hay color de fondo sólido */
+    
+    color: transparent; /* Ocultar cualquier texto/ícono */
+    width: 60px;
+    height: 60px;
+    
+    /* 🔥 ELIMINAR O REDUCIR EL BORDE REDONDO A CERO (Si quieres que solo se vea la imagen cuadrada/circular) */
+    border-radius: 0; /* O 50% si el logo es circular y quieres que siga siendo un círculo de 70x70 */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+    /* 🔥 ELIMINAR SOMBRA EN ESTADO NORMAL */
+    box-shadow: none; 
+    
+    transition: all 0.3s ease;
+    z-index: 1001; 
+    transform: scale(1.0); /* Estado inicial más neutral */
+}
+
+/* Efecto hover: Mantenemos el escalado y la sombra anaranjada */
+.icc:hover {
+    transform: scale(1.15); /* Se agranda un poco más al pasar el ratón */
+    box-shadow: 0 8px 40px rgba(241, 101, 36, 1);
+}
+
+/* ================================================= */
+/* === AJUSTES RESPONSIVOS PARA ICONOS FIJOS (MÓVIL) === */
+/* ================================================= */
+
+/* Regla @media para aplicar estilos solo en pantallas estrechas (típicamente móviles) */
+@media (max-width: 600px) {
+    
+    /* 1. Icono de Términos (60px) */
+    .terms-link {
+        width: 50px;    /* Reducimos el ancho */
+        height: 50px;   /* Reducimos el alto */
+        font-size: 1.5rem; /* Reducimos el tamaño del ícono interno */
+        bottom: 15px;   /* Reducimos la separación del borde inferior */
+        right: 15px;    /* Reducimos la separación del borde derecho */
+    }
+
+    /* 2. Icono de ICC (70px) */
+    .icc {
+        width: 60px;    /* Reducimos el ancho */
+        height: 60px;   /* Reducimos el alto */
+        
+        /* Ajustamos la posición para que esté encima del icono más pequeño (terms-link: 50px + 15px = 65px) */
+        bottom: 75px; 
+        
+        right: 15px;    /* Reducimos la separación del borde derecho */
+    }
+}
         /* ==================== RESPONSIVE ==================== */
         @media (max-width: 768px) {
 
@@ -1171,10 +1234,23 @@
             font-style: italic;
         }
 
-        /* --- ESTILOS DEL BOTÓN SALIR (LOGOUT) --- */
 
+        .paso-titulo {
+            display: flex;
+            /* 🔥 ESSENTIAL: Habilita el modelo flexbox */
+            align-items: center;
+            /* Alinea verticalmente los elementos */
+            gap: 15px;
+            /* Espacio entre los elementos (número, texto, botón) */
+            /* Aquí irían otros estilos que ya tengas para .paso-titulo (ej. margen, fuente) */
+        }
+
+        /* ========================================= */
+        /* === ESTILOS DEL BOTÓN SALIR (LOGOUT) === */
+        /* ========================================= */
         .btn-logout {
             background: var(--color-alerta);
+            /* Usa tu color de alerta para el fondo */
             color: white;
             padding: 10px 20px;
             border: none;
@@ -1186,22 +1262,20 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+
+            /* 🔥 ESSENTIAL: Empuja el botón lo más lejos posible hacia la derecha */
             margin-left: auto;
-            /* Empuja el botón a la derecha */
+
+            /* Previene que el botón se encoja */
             flex-shrink: 0;
         }
 
         .btn-logout:hover {
             background: #dc2626;
+            /* Rojo ligeramente más oscuro al pasar el ratón */
             transform: translateY(-2px);
+            /* Pequeño efecto de elevación */
             box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
-        }
-
-        /* Ajuste necesario para que el botón se alinee correctamente */
-        .paso-titulo {
-            display: flex;
-            align-items: center;
-            /* Las demás propiedades de .paso-titulo se mantienen intactas */
         }
 
         /* -------------------------------------- */
@@ -1612,6 +1686,8 @@
     <div class="terms-link" id="terms-link" title="Ver Términos y Condiciones">
         📋
     </div>
+    <a href="https://icclafortalezacucuta.github.io/Iglesia_La_Fortaleza_Cruzada_Cristiana_C-ucuta/index.html" target="_blank" class="icc" id="icc" title="Ir a la página de ICC">
+    </a>
 
     <header>
         <div class="logo-container">
@@ -1764,6 +1840,7 @@
               align-items: center;
               gap: 10px;
             ">
+
                     <span>📋</span>
                     <span>Listado de Casos:</span>
                 </h3>
@@ -1850,6 +1927,27 @@
                             <option value="incompleto">Incompleto</option>
                         </select>
                     </div>
+                    <div class="input-grupo">
+                        <label for="admin-select-estudio">🪐 Filtrar por Estudio</label>
+                        <select id="admin-select-estudio" required>
+                            <option value="todos">Todos</option>
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="input-grupo">
+                        <label for="admin-select-tipodocumentoparticipante">💷 Filtrar por Tipo Documento</label>
+                        <select id="admin-select-tipodocumentoparticipante" required>
+                            <option value="todos">Todos</option>
+                            <option value="R.C">Registro Civil Nacimiento (RC)</option>
+                            <option value="T.I">Tarjeta de Identidad (TI)</option>
+                            <option value="C.C">Cédula de Ciudadanía (CC)</option>
+                            <option value="Acta Nacimiento">Acta de Nacimiento (VEN)</option>
+                            <option value="PEP">Permiso Especial de Permanencia (PEP)</option>
+                            <option value="PPT">Permiso por Protección Temporal (PPT)</option>
+                            <option value="Cedula Extrangeria">Cédula de Extrangeria (CE)</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="grid-2col" style="margin-bottom: 30px">
@@ -1887,8 +1985,16 @@
 
     <footer class="footer">
         <p>
-            &copy; 2025 ParentAccess. Desarrollado con ❤️ para el bienestar social.
+            &copy; 2025 ParentAccess. Desarrollado con ❤️ para el bienestar social y comunitario.
         </p>
+        <p style="margin-top: 10px; font-size: 0.85rem">
+           Ing. Joel Steven | 
+        
+            📞 <a href="https://wa.me/+573133118664" target="_blank" style="color: inherit; text-decoration: none;">313***</a> | 
+            ✉️ <a href="mailto:joelstevenpinedarincon20@gmail.com" style="color: inherit; text-decoration: none;">joel****.com</a> | 
+            🔗 <a href="https://evidencias640-arch.github.io/Portafolio-Profesional-Virtual/" target="_blank" style="color: inherit; text-decoration: none;">Portafolio</a>
+        </p>
+        
         <p style="margin-top: 10px; font-size: 0.85rem">
             Todos los derechos reservados. Uso exclusivo del proyecto.
         </p>
@@ -2511,24 +2617,37 @@
                 </fieldset>
 
 
-        <fieldset>
-            <legend>👨‍👩‍👧 Datos de Contacto del Acudiente Principal</legend>
-    
-            <h3 class="subtitulo-familiar">
-                <span>👩</span>
-                <span>Información de la Madre</span>
-            </h3>
-            <div class="grid-2col">
-                <div class="input-grupo">
-                    <label for="tipoDocMama">📄 Tipo Doc. Madre</label>
-                    <select id="tipoDocMama" name="tipoDocMama" required onchange="validarDocumento('tipoDocMama', 'numDocMama')">
-                        <option value="">Seleccione la Opcion Verifica</option>
-                        <option value="C.C">Cédula de Ciudadanía (CC)</option>
-                        <option value="Acta Nacimiento">Acta de Nacimiento (VEN)</option>
-                        <option value="PEP">Permiso Especial de Permanencia (PEP)</option>
-                        <option value="PPT">Permiso por Protección Temporal (PPT)</option>
-                        <option value="Cedula Extrangeria">Cédula de Extrangeria (CE)</option>
-                        <option value="No vive">No vive con la Madre</option>
+                <fieldset>
+    <legend>👨‍👩‍👧 Datos de Contacto del Acudiente Principal</legend>
+
+    <h3 class="subtitulo-familiar">
+        <span>👩</span>
+        <span>Información de la Madre</span>
+    </h3>
+    <div class="grid-2col">
+        <div class="input-grupo input-full-width">
+    <label for="viveMama">¿La Madre vive con el menor?</label>
+    <select id="viveMama" name="viveMama" required 
+            onchange="controlarBloqueo('viveMama', 'nombreMama', 'tipoDocMama', 'numDocMama')">
+        <option value="">Seleccione una opción</option>
+        <option value="SI">SI</option>
+        <option value="NO">NO</option>
+    </select>
+</div>
+        
+        <div class="input-grupo">
+            <label for="nombreMama">Nombre de la Madre</label>
+            <input type="text" id="nombreMama" name="nombreMama" required placeholder="Ingrese el nombre completo de la madre">
+        </div>
+        <div class="input-grupo">
+            <label for="tipoDocMama">📄 Tipo Doc. Madre</label>
+            <select id="tipoDocMama" name="tipoDocMama" required>
+                <option value="">Seleccione la Opcion Verifica</option>
+                <option value="C.C">Cédula de Ciudadanía (CC)</option>
+                <option value="Acta Nacimiento">Acta de Nacimiento (VEN)</option>
+                <option value="PEP">Permiso Especial de Permanencia (PEP)</option>
+                <option value="PPT">Permiso por Protección Temporal (PPT)</option>
+                <option value="Cedula Extrangeria">Cédula de Extrangeria (CE)</option>
             </select>
         </div>
         <div class="input-grupo">
@@ -2536,22 +2655,35 @@
             <input type="text" id="numDocMama" name="numDocMama" pattern="\\d+" title="Solo números" required placeholder="Ingrese el número">
         </div>
     </div>
-    
+
     <h3 class="subtitulo-familiar">
         <span>👨</span>
         <span>Información del Padre</span>
     </h3>
     <div class="grid-2col">
+        <div class="input-grupo input-full-width">
+    <label for="vivePapa">¿El Padre vive con el menor?</label>
+    <select id="vivePapa" name="vivePapa" required 
+            onchange="controlarBloqueo('vivePapa', 'nombrePapa', 'tipoDocPapa', 'numDocPapa')">
+        <option value="">Seleccione una opción</option>
+        <option value="SI">SI</option>
+        <option value="NO">NO</option>
+    </select>
+</div>
+        
+        <div class="input-grupo">
+            <label for="nombrePapa">Nombre del Padre</label>
+            <input type="text" id="nombrePapa" name="nombrePapa" required placeholder="Ingrese el nombre completo del padre">
+        </div>
         <div class="input-grupo">
             <label for="tipoDocPapa">📄 Tipo Doc. Padre</label>
-            <select id="tipoDocPapa" name="tipoDocPapa" required onchange="validarDocumento('tipoDocPapa', 'numDocPapa')">
+            <select id="tipoDocPapa" name="tipoDocPapa" required>
                 <option value="">Seleccione la Opcion Verifica</option>
                 <option value="C.C">Cédula de Ciudadanía (CC)</option>
                 <option value="Acta Nacimiento">Acta de Nacimiento (VEN)</option>
                 <option value="PEP">Permiso Especial de Permanencia (PEP)</option>
                 <option value="PPT">Permiso por Protección Temporal (PPT)</option>
                 <option value="Cedula Extrangeria">Cédula de Extrangeria (CE)</option>
-                <option value="No vive">No vive con el Padre</option>
             </select>
         </div>
         <div class="input-grupo">
@@ -2566,16 +2698,20 @@
                 <label for="parentescoOtro">👥 Parentesco</label>
                 <select id="parentescoOtro" name="parentescoOtro">
                     <option value="">Seleccione el Parentesco</option>
-                    <option value="Abuelo P">Abuelo Paterno</option>
-                    <option value="Abuela P">Abuela Paterna</option>
-                    <option value="Abuelo M">Abuelo Materno</option>
-                    <option value="Abuela M">Abuela Materna</option>
+                    <option value="Abuelo Paterno">Abuelo Paterno</option>
+                    <option value="Abuela Paterna">Abuela Paterna</option>
+                    <option value="Abuelo Materno">Abuelo Materno</option>
+                    <option value="Abuela Materna">Abuela Materna</option>
                     <option value="Tio">Tío</option>
                     <option value="Tia">Tía</option>
                     <option value="Primo">Primo/Prima</option>
                     <option value="Otro">Otro</option>
                 </select>
             </div>
+            <div class="input-grupo">
+    <label for="nombreOtroFamiliar">Nombre de Otro Familiar o Acudiente Secundario</label>
+    <input type="text" id="nombreOtroFamiliar" name="nombreOtroFamiliar" placeholder="Ingrese el nombre completo del otro familiar">
+</div>
             <div class="grid-2col">
                 <div class="input-grupo">
                     <label for="tipoDocOtro">📄 Tipo Doc. Otro</label>
@@ -3050,11 +3186,14 @@
 
                 tipoDocParticipante: form.tipoDocParticipante.value || "",
                 numDocParticipante: form.numDocParticipante.value || "",
+                nombreMama: form.nombreMama.value || "",
                 tipoDocMama: form.tipoDocMama.value || "",
                 numDocMama: form.numDocMama.value || "",
+                nombrePapa: form.nombrePapa.value || "",
                 tipoDocPapa: form.tipoDocPapa.value || "",
                 numDocPapa: form.numDocPapa.value || "",
                 parentescoOtro: form.parentescoOtro.value || "",
+                nombreOtroFamiliar: form.nombreOtroFamiliar.value || "",
                 tipoDocOtro: form.tipoDocOtro.value || "",
                 numDocOtro: form.numDocOtro.value || "",
                 regimenSalud: form.regimenSalud.value || "",
@@ -3369,11 +3508,14 @@
 
                 tipoDocParticipante: form.tipoDocParticipante.value || "",
                 numDocParticipante: form.numDocParticipante.value || "",
+                nombreMama: form.nombreMama.value || "",
                 tipoDocMama: form.tipoDocMama.value || "",
                 numDocMama: form.numDocMama.value || "",
+                nombrePapa: form.nombrePapa.value || "",
                 tipoDocPapa: form.tipoDocPapa.value || "",
                 numDocPapa: form.numDocPapa.value || "",
                 parentescoOtro: form.parentescoOtro.value || "",
+                nombreOtroFamiliar: form.nombreOtroFamiliar.value || "",
                 tipoDocOtro: form.tipoDocOtro.value || "",
                 numDocOtro: form.numDocOtro.value || "",
                 regimenSalud: form.regimenSalud.value || "",
@@ -3570,6 +3712,12 @@
         function filtrarParticipantesAdmin() {
             const tutoraFiltro = $("admin-select-tutora").value; // Es un ID limpio (tutora_id)
             const estadoFiltro = $("admin-select-estado").value;
+
+            // --- NUEVAS VARIABLES DE FILTRO ---
+            const estudioFiltro = $("admin-select-estudio").value; // Nuevo filtro de estudio
+            const tipoDocFiltro = $("admin-select-tipodocumentoparticipante").value; // Nuevo filtro de tipo de documento
+            // ----------------------------------
+
             const listaAdmin = $("lista-participantes-admin");
             if (!listaAdmin) return;
 
@@ -3588,6 +3736,25 @@
                     (p) => p.participante_estado.toLowerCase() === estadoFiltro
                 );
             }
+
+            // --- LÓGICA DEL NUEVO FILTRO DE ESTUDIO ---
+            if (estudioFiltro && estudioFiltro !== "todos") {
+                const valorFiltro = estudioFiltro.toLowerCase();
+
+                participantesFiltrados = participantesFiltrados.filter(
+                    // Compara el valor guardado (p.estudiaActual: 'si' o 'no') con el filtro seleccionado
+                    (p) => (p.estudiaActual ? p.estudiaActual.toLowerCase() : '') === valorFiltro
+                );
+            }
+
+            // --- LÓGICA DEL NUEVO FILTRO DE TIPO DE DOCUMENTO ---
+            if (tipoDocFiltro && tipoDocFiltro !== "todos") {
+                participantesFiltrados = participantesFiltrados.filter(
+                    // Compara el valor guardado (p.tipoDocParticipante: 'CC', 'TI', etc.) con el filtro seleccionado
+                    (p) => p.tipoDocParticipante === tipoDocFiltro
+                );
+            }
+            // ----------------------------------------------------
 
             if (participantesFiltrados.length === 0) {
                 listaAdmin.innerHTML =
@@ -3654,6 +3821,11 @@
                 termsLink.addEventListener("click", () => {
                     showTermsModal();
                 });
+            const icc = $("icc");
+            if (icc)
+                icc.addEventListener("click", () => {
+                    showTermsModal();
+                });
 
             const btnAccept = $("btn-accept-terms");
             if (btnAccept)
@@ -3688,6 +3860,8 @@
             });
 
             // Eventos de filtros del Administrador
+
+            // --- Filtros Existentes ---
             const adminSelectTutora = $("admin-select-tutora");
             if (adminSelectTutora)
                 adminSelectTutora.addEventListener(
@@ -3700,6 +3874,22 @@
                     "change",
                     filtrarParticipantesAdmin
                 );
+
+            // --- NUEVOS FILTROS AGREGADOS (Necesario para que funcionen) ---
+            const adminSelectEstudio = $("admin-select-estudio");
+            if (adminSelectEstudio)
+                adminSelectEstudio.addEventListener(
+                    "change",
+                    filtrarParticipantesAdmin
+                );
+
+            const adminSelectTipoDoc = $("admin-select-tipodocumentoparticipante");
+            if (adminSelectTipoDoc)
+                adminSelectTipoDoc.addEventListener(
+                    "change",
+                    filtrarParticipantesAdmin
+                );
+
         });
 
         /**
@@ -3731,15 +3921,18 @@
             const numDocP = p.numDocParticipante || "N/A";
 
             // Madre
+            const nombreMama = p.nombreMama || "N/A";
             const tipoDocM = p.tipoDocMama || "N/A";
             const numDocM = p.numDocMama || "N/A";
 
-            // Padre
+            // Padre  
+            const nombrePapa = p.nombrePapa || "N/A";
             const tipoDocPa = p.tipoDocPapa || "N/A";
             const numDocPa = p.numDocPapa || "N/A";
 
             // Otro Acudiente
             const parentescoOtro = p.parentescoOtro || "Otro"; // Usar el parentesco si existe
+            const nombreOtroFamiliar = p.nombreOtroFamiliar || "Otro"; // Usar el parentesco si existe
             const tipoDocO = p.tipoDocOtro || "N/A";
             const numDocO = p.numDocOtro || "N/A";
 
@@ -3808,6 +4001,7 @@ ${p.irse !== 'NO' && p.irse !== ''
                 <div class="acudiente-card">
                     <h3>Madre</h3>
                     <div class="modal-grid">
+                        <p class="grid-item"><strong>Nombre:</strong> <span>${nombreMama}</span></p>
                         <p class="grid-item"><strong>Tipo Doc:</strong> <span>${tipoDocM}</span></p>
                         <p class="grid-item"><strong>N° Documento:</strong> <span>${numDocM}</span></p>
                     </div>
@@ -3816,6 +4010,7 @@ ${p.irse !== 'NO' && p.irse !== ''
                 <div class="acudiente-card">
                     <h3>Padre</h3>
                     <div class="modal-grid">
+                        <p class="grid-item"><strong>Nombre:</strong> <span>${nombrePapa}</span></p>
                         <p class="grid-item"><strong>Tipo Doc:</strong> <span>${tipoDocPa}</span></p>
                         <p class="grid-item"><strong>N° Documento:</strong> <span>${numDocPa}</span></p>
                     </div>
@@ -3824,6 +4019,7 @@ ${p.irse !== 'NO' && p.irse !== ''
                 <div class="acudiente-card">
                     <h3>${parentescoOtro}</h3>
                     <div class="modal-grid">
+                        <p class="grid-item"><strong>Nombre:</strong> <span>${nombreOtroFamiliar}</span></p>
                         <p class="grid-item"><strong>Tipo Doc:</strong> <span>${tipoDocO}</span></p>
                         <p class="grid-item"><strong>N° Documento:</strong> <span>${numDocO}</span></p>
                     </div>
@@ -3837,7 +4033,7 @@ ${p.irse !== 'NO' && p.irse !== ''
             modal.classList.add("visible");
         }
 
-        // (Las funciones 'cerrarModalDetalle' y el listener de 'document' se mantienen igual)
+        // (Las funciones 'cerrarModalDetalle' y el listener de 'document' se mantienen igual) 
 
         // (Las funciones 'cerrarModalDetalle' y el listener de 'document' se mantienen igual)
 
