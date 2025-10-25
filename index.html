@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gestión de Datos | 678</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>" />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
     <style>
@@ -978,95 +979,50 @@
             font-size: 0.9rem;
         }
 
-/* ==================== ICONO DE TÉRMINOS ==================== */
-.terms-link {
-    position: fixed;
-    bottom: 20px; /* Posición original: 20px del borde inferior */
-    right: 20px;
-    background: var(--gradient-primary);
-    color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(8, 145, 178, 0.4);
-    transition: all 0.3s ease;
-    z-index: 1000;
-}
+        /* ==================== ICONO DE ICC (SOLO IMAGEN) ==================== */
+        .icc {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            /* 🔥 Al lado izquierdo */
+            background: url('logo.png') no-repeat center center;
+            background-size: contain;
+            background-color: transparent;
+            color: transparent;
+            width: 60px;
+            height: 60px;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: none;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            transform: scale(1.0);
+        }
 
-.terms-link:hover {
-    transform: scale(1.1) rotate(10deg);
-    box-shadow: 0 6px 30px rgba(8, 145, 178, 0.6);
-}
+        .icc:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 40px rgba(241, 101, 36, 1);
+        }
 
-/* ==================== ICONO DE ICC (SOLO IMAGEN) ==================== */
-.icc {
-    position: fixed;
-    bottom: 90px; 
-    right: 20px;
-    
-    /* Usar la imagen como fondo */
-    background: url('logo.png') no-repeat center center;
-    background-size: contain; /* 🔥 CAMBIO: Usar 'contain' para que la imagen se vea completa */
-    background-color: transparent; /* Asegurar que no hay color de fondo sólido */
-    
-    color: transparent; /* Ocultar cualquier texto/ícono */
-    width: 60px;
-    height: 60px;
-    
-    /* 🔥 ELIMINAR O REDUCIR EL BORDE REDONDO A CERO (Si quieres que solo se vea la imagen cuadrada/circular) */
-    border-radius: 0; /* O 50% si el logo es circular y quieres que siga siendo un círculo de 70x70 */
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    
-    /* 🔥 ELIMINAR SOMBRA EN ESTADO NORMAL */
-    box-shadow: none; 
-    
-    transition: all 0.3s ease;
-    z-index: 1001; 
-    transform: scale(1.0); /* Estado inicial más neutral */
-}
+        /* ================================================= */
+        /* === AJUSTES RESPONSIVOS PARA ICONO ICC (MÓVIL) === */
+        /* ================================================= */
+        @media (max-width: 600px) {
+            .icc {
+                width: 35px;
+                /* 🔥 10px más pequeño */
+                height: 35px;
+                /* 🔥 10px más pequeño */
+                bottom: 15px;
+                left: 15px;
+            }
+        }
 
-/* Efecto hover: Mantenemos el escalado y la sombra anaranjada */
-.icc:hover {
-    transform: scale(1.15); /* Se agranda un poco más al pasar el ratón */
-    box-shadow: 0 8px 40px rgba(241, 101, 36, 1);
-}
 
-/* ================================================= */
-/* === AJUSTES RESPONSIVOS PARA ICONOS FIJOS (MÓVIL) === */
-/* ================================================= */
 
-/* Regla @media para aplicar estilos solo en pantallas estrechas (típicamente móviles) */
-@media (max-width: 600px) {
-    
-    /* 1. Icono de Términos (60px) */
-    .terms-link {
-        width: 50px;    /* Reducimos el ancho */
-        height: 50px;   /* Reducimos el alto */
-        font-size: 1.5rem; /* Reducimos el tamaño del ícono interno */
-        bottom: 15px;   /* Reducimos la separación del borde inferior */
-        right: 15px;    /* Reducimos la separación del borde derecho */
-    }
-
-    /* 2. Icono de ICC (70px) */
-    .icc {
-        width: 60px;    /* Reducimos el ancho */
-        height: 60px;   /* Reducimos el alto */
-        
-        /* Ajustamos la posición para que esté encima del icono más pequeño (terms-link: 50px + 15px = 65px) */
-        bottom: 75px; 
-        
-        right: 15px;    /* Reducimos la separación del borde derecho */
-    }
-}
         /* ==================== RESPONSIVE ==================== */
         @media (max-width: 768px) {
 
@@ -1077,6 +1033,12 @@
 
             .tabs {
                 flex-direction: column;
+            }
+
+            /* 🔥 AQUI VA LA CORRECCIÓN: Reduce el margen vertical */
+            .input-grupo {
+                margin-bottom: 15px;
+                /* Valor reducido de 20px a 15px */
             }
 
             .tab-btn {
@@ -1139,6 +1101,10 @@
                 gap: 20px;
             }
 
+            .input-grupo {
+                margin-bottom: 12px;
+            }
+
             header {
                 padding: 25px 15px;
             }
@@ -1160,6 +1126,43 @@
                 padding: 30px;
                 width: 90%;
                 max-width: 300px;
+            }
+        }
+
+        @media (max-width: 300px) {
+            body {
+                padding: 10px;
+            }
+
+            .input-grupo {
+                margin-bottom: 9px;
+            }
+
+            .contenedor {
+                gap: 20px;
+            }
+
+            header {
+                padding: 25px 15px;
+            }
+
+            .paso-titulo {
+                font-size: 1.3rem;
+            }
+
+            .consentimiento-box {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .consentimiento-icon {
+                font-size: 2rem;
+            }
+
+            .save-animation {
+                padding: 30px;
+                width: 90%;
+                max-width: 180px;
             }
         }
 
@@ -1536,8 +1539,44 @@
                 padding: 10px;
             }
         }
-    </style>
-    <style>
+
+        /* --- 📱 MEDIA QUERY (RESPONSIVIDAD MÓVIL) --- */
+        @media (max-width: 300px) {
+            .detalle-container {
+                padding: 15px;
+                margin: 2vh auto;
+            }
+
+            .modal-header {
+                top: -15px;
+                /* Ajuste para el padding reducido */
+            }
+
+            .modal-title {
+                font-size: 1.4rem;
+            }
+
+            /* En móviles, la etiqueta y el valor se APILAN verticalmente */
+            .grid-item {
+                display: block;
+            }
+
+            .modal-body strong {
+                display: block;
+                margin-bottom: 2px;
+                font-size: 0.95rem;
+            }
+
+            .modal-grid {
+                gap: 15px;
+                /* Ajuste de separación */
+            }
+
+            .acudiente-card {
+                padding: 10px;
+            }
+        }
+
         /* Estilo para todos los campos de formulario inválidos */
         input:invalid,
         select:invalid {
@@ -1554,8 +1593,7 @@
             /* Pone el texto de la etiqueta en rojo */
             font-weight: bold;
         }
-    </style>
-    <style>
+
         .radio-grupo {
             display: flex;
             gap: 20px;
@@ -1594,6 +1632,174 @@
             padding-bottom: 5px;
             margin-bottom: 15px;
         }
+
+        /* ==================== BOTÓN IR ARRIBA ==================== */
+.go-top {
+    position: fixed;
+    bottom: 15px;
+    right: 15px; /* 🔥 Aparece al lado derecho cuando se muestra */
+    background: url('arriba.png') no-repeat center center;
+    background-size: contain;
+    background-color: transparent;
+    width: 63px;
+    height: 63px;
+    border-radius: 0;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: all 0.4s ease;
+    z-index: 2000;
+}
+
+/* Cuando se activa al hacer scroll */
+.go-top.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+/* Hover */
+.go-top:hover {
+    transform: scale(1.15);
+    box-shadow: 0 8px 40px rgba(241, 101, 36, 1);
+}
+
+/* ===== RESPONSIVO MÓVIL ===== */
+@media (max-width: 600px) {
+    .go-top {
+        width: 35px;  /* 🔥 10px más pequeño */
+        height: 35px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+/* === FIX: Formularios más consistentes y responsive === */
+
+/* Fuerza controles a ocupar todo el ancho disponible */
+.input-grupo input[type="text"],
+.input-grupo input[type="tel"],
+.input-grupo input[type="email"],
+.input-grupo textarea,
+.input-grupo select {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
+/* Reduce padding interno de fieldset en móvil y mantiene estética en desktop */
+fieldset {
+    padding: 22px; /* cómodo en desktop */
+}
+@media (max-width: 768px) {
+    fieldset {
+        padding: 16px; /* menos padding en tablet/móvil para evitar compresión */
+    }
+}
+
+/* Ajusta leyendas para que no ocupen demasiado espacio en móvil */
+legend {
+    font-size: 1.05rem;
+    padding: 0 10px;
+}
+@media (max-width: 480px) {
+    legend {
+        font-size: 0.98rem;
+        padding: 0 6px;
+    }
+}
+
+/* Mejor comportamiento de la grid: 2 columnas en desktop, 1 columna en móvil */
+.grid-2col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+@media (max-width: 768px) {
+    .grid-2col {
+        grid-template-columns: 1fr; /* una columna en pantallas pequeñas */
+        gap: 12px;
+    }
+}
+
+/* Evita que labels o iconos generen reflow: forzar wrapping elegante */
+.input-grupo label {
+    white-space: normal;
+    line-height: 1.2;
+}
+
+/* Radios: apilar en móvil para no romper la columna */
+.radio-grupo {
+    gap: 12px;
+    flex-wrap: wrap;
+}
+@media (max-width: 480px) {
+    .radio-grupo {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+/* Reduce tamaño de inputs/select en móvil para que no parezcan abultados */
+@media (max-width: 600px) {
+    input:not([type="checkbox"]), select, textarea {
+        padding: 12px 14px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+    }
+
+    /* Ajusta los fieldsets para que se vean como la segunda imagen: más compactos */
+    fieldset {
+        border-radius: 12px;
+    }
+
+    .subtitulo-familiar {
+        padding: 10px 12px;
+        font-size: 0.98rem;
+    }
+}
+
+/* Quitar márgenes/paddings que pueden “encoger” el contenido en algunos contenedores */
+.contenedor,
+.detalle-container,
+.card {
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* Si tu formulario está dentro de un modal, asegura que use el 100% del ancho disponible en móvil */
+.detalle-container {
+    box-sizing: border-box;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+@media (max-width: 550px) {
+    .detalle-container {
+        max-width: 98%;
+        padding-left: 12px;
+        padding-right: 12px;
+        margin: 2vh auto;
+    }
+}
+
+/* Resaltar inputs invalidos sin empujar layout (evitar outline que salte) */
+input:invalid, select:invalid {
+    box-shadow: 0 0 0 3px rgba(220,53,69,0.12);
+}
+
+/* Opcional: si quieres que algunos selects largos no haporten ancho extra */
+select {
+    min-width: 0;
+}
+
+/* Evita scroll horizontal por iconos o leyendas largas */
+body, .contenedor, .detalle-container {
+    overflow-x: hidden;
+}
+
+
     </style>
 </head>
 
@@ -1681,12 +1887,8 @@
         <div class="save-icon" id="save-icon">💾</div>
         <div class="save-text" id="save-text">Guardando información...</div>
     </div>
-
-    <!-- Botón flotante para ver términos -->
-    <div class="terms-link" id="terms-link" title="Ver Términos y Condiciones">
-        📋
-    </div>
-    <a href="https://icclafortalezacucuta.github.io/Iglesia_La_Fortaleza_Cruzada_Cristiana_C-ucuta/index.html" target="_blank" class="icc" id="icc" title="Ir a la página de ICC">
+    <a href="https://icclafortalezacucuta.github.io/Iglesia_La_Fortaleza_Cruzada_Cristiana_C-ucuta/index.html"
+        target="_blank" class="icc" id="icc" title="Ir a la página de ICC">
     </a>
 
     <header>
@@ -1983,18 +2185,24 @@
         <div id="detalle-container" class="detalle-container"></div>
     </div>
 
+    <!-- BOTÓN PARA IR ARRIBA -->
+<div class="go-top" onclick="scrollToTop()"></div>
+
     <footer class="footer">
         <p>
             &copy; 2025 ParentAccess. Desarrollado con ❤️ para el bienestar social y comunitario.
         </p>
         <p style="margin-top: 10px; font-size: 0.85rem">
-           Ing. Joel Steven | 
-        
-            📞 <a href="https://wa.me/+573133118664" target="_blank" style="color: inherit; text-decoration: none;">313***</a> | 
-            ✉️ <a href="mailto:joelstevenpinedarincon20@gmail.com" style="color: inherit; text-decoration: none;">joel****.com</a> | 
-            🔗 <a href="https://evidencias640-arch.github.io/Portafolio-Profesional-Virtual/" target="_blank" style="color: inherit; text-decoration: none;">Portafolio</a>
+            Ing. Joel Steven |
+
+            📞 <a href="https://wa.me/+573133118664" target="_blank"
+                style="color: inherit; text-decoration: none;">313***</a> |
+            ✉️ <a href="mailto:joelstevenpinedarincon20@gmail.com"
+                style="color: inherit; text-decoration: none;">joel****.com</a> |
+            🔗 <a href="https://evidencias640-arch.github.io/Portafolio-Profesional-Virtual/" target="_blank"
+                style="color: inherit; text-decoration: none;">Portafolio</a>
         </p>
-        
+
         <p style="margin-top: 10px; font-size: 0.85rem">
             Todos los derechos reservados. Uso exclusivo del proyecto.
         </p>
@@ -2436,131 +2644,131 @@
                         <input type="text" id="otraEps" name="otraEps" style="display:none; margin-top: 10px;" 
                         placeholder="Escriba el nombre de la EPS">
                     </div>
-
-                    <div class="input-grupo">
-    <label for="estudiaActual">🎓 Educación</label>
-
-    <label>¿Estudia actualmente?</label>
-    <div class="radio-grupo" id="estudiaActual">
-        <input type="radio" id="estudia-si" name="estudiaActual" value="si" onchange="manejarEstudio(this.value)">
-        <label for="estudia-si">Sí</label>
-
-        <input type="radio" id="estudia-no" name="estudiaActual" value="si" onchange="manejarEstudio(this.value)">
-        <label for="estudia-no">No</label>
-    </div>
-</div>
-
-<div class="input-grupo campo-dependiente" id="cursoActualGrupo" style="display:none;">
-    <label for="cursoActual">Nivel/Curso Actual:</label>
-    <select id="cursoActual" name="cursoActual">
-        <option value="">Seleccione el curso actual</option>
-        <option value="Transicion">Transición</option>
-        <option value="1">1° de Básica</option>
-        <option value="2">2° de Básica</option>
-        <option value="3">3° de Básica</option>
-        <option value="4">4° de Básica</option>
-        <option value="5">5° de Básica</option>
-        <option value="6">6° de Básica</option>
-        <option value="7">7° de Básica</option>
-        <option value="8">8° de Básica</option>
-        <option value="9">9° de Básica</option>
-        <option value="10">10° de Media</option>
-        <option value="11">11° de Media</option>
-        <option value="Tecnico año 1">Técnico - Año 1</option>
-        <option value="Tecnico año 2">Técnico - Año 2</option>
-        <option value="Tecnologo año 1">Tecnólogo - Año 1</option>
-        <option value="Tecnologo año 2">Tecnólogo - Año 2</option>
-        <option value="Tecnologo año 3">Tecnólogo - Año 3</option>
-        <option value="Tecnologo año 4">Tecnólogo - Año 4</option>
-        <option value="Universidad1">Universidad - Año 1</option>
-        <option value="Universidad2">Universidad - Año 2</option>
-        <option value="Universidad3">Universidad - Año 3</option>
-        <option value="Universidad4">Universidad - Año 4</option>
-        <option value="Universidad5">Universidad - Año 5</option>
-    </select>
-</div>
-
-<div class="seccion-no-estudia" id="seccionNoEstudia" style="display:none;">
-
-    <div class="input-grupo">
-        <label for="ultimoAnio">Último año cursado:</label>
-        <select id="ultimoAnio" name="ultimoAnio">
-            <option value="">Seleccione el último año cursado</option>
-            <option value="Transicion">Transición</option>
-            <option value="1">1° de Básica</option>
-            <option value="2">2° de Básica</option>
-            <option value="3">3° de Básica</option>
-            <option value="4">4° de Básica</option>
-            <option value="5">5° de Básica</option>
-            <option value="6">6° de Básica</option>
-            <option value="7">7° de Básica</option>
-            <option value="8">8° de Básica</option>
-            <option value="9">9° de Básica</option>
-            <option value="10">10° de Media</option>
-            <option value="11">11° de Media</option>
-            <option value="Tecnico año 1">Técnico - Año 1</option>
-            <option value="Tecnico año 2">Técnico - Año 2</option>
-            <option value="Tecnologo año 1">Tecnólogo - Año 1</option>
-            <option value="Tecnologo año 2">Tecnólogo - Año 2</option>
-            <option value="Tecnologo año 3">Tecnólogo - Año 3</option>
-            <option value="Tecnologo año 4">Tecnólogo - Año 4</option>
-            <option value="Universidad1">Universidad - Año 1</option>
-            <option value="Universidad2">Universidad - Año 2</option>
-            <option value="Universidad3">Universidad - Año 3</option>
-            <option value="Universidad4">Universidad - Año 4</option>
-            <option value="Universidad5">Universidad - Año 5</option>
-        </select>
-    </div>
-
-    <div class="input-grupo">
-        <label>¿Estudiará el próximo año?</label>
-        <div class="radio-grupo">
-            <input type="radio" id="futuro-si" name="estudioFuturo" value="si" onchange="manejarEstudioFuturo(this.value)">
-            <label for="futuro-si">Sí</label>
-
-            <input type="radio" id="futuro-no" name="estudioFuturo" value="no" onchange="manejarEstudioFuturo(this.value)">
-            <label for="futuro-no">No (Sin estudios)</label>
-        </div>
-    </div>
-
-    <div class="input-grupo campo-dependiente" id="cursoFuturoGrupo" style="display:none;">
-        <label for="cursoFuturo">Año a cursar el próximo año:</label>
-        <select id="cursoFuturo" name="cursoFuturo">
-            <option value="">Seleccione el curso</option>
-            <option value="Transicion">Transición</option>
-            <option value="1">1° de Básica</option>
-            <option value="2">2° de Básica</option>
-            <option value="3">3° de Básica</option>
-            <option value="4">4° de Básica</option>
-            <option value="5">5° de Básica</option>
-            <option value="6">6° de Básica</option>
-            <option value="7">7° de Básica</option>
-            <option value="8">8° de Básica</option>
-            <option value="9">9° de Básica</option>
-            <option value="10">10° de Media</option>
-            <option value="11">11° de Media</option>
-            <option value="Tecnico año 1">Técnico - Año 1</option>
-            <option value="Tecnico año 2">Técnico - Año 2</option>
-            <option value="Tecnologo año 1">Tecnólogo - Año 1</option>
-            <option value="Tecnologo año 2">Tecnólogo - Año 2</option>
-            <option value="Tecnologo año 3">Tecnólogo - Año 3</option>
-            <option value="Tecnologo año 4">Tecnólogo - Año 4</option>
-            <option value="Universidad1">Universidad - Año 1</option>
-            <option value="Universidad2">Universidad - Año 2</option>
-            <option value="Universidad3">Universidad - Año 3</option>
-            <option value="Universidad4">Universidad - Año 4</option>
-            <option value="Universidad5">Universidad - Año 5</option>
-            <option value="Aceleracion">ACELERACIÓN (2 años en 1)</option>
-        </select>
-    </div>
-
-    <div class="input-grupo campo-dependiente" id="sinEstudiosGrupo" style="display:none;">
-        <input type="text" id="sinEstudios" name="sinEstudios" value="SIN ESTUDIOS - Confirmado" readonly>
-    </div>
-
-</div>
-
                 </div>
+                    <div class="input-grupo">
+                        <label for="estudiaActual">🎓 Educación</label>
+
+                        <label>¿Estudia actualmente?</label>
+                        <div class="radio-grupo" id="estudiaActual">
+                            <input type="radio" id="estudia-si" name="estudiaActual" value="si" onchange="manejarEstudio(this.value)">
+                            <label for="estudia-si">Sí</label>
+
+                            <input type="radio" id="estudia-no" name="estudiaActual" value="no" onchange="manejarEstudio(this.value)">
+                            <label for="estudia-no">No</label>
+                        </div>
+                    </div>
+
+                    <div class="input-grupo campo-dependiente" id="cursoActualGrupo" style="display:none;">
+                        <label for="cursoActual">Nivel/Curso Actual:</label>
+                        <select id="cursoActual" name="cursoActual">
+                            <option value="">Seleccione el curso actual</option>
+                            <option value="Transicion">Transición</option>
+                            <option value="1">1° de Básica</option>
+                            <option value="2">2° de Básica</option>
+                            <option value="3">3° de Básica</option>
+                            <option value="4">4° de Básica</option>
+                            <option value="5">5° de Básica</option>
+                            <option value="6">6° de Básica</option>
+                            <option value="7">7° de Básica</option>
+                            <option value="8">8° de Básica</option>
+                            <option value="9">9° de Básica</option>
+                            <option value="10">10° de Media</option>
+                            <option value="11">11° de Media</option>
+                            <option value="Tecnico año 1">Técnico - Año 1</option>
+                            <option value="Tecnico año 2">Técnico - Año 2</option>
+                            <option value="Tecnologo año 1">Tecnólogo - Año 1</option>
+                            <option value="Tecnologo año 2">Tecnólogo - Año 2</option>
+                            <option value="Tecnologo año 3">Tecnólogo - Año 3</option>
+                            <option value="Tecnologo año 4">Tecnólogo - Año 4</option>
+                            <option value="Universidad1">Universidad - Año 1</option>
+                            <option value="Universidad2">Universidad - Año 2</option>
+                            <option value="Universidad3">Universidad - Año 3</option>
+                            <option value="Universidad4">Universidad - Año 4</option>
+                            <option value="Universidad5">Universidad - Año 5</option>
+                        </select>
+                    </div>
+
+                    <div class="seccion-no-estudia" id="seccionNoEstudia" style="display:none;">
+
+                        <div class="input-grupo">
+                            <label for="ultimoAnio">Último año cursado:</label>
+                            <select id="ultimoAnio" name="ultimoAnio">
+                                <option value="">Seleccione el último año cursado</option>
+                                <option value="Esta Muy Pequeño">Esta Muy Pequeño</option>
+                                <option value="Nunca Ha Estudiado">Nunca ha Estudiado</option>
+                                <option value="Transicion">Transición</option>
+                                <option value="1">1° de Básica</option>
+                                <option value="2">2° de Básica</option>
+                                <option value="3">3° de Básica</option>
+                                <option value="4">4° de Básica</option>
+                                <option value="5">5° de Básica</option>
+                                <option value="6">6° de Básica</option>
+                                <option value="7">7° de Básica</option>
+                                <option value="8">8° de Básica</option>
+                                <option value="9">9° de Básica</option>
+                                <option value="10">10° de Media</option>
+                                <option value="11">11° de Media</option>
+                                <option value="Tecnico año 1">Técnico - Año 1</option>
+                                <option value="Tecnico año 2">Técnico - Año 2</option>
+                                <option value="Tecnologo año 1">Tecnólogo - Año 1</option>
+                                <option value="Tecnologo año 2">Tecnólogo - Año 2</option>
+                                <option value="Tecnologo año 3">Tecnólogo - Año 3</option>
+                                <option value="Tecnologo año 4">Tecnólogo - Año 4</option>
+                                <option value="Universidad1">Universidad - Año 1</option>
+                                <option value="Universidad2">Universidad - Año 2</option>
+                                <option value="Universidad3">Universidad - Año 3</option>
+                                <option value="Universidad4">Universidad - Año 4</option>
+                                <option value="Universidad5">Universidad - Año 5</option>
+                            </select>
+                        </div>
+
+                        <div class="input-grupo">
+                            <label>¿Estudiará el próximo año?</label>
+                            <div class="radio-grupo">
+                                <input type="radio" id="futuro-si" name="estudioFuturo" value="si" onchange="manejarEstudioFuturo(this.value)">
+                                <label for="futuro-si">Sí</label>
+
+                                <input type="radio" id="futuro-no" name="estudioFuturo" value="no" onchange="manejarEstudioFuturo(this.value)">
+                                <label for="futuro-no">No (Sin estudios)</label>
+                                
+                            </div>
+                        </div>
+
+                        <div class="input-grupo campo-dependiente" id="cursoFuturoGrupo" style="display:none;">
+                            <label for="cursoFuturo">Año a cursar el próximo año:</label>
+                            <select id="cursoFuturo" name="cursoFuturo">
+                                <option value="">Seleccione el curso</option>
+                                <option value="Transicion">Transición</option>
+                                <option value="1">1° de Básica</option>
+                                <option value="2">2° de Básica</option>
+                                <option value="3">3° de Básica</option>
+                                <option value="4">4° de Básica</option>
+                                <option value="5">5° de Básica</option>
+                                <option value="6">6° de Básica</option>
+                                <option value="7">7° de Básica</option>
+                                <option value="8">8° de Básica</option>
+                                <option value="9">9° de Básica</option>
+                                <option value="10">10° de Media</option>
+                                <option value="11">11° de Media</option>
+                                <option value="Tecnico año 1">Técnico - Año 1</option>
+                                <option value="Tecnico año 2">Técnico - Año 2</option>
+                                <option value="Tecnologo año 1">Tecnólogo - Año 1</option>
+                                <option value="Tecnologo año 2">Tecnólogo - Año 2</option>
+                                <option value="Tecnologo año 3">Tecnólogo - Año 3</option>
+                                <option value="Tecnologo año 4">Tecnólogo - Año 4</option>
+                                <option value="Universidad1">Universidad - Año 1</option>
+                                <option value="Universidad2">Universidad - Año 2</option>
+                                <option value="Universidad3">Universidad - Año 3</option>
+                                <option value="Universidad4">Universidad - Año 4</option>
+                                <option value="Universidad5">Universidad - Año 5</option>
+                                <option value="Aceleracion">ACELERACIÓN (2 años en 1)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-grupo campo-dependiente" id="sinEstudiosGrupo" style="display:none;">
+                            <input type="text" id="sinEstudios" name="sinEstudios" value="SIN ESTUDIOS - Confirmado" readonly>
+                        </div>
+                    </div>
             </div>
         </fieldset>
 
@@ -2584,37 +2792,38 @@
                         <input type="text" id="telefono" name="telefono" required placeholder="Escriba El Número de Telefono Actual">
                     </div>
                 </fieldset>
+
             <fieldset>
-    <legend>🗺️ Planes de Movilidad</legend>
-    <div class="grid-2col">
-        <div class="input-grupo">
-            <label for="irse">Piensa Irse de la Zona</label>
-            <select id="irse" name="irse" required onchange="manejarMotivoIrse(this.value)">
-                <option value="">Seleccione una opción</option>
-                <option value="3 Meses">Probablemente en unos 3 Meses</option> 
-                <option value="6 Meses">Probablemente en unos 6 Meses</option> 
-                <option value="En 1 Año">Probablemente en unos 1 Año</option>
-                <option value="SI">Si, me voy para otra ciudad</option>
-                <option value="NO">No, ya me estableci en la Zona</option> 
-            </select>
-        </div>
+                <legend>🗺️ Planes de Movilidad</legend>
+                <div class="grid-2col">
+                    <div class="input-grupo">
+                        <label for="irse">Piensa Irse de la Zona</label>
+                        <select id="irse" name="irse" required onchange="manejarMotivoIrse(this.value)">
+                            <option value="">Seleccione una opción</option>
+                            <option value="SI">Si, me voy para otra ciudad</option>
+                            <option value="NO">No, ya me estableci en la Zona</option> 
+                            <option value="3 Meses">Probablemente en unos 3 Meses</option> 
+                            <option value="6 Meses">Probablemente en unos 6 Meses</option> 
+                            <option value="En 1 Año">Probablemente en unos 1 Año</option>
+                            <option value="Situacion">Cuando la situacion en mi Pais Mejore</option>
+                            <option value="No se">Posiblemente</option> 
+                        </select>
+                    </div>
 
-        <div class="input-grupo campo-dependiente" id="motivoIrseGrupo" style="display:none;">
-            <label for="motivoIrse">Motivo Principal de la Partida:</label>
-            <select id="motivoIrse" name="motivoIrse" disabled>
-                <option value="">Seleccione un motivo</option>
-                <option value="Violencia/Seguridad">Violencia/Inseguridad</option>
-                <option value="Economico/Trabajo">Mejorar Situación Económica/Laboral/Vivienda</option>
-                <option value="Familiar/Hogar">Reunificación Familiar/Problemas de Convivencia</option>
-                <option value="Estudios/Educacion">Continuar Estudios/Educación (Cambio de ciudad/país)</option>
-                <option value="Salud/Medico">Acceso a Servicios de Salud/Médicos</option>
-                <option value="Otro">Otro Motivo</option>
-            </select>
-        </div>
-    </div>
-
-
-                </fieldset>
+                    <div class="input-grupo campo-dependiente" id="motivoIrseGrupo" style="display:none;">
+                        <label for="motivoIrse">Motivo Principal de la Partida:</label>
+                        <select id="motivoIrse" name="motivoIrse" disabled>
+                            <option value="">Seleccione un motivo</option>
+                            <option value="Violencia/Seguridad">Violencia/Inseguridad</option>
+                            <option value="Economico/Trabajo">Mejorar Situación Económica/Laboral/Vivienda</option>
+                            <option value="Familiar/Hogar">Reunificación Familiar/Problemas de Convivencia</option>
+                            <option value="Estudios/Educacion">Continuar Estudios/Educación (Cambio de ciudad/país)</option>
+                            <option value="Salud/Medico">Acceso a Servicios de Salud/Médicos</option>
+                            <option value="Otro">Otro Motivo</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
 
 
                 <fieldset>
@@ -2642,7 +2851,7 @@
         <div class="input-grupo">
             <label for="tipoDocMama">📄 Tipo Doc. Madre</label>
             <select id="tipoDocMama" name="tipoDocMama" required>
-                <option value="">Seleccione la Opcion Verifica</option>
+                <option value="NO VIVE">Seleccione la Opcion Verifica</option>
                 <option value="C.C">Cédula de Ciudadanía (CC)</option>
                 <option value="Acta Nacimiento">Acta de Nacimiento (VEN)</option>
                 <option value="PEP">Permiso Especial de Permanencia (PEP)</option>
@@ -2678,7 +2887,7 @@
         <div class="input-grupo">
             <label for="tipoDocPapa">📄 Tipo Doc. Padre</label>
             <select id="tipoDocPapa" name="tipoDocPapa" required>
-                <option value="">Seleccione la Opcion Verifica</option>
+                <option value="NO VIVE">Seleccione la Opcion Verifica</option>
                 <option value="C.C">Cédula de Ciudadanía (CC)</option>
                 <option value="Acta Nacimiento">Acta de Nacimiento (VEN)</option>
                 <option value="PEP">Permiso Especial de Permanencia (PEP)</option>
@@ -3105,7 +3314,7 @@
                 const nombreTutora = p.tutora || "Sin asignar";
 
                 button.innerHTML = `
-            <span>${p.nombre} (${p.codigo}) | Tutora: ${nombreTutora}</span>
+            <span>${p.nombre} (${p.codigo}) Tutora: ${nombreTutora}</span>
             <span class="estado-tag ${estadoClass}">${estadoTexto}</span>
         `;
                 button.onclick = () => seleccionarParticipantePublico(p, button);
@@ -3125,7 +3334,7 @@
             if (infoParticipante) {
                 infoParticipante.innerHTML = `
             <span>👤</span>
-            <span>Participante Seleccionado: <strong>${participante.nombre}</strong> (Código: ${participante.codigo})</span>
+            <span>Participante Seleccionado: <strong>${participante.nombre}</strong> Código: ${participante.codigo}</span>
         `;
             }
 
@@ -3456,7 +3665,7 @@
             if (infoParticipante) {
                 infoParticipante.innerHTML = `
             <span>✏️</span>
-            <span>Editando: <strong>${participante.nombre}</strong> (Código: ${participante.codigo})</span>
+            <span>Editando: <strong>${participante.nombre}</strong> Código: ${participante.codigo}</span>
         `;
             }
 
@@ -4056,6 +4265,26 @@ ${p.irse !== 'NO' && p.irse !== ''
             }
         });
     </script>
+    <script>
+        // Mostrar botón cuando se baja más de 200px
+        window.addEventListener('scroll', () => {
+            const goTop = document.querySelector('.go-top');
+            if (window.scrollY > 200) {
+                goTop.classList.add('active');
+            } else {
+                goTop.classList.remove('active');
+            }
+        });
+    
+        // Volver al inicio al hacer clic
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+    
 
 </body>
 
