@@ -3,7 +3,7 @@ function manejarMotivoIrse(valor) {
     const motivoIrseSelect = document.getElementById('motivoIrse');
 
     // Opciones que indican que SÍ planea irse (Probablemente o SI definitivo)
-    const planeaIrse = ['SI', '3 Meses', '6 Meses', 'En 1 Año'];
+    const planeaIrse = ['SI', '3 Meses', '6 Meses', 'En 1 Año', 'Situacion', 'No se'];
 
     if (planeaIrse.includes(valor)) {
         // HABILITAR y MOSTRAR: Si el valor indica mudanza
