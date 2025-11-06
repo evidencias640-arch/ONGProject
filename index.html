@@ -2625,20 +2625,57 @@ body, .contenedor, .detalle-container {
                         <label for="epsActivo">💊 EPS Activo</label>
                         <select id="epsActivo" name="epsActivo" required onchange="mostrarCampoOtraEPS(this.value)">
                             <option value="">Seleccione su EPS</option>
-                            <option value="Ambuq">Ambuq</option>
-                            <option value="Cajacopi">Cajacopi</option>
-                            <option value="Comfacor">Comfacor</option>
-                            <option value="Comfasucre">Comfasucre</option>
-                            <option value="Comparta">Comparta</option>
-                            <option value="Coosalud">Coosalud</option>
-                            <option value="Emdisalud">Emdisalud</option>
-                            <option value="Mutual ser">Mutual ser</option>
-                            <option value="Nueva EPS">Nueva EPS</option>
-                            <option value="Saludvida">Saludvida</option>
-                            <option value="Salud total">Salud total</option>
-                            <option value="Cafesalud">Cafesalud</option>
-                            <option value="Convida">Convida</option>
-                            <option value="OTRA">OTRA (Especifique)</option>
+                            <option value="AIC">AIC</option>
+    <option value="Aliansalud">Aliansalud</option>
+    <option value="Ambuq">Ambuq</option>
+    <option value="Anas Wayuu">Anas Wayuu</option>
+    <option value="Asmet Salud">Asmet Salud</option>
+    <option value="BONSALUD">BONSALUD (Liquidada)</option>
+    <option value="Cafesalud">Cafesalud (Liquidada)</option>
+    <option value="Cajacopi">Cajacopi</option>
+    <option value="CAJANAL">CAJANAL (Liquidada)</option>
+    <option value="Calisalud">Calisalud (Liquidada)</option>
+    <option value="Capital Salud">Capital Salud</option>
+    <option value="Caprecom">Caprecom (Liquidada)</option>
+    <option value="Capresoca">Capresoca</option>
+    <option value="Colseguros">Colseguros (Liquidada)</option>
+    <option value="Comfacor">Comfacor</option>
+    <option value="Comfachocó">Comfachocó</option>
+    <option value="Comfacundi">Comfacundi (Liquidada)</option>
+    <option value="Comfaoriente">Comfaoriente</option>
+    <option value="Comfenalco Antioquia">Comfenalco Antioquia (Liquidada)</option>
+    <option value="Comfenalco Valle">Comfenalco Valle</option>
+    <option value="Comfasucre">Comfasucre</option>
+    <option value="Comparta">Comparta</option>
+    <option value="Compensar">Compensar</option>
+    <option value="Convida">Convida (Liquidada)</option>
+    <option value="Coomeva">Coomeva (Liquidada)</option>
+    <option value="Coosalud">Coosalud</option>
+    <option value="Cruz Blanca">Cruz Blanca (Liquidada)</option>
+    <option value="Dusakawi">Dusakawi</option>
+    <option value="Ecoopsos">Ecoopsos (Liquidada)</option>
+    <option value="Emdisalud">Emdisalud (Liquidada)</option>
+    <option value="EPM Salud">EPM Salud</option>
+    <option value="Famisanar">Famisanar</option>
+    <option value="Fuerzas Militares">Fuerzas Militares (Régimen Especial)</option>
+    <option value="La Nueva EPS">La Nueva EPS</option>
+    <option value="Mallamás">Mallamás</option>
+    <option value="Medimás">Medimás (Liquidada)</option>
+    <option value="Metropolitana Salud">Metropolitana Salud (Liquidada)</option>
+    <option value="Mutual Ser">Mutual Ser</option>
+    <option value="Pijaos Salud">Pijaos Salud</option>
+    <option value="Policía Nacional">Policía Nacional (Régimen Especial)</option>
+    <option value="Salud Bolívar">Salud Bolívar</option>
+    <option value="Salud Total">Salud Total</option>
+    <option value="Saludcoop">Saludcoop (Liquidada)</option>
+    <option value="Saludvida">Saludvida (Liquidada)</option>
+    <option value="Sanitas">Sanitas</option>
+    <option value="Savia Salud">Savia Salud</option>
+    <option value="Selvasalud">Selvasalud (Liquidada)</option>
+    <option value="Sisben">Sisben</option>
+    <option value="SOS">SOS</option>
+    <option value="SURA">SURA</option>
+    <option value="SuSalud">SuSalud (Liquidada)</option>
                         </select>
     
                         <input type="text" id="otraEps" name="otraEps" style="display:none; margin-top: 10px;" 
@@ -2789,7 +2826,7 @@ body, .contenedor, .detalle-container {
 
                     <div class="input-grupo">
                         <label for="telefono">📱 Número de Telefono</label>
-                        <input type="text" id="telefono" name="telefono" required placeholder="Escriba El Número de Telefono Actual">
+                        <input type="text" id="telefono" name="telefono" pattern="[0-9]*" required placeholder="Escriba El Número de Telefono Actual">
                     </div>
                 </fieldset>
 
@@ -2805,8 +2842,8 @@ body, .contenedor, .detalle-container {
                             <option value="3 Meses">Probablemente en unos 3 Meses</option> 
                             <option value="6 Meses">Probablemente en unos 6 Meses</option> 
                             <option value="En 1 Año">Probablemente en unos 1 Año</option>
-                            <option value="Cuando Situacion en mi Pais Mejore">Cuando la situacion en mi Pais Mejore</option>
-                            <option value="No se,Puede Ser">Posiblemente</option> 
+                            <option value="Situacion">Cuando la situacion en mi Pais Mejore</option>
+                            <option value="No se">Posiblemente</option> 
                         </select>
                     </div>
 
